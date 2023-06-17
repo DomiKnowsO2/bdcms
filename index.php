@@ -41,7 +41,7 @@
             </nav>
             <nav>
                <a href="#contact" class="link-btn">make appointment</a>
-               <a href="#contact" class="link-btn">login</a>
+               <a href="user_login.php" class="link-btn">login</a>
             </nav>
             <div id="menu-btn" class="fas fa-bars"></div>
 
