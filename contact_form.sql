@@ -59,3 +59,25 @@ COMMIT;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+
+-- Create the table
+CREATE TABLE history_tb (
+  patient_id INT,
+  date DATE,
+  time TIME,
+  service_id INT,
+  service_details VARCHAR(100)
+);
+
+-- Create the table
+CREATE TABLE services_tb (
+  service_id INT PRIMARY KEY,
+  service_name VARCHAR(50),
+  service_price DECIMAL(10, 2)
+);
+
+-- Insert data into the table
+INSERT INTO services_tb (service_id, service_name, service_price)
+VALUES (1, 'Tooth Extraction', 250.00),
+       (2, 'Teeth Cleaning', 300.00),
+       (3, 'Cavity Fillings', 500.00);

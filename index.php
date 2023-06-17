@@ -39,9 +39,10 @@
                <a href="#contact">contact</a>
                <a href="./admin/login.php">admin</a>
             </nav>
-
-            <a href="#contact" class="link-btn">make appointment</a>
-
+            <nav>
+               <a href="#contact" class="link-btn">make appointment</a>
+               <a href="#contact" class="link-btn">login</a>
+            </nav>
             <div id="menu-btn" class="fas fa-bars"></div>
 
          </div>
