@@ -72,6 +72,16 @@ $page = substr($_SERVER['SCRIPT_NAME'], strrpos($_SERVER['SCRIPT_NAME'], "/") + 
                     <i class="fs-4 bi-grid"></i> <span class="ms-1 d-none d-sm-inline">Patients Record</span>
                 </a>
             </li>
+            <li>
+                <a href="./index.php?page=history" class="nav-link px-0 align-middle">
+                    <i class="fs-4 bi-grid"></i> <span class="ms-1 d-none d-sm-inline">History Record</span>
+                </a>
+            </li>
+            <li>
+                <a href="./index.php?page=services" class="nav-link px-0 align-middle">
+                    <i class="fs-4 bi-grid"></i> <span class="ms-1 d-none d-sm-inline">Services Record</span>
+                </a>
+            </li>
         </ul>
         <hr>
         <div class="dropdown pb-4">
