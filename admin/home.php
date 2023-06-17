@@ -28,7 +28,7 @@
                         $data = mysqli_query($conn, "SELECT * FROM requests_tb WHERE `status` = 'Approve'");
                         while ($row = mysqli_fetch_array($data)) {
                             echo "<tr>";
-                            echo "<td>" . $row['patient_id'] . "</td>";
+                            echo "<td>" . $row['request_id'] . "</td>";
                             echo "<td>" . $row['lastName'] . "</td>";
                             echo "<td>" . $row['firstName'] . "</td>";
                             echo "<td>" . $row['address'] . "</td>";
