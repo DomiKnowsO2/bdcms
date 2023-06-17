@@ -28,10 +28,9 @@
                         $data = mysqli_query($conn, "SELECT * FROM requests_tb WHERE `status` = 'Approve'");
                         while ($row = mysqli_fetch_array($data)) {
                             echo "<tr>";
-                            echo "<td>" . $row['patient_id'] . "</td>";
+                            echo "<td>" . $row['request_id'] . "</td>";
                             echo "<td>" . $row['lastName'] . "</td>";
                             echo "<td>" . $row['firstName'] . "</td>";
-                            echo "<td>" . $row['birthdate'] . "</td>";
                             echo "<td>" . $row['address'] . "</td>";
                             echo "<td>" . $row['email'] . "</td>";
                             echo "<td>" . $row['phone'] . "</td>";
@@ -62,7 +61,7 @@
 <script src="https://cdn.datatables.net/1.12.1/js/dataTables.bootstrap5.min.js"></script>
 
 <script>
-    $(document).ready(function () {
+    $(document).ready(function() {
         $('#example').DataTable();
     });
 </script>
