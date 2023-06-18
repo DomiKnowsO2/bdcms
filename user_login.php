@@ -1,107 +1,219 @@
 <!DOCTYPE html>
-<html>
+<html lang="en" dir="ltr">
 
 <head>
-    <title>Dental Clinic Login</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f2f2f2;
-            background-image: url(./images/clinic3.jpg);
-            background-size: cover;
-            background-position: top;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-
-        /* .container {
-            background-image: url(./images/img3.jpg);
-            background-size: cover;
-            background-position: center;
-            margin-top: 20px;
-            width: 50%;
-            margin: auto;
-        } */
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="utf-8">
+    <title>BDCMS</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" charset="utf-8"></script>
 
 
-        .form-container {
-            max-width: 400px;
-            margin: 0 auto;
-            padding: 20px;
-            background-color: #000;
-            border-radius: 5px;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-            margin-top: 100px;
-        }
-
-        h2 {
-            text-align: center;
-        }
-
-        label {
-            display: block;
-            font-weight: bold;
-            margin-bottom: 5px;
-        }
-
-        input[type="text"],
-        input[type="email"],
-        input[type="password"],
-        input[type="date"],
-        input[type="tel"] {
-            width: 100%;
-            padding: 8px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            box-sizing: border-box;
-            margin-bottom: 10px;
-        }
-
-        input[type="submit"] {
-            background-color: #4CAF50;
-            color: #fff;
-            padding: 10px 16px;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            width: 100%;
-            font-size: 16px;
-        }
-
-        .signup-link {
-            text-align: center;
-            margin-top: 10px;
-        }
-
-        .signup-link a {
-            color: #4CAF50;
-        }
-    </style>
 </head>
 
 <body>
-    <div>
-        <img src="./images/img4.jpg" alt="This is a test image" height="650" width="500">
-        <div class="form-container">
-            <h2>User Login</h2>
-            <form action="login.php" method="POST">
-                <label for="login_email">Email:</label>
-                <input type="email" id="login_email" name="login_email" required>
 
-                <label for="login_password">Password:</label>
-                <input type="password" id="login_password" name="login_password" required>
+    <img src="images/img3-removebg-preview.png" alt="This is a test image" style="display: flex;">
+    <!--form area start-->
+    <div class="form">
+        <h1>BDCMS</h1>
+        <!--login form start-->
+        <form class="login-form" action="inc/checkpassword.php" method="post">
+            <i class="fas fa-user-circle"></i>
+            <input class="user-input" type="text" name="uname" placeholder="Username" required>
+            <input class="user-input" type="password" name="password" placeholder="Password" required>
+            <!--<div class="options-01">
+                <label class="remember-me"><input type="checkbox" name="">Remember me</label>
+            </div>
+            -->
+            <input class="btn" type="submit" value="LOGIN">
+            <a href="../index.php">Back to Home</a>
+            <!--<div class="options-02">
+                <p>Not Registered? <a href="#">Create an Account</a></p><br>
+            </div>
+            -->
+        </form>
+        <!--login form end-->
+        <!--signup form start-->
+        <form class="signup-form" action="" method="post">
+            <i class="fas fa-user-plus"></i>
+            <input class="user-input" type="text" name="" placeholder="Username" required>
+            <input class="user-input" type="email" name="" placeholder="Email Address" required>
+            <input class="user-input" type="password" name="" placeholder="Password" required>
+            <input class="btn" type="submit" name="" value="SIGN UP">
+            <!--<div class="options-02">
+                <p>Already Registered? <a href="#">Sign In</a></p><br>
+            </div>
+            -->
 
-                <input type="submit" value="Login">
-
-                <div class="signup-link">
-                    Don't have an account? <a href="signup.html">Sign up</a>
-                </div>
-            </form>
-        </div>
+        </form>
+        <!--signup form end-->
     </div>
+    <!--form area end-->
+    <script type="text/javascript">
+        $('.options-02 a').click(function () {
+            $('form').animate({
+                height: "toggle", opacity: "toggle"
+            }, "slow");
+        });
+    </script>
+
 </body>
+
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap');
+
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        text-decoration: none;
+
+
+    }
+
+    body {
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: rgba(29, 90, 84, 0.762);
+        background-image: url(./images/clinic3.jpg);
+    }
+
+    h1 {
+        text-align: center;
+        font-weight: 400;
+        color: rgb(11, 24, 4);
+        font-family: 'Courier New', Courier, monospace;
+        font-size: 50px;
+    }
+
+    .form {
+        z-index: 1;
+        font-family: "Poppins", sans-serif;
+        position: absolute;
+        width: 320px;
+        text-align: center;
+        background-color: white;
+        opacity: 0.5;
+        height: 70%;
+        width: 20%;
+
+    }
+
+    .form i {
+        z-index: index 1;
+        ;
+        color: rgb(0, 0, 0);
+        font-size: 65px;
+        margin-bottom: 40px;
+        padding: 50px;
+
+    }
+
+    .form .signup-form {
+        display: none;
+        font-family: 'Courier New', Courier, monospace;
+        color: black;
+    }
+
+    .form .user-input {
+        width: 300px;
+        height: 55px;
+        margin-bottom: 50px;
+        outline: none;
+        border: none;
+        background: rgba(94, 193, 173, 0.592);
+        color: #000;
+        font-size: 14px;
+        text-align: center;
+        border-radius: 5px;
+        transition: 0.5s;
+        transition-property: border-left, border-right, box-shadow;
+    }
+
+    .form .user-input:hover,
+    .form .user-input:focus,
+    .form .user-input:active {
+        border-left: solid 8px #f442e5;
+        border-right: solid 8px #d942f4;
+        box-shadow: 0 0 100px rgba(152, 244, 66, 0.993);
+    }
+
+    .form .options-01 {
+        margin-bottom: 50px;
+    }
+
+    .form .options-01 input {
+        width: 15px;
+        height: 15px;
+        margin-right: 5px;
+    }
+
+    .form .options-01 .remember-me {
+        color: rgb(16, 13, 13);
+        font-size: 14px;
+        display: flex;
+        align-items: center;
+        float: left;
+        cursor: pointer;
+    }
+
+    .form .options-01 a {
+        color: rgb(21, 18, 18);
+        font-size: 14px;
+        font-style: italic;
+        float: right;
+    }
+
+    .form .btn {
+        outline: none;
+        border: none;
+        width: 300px;
+        height: 50px;
+        background: #8bc0dd;
+        color: rgb(55, 46, 46);
+        font-size: 25px;
+        font-family: 'Courier New', Courier, monospace;
+        letter-spacing: 1px;
+        border-radius: 10px;
+        cursor: pointer;
+        transition: 0.5s;
+        transition-property: border-left, border-right, box-shadow;
+    }
+
+    .form .btn:hover {
+        border-left: solid 8px rgba(255, 255, 255, 0.5);
+        border-right: solid 8px rgba(255, 255, 255, 0.5);
+        box-shadow: 0 0 100px rgb(245, 51, 209);
+    }
+
+    .form .options-02 {
+        color: #bbb;
+        font-size: 14px;
+        margin-top: 30px;
+    }
+
+    .form .options-02 a {
+        color: #4285F4;
+    }
+
+    /* Responsive CSS */
+
+    @media screen and (max-width: 500px) {
+        .form {
+            width: 95%;
+        }
+
+        .form .user-input {
+            width: 100%
+        }
+
+        .form .btn {
+            width: 100%;
+        }
+    }
+</style>
 
 </html>
