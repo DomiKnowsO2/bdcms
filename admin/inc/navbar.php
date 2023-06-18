@@ -10,8 +10,13 @@ $page = substr($_SERVER['SCRIPT_NAME'], strrpos($_SERVER['SCRIPT_NAME'], "/") + 
         </a>
         <ul class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start" id="menu">
             <li class="nav-item">
+                <a href="./index.php?page=dashboard" class="nav-link align-middle px-0">
+                    <i class="bi bi-speedometer2"></i> <span class="ms-1 d-none d-sm-inline">Dashboard</span>
+                </a>
+            </li>
+            <li class="nav-item">
                 <a href="./index.php" class="nav-link align-middle px-0">
-                    <i class="fa-solid fa-house"></i> <span class="ms-1 d-none d-sm-inline">Home</span>
+                    <i class="bi bi-house"></i> <span class="ms-1 d-none d-sm-inline">Home</span>
                 </a>
             </li>
             <!--
@@ -63,30 +68,30 @@ $page = substr($_SERVER['SCRIPT_NAME'], strrpos($_SERVER['SCRIPT_NAME'], "/") + 
                     </li>-->
             <li>
                 <a href="./index.php?page=requests" class="nav-link px-0 align-middle">
-                    <i class="fs-4 bi-grid"></i> <span class="ms-1 d-none d-sm-inline">
-                        <?php //echo getData('request_tb') ?>Requests
+                <i class="bi bi-envelope"></i><span class="ms-1 d-none d-sm-inline">
+                        <?php //echo getData('request_tb') 
+                        ?>Requests
                     </span> </a>
             </li>
             <li>
                 <a href="./index.php?page=patients_record" class="nav-link px-0 align-middle">
-                    <i class="fs-4 bi-grid"></i> <span class="ms-1 d-none d-sm-inline">Patients Record</span>
+                    <i class="fa fa-user"></i> <span class="ms-1 d-none d-sm-inline">Patients Record</span>
                 </a>
             </li>
             <li>
                 <a href="./index.php?page=history" class="nav-link px-0 align-middle">
-                    <i class="fs-4 bi-grid"></i> <span class="ms-1 d-none d-sm-inline">History Record</span>
+                    <i class="fa fa-history"></i> <span class="ms-1 d-none d-sm-inline">History Record</span>
                 </a>
             </li>
             <li>
                 <a href="./index.php?page=services" class="nav-link px-0 align-middle">
-                    <i class="fs-4 bi-grid"></i> <span class="ms-1 d-none d-sm-inline">Services Record</span>
+                    <i class="fa fa-cogs"></i> <span class="ms-1 d-none d-sm-inline">Services Record</span>
                 </a>
             </li>
         </ul>
         <hr>
         <div class="dropdown pb-4">
-            <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle"
-                id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
+            <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
                 <img src="https://github.com/mdo.png" alt="hugenerd" width="30" height="30" class="rounded-circle">
                 <span class="d-none d-sm-inline mx-1">Admin</span>
             </a>

@@ -2,12 +2,25 @@
 <html lang="en">
 <?php
 include('../db-connect.php');
+if (isset($_GET['id'])) {
+    $serviceId = $_GET['id'];
+
+    $deleteQuery = "DELETE FROM services_tb WHERE service_id = $serviceId";
+    $deleteResult = mysqli_query($conn, $deleteQuery);
+
+    if ($deleteResult) {
+        // Record deleted successfully
+        // You can redirect or display a success message here
+    } else {
+        // Error deleting record
+        // You can redirect or display an error message here
+    }
+}
 
 if (isset($_POST['Savechanges'])) {
     $serviceid = $_POST['serviceid'];
     $ServiceName = $_POST['ServiceName'];
     $ServicePrice = $_POST['ServicePrice'];
-
     $updateQuery = "UPDATE services_tb SET service_name = '$ServiceName', service_price = '$ServicePrice' WHERE service_id = $serviceid";
     $updateResult = mysqli_query($conn, $updateQuery);
 
@@ -75,9 +88,8 @@ if (isset($_POST['add'])) {
                             echo "<td>" . $row['service_name'] . "</td>";
                             echo "<td>" . $row['service_price'] . "</td>";
                             echo "<td>";
-
                             echo "<button type='button' class='btn btn-primary' data-bs-toggle='modal' data-bs-target='#changeStatusModal' data-bs-request-id='" . $row['service_id'] . "'>Edit</button>";
-                            echo "<a href='delete_schedule.php?id=" . $row['service_id'] . "' type='button' class='btn btn-primary'>Delete</a>";
+                            echo "<a href='index.php?page=services&id=" . $row['service_id'] . "' class='btn btn-danger'>Delete</a>";
                             echo "</td>";
                             echo "</tr>";
                         }
