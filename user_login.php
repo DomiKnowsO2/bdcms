@@ -10,12 +10,12 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 
     <!-- bootstrap cdn link  -->
+    <link rel="stylesheet" href="./css/style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/4.6.1/css/bootstrap.min.css">
 </head>
 
 <body>
-
-    <header class="header fixed-top">
+    <header class="header fixed-top" style="background-color: #fff;">
 
         <div class="container">
 
@@ -31,10 +31,6 @@
                     <a href="#contact">contact</a>
                     <a href="./admin/login.php">admin</a>
                 </nav>
-                <nav>
-                    <a href="#contact" class="link-btn">make appointment</a>
-                    <a href="user_login.php" class="link-btn">login</a>
-                </nav>
                 <div id="menu-btn" class="fas fa-bars"></div>
 
             </div>
@@ -42,7 +38,6 @@
         </div>
 
     </header>
-
 
     <div class="form_container">
         <div class="container2">
@@ -82,7 +77,7 @@
     </div>
 
     <script>
-        document.addEventListener("DOMContentLoaded", function () {
+        document.addEventListener("DOMContentLoaded", function() {
             // Get the container elements
             var container1 = document.querySelector(".container1");
             var container2 = document.querySelector(".container2");
@@ -92,13 +87,13 @@
             var createAccountOption = document.querySelector(".options-02.signup a");
 
             // Add event listeners
-            signInOption.addEventListener("click", function (event) {
+            signInOption.addEventListener("click", function(event) {
                 event.preventDefault(); // Prevent the default link behavior
                 container1.style.display = "block";
                 container2.style.display = "none";
             });
 
-            createAccountOption.addEventListener("click", function (event) {
+            createAccountOption.addEventListener("click", function(event) {
                 event.preventDefault(); // Prevent the default link behavior
                 container1.style.display = "none";
                 container2.style.display = "block";
