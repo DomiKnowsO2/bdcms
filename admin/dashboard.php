@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <body>
     <div class="col py-1 margin">
 
@@ -9,9 +10,16 @@
             <div class="col-md-3">
                 <div class="card text-center order-visitor-card">
                     <div class="card-block">
-                        <h6 class="m-b-0">Overview</h6>
-                        <h4 class="m-t-15 m-b-15"><i class="fas fa-chart-line m-r-15 text-c-red"></i>7652</h4>
-                        <p class="m-b-0">48% From Last 24 Hours</p>
+                        <h6 class="m-b-0">Appointments</h6>
+                        <h4 class="m-t-15 m-b-15"><i class="fas fa-calendar-alt"></i>
+                            <?php
+                            $sql_accepted = "SELECT COUNT(*) AS accepted_count FROM requests_tb WHERE Status = 'Approve'"; //AND DATE(appointment_date) = CURDATE();
+                            $result_accepted = $conn->query($sql_accepted);
+                            $row_accepted = $result_accepted->fetch_assoc();
+                            echo $row_accepted['accepted_count'];
+                            ?>
+                        </h4>
+                        <p class="m-b-0">Total Appointments</p>
                     </div>
                 </div>
             </div>
@@ -35,7 +43,14 @@
                 <div class="card text-center order-visitor-card">
                     <div class="card-block">
                         <h6 class="m-b-0">Patients Statistics</h6>
-                        <h4 class="m-t-15 m-b-15"><i class="fas fa-users m-r-15 text-c-red"></i>7652</h4>
+                        <h4 class="m-t-15 m-b-15"><i class="fas fa-users m-r-15 text-c-red"></i>
+                            <?php
+                            $sql_patients = "SELECT COUNT(*) AS patients_count FROM patient_tb;";
+                            $result_patients = $conn->query($sql_patients);
+                            $row_patients = $result_patients->fetch_assoc();
+                            echo $row_patients['patients_count'];
+                            ?>
+                        </h4>
                         <p class="m-b-0">48% From Last 24 Hours</p>
                     </div>
                 </div>
@@ -53,9 +68,10 @@
         </div>
     </div>
     <style>
-        .margin{
+        .margin {
             margin-top: 5%;
         }
+
         .order-visitor-card {
             -webkit-transition: all 0.3s ease-in-out;
             transition: all 0.3s ease-in-out;
@@ -70,4 +86,5 @@
         }
     </style>
 </body>
+
 </html>
