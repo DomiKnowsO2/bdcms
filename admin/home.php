@@ -1,10 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
-
+<style>
+    <?php
+    include("./admin.css");
+    ?>
+</style>
 
 <body>
     <div class="col py-1">
-        <div class="container-fluid bg-light">
+        <div class="container-fluid bg-light edges">
             <div class="col py-1">
                 <div>
                     <h4 style="text-align:center">Scheduled Appointment</h4>

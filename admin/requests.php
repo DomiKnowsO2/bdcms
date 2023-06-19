@@ -1,14 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
+<style>
+    <?php
+    include("./admin.css");
+    ?>
+</style>
 
 <body>
     <div class="col py-1">
-        <div class="container-fluid bg-light">
+        <div class="container-fluid bg-light edges">
             <div class="col py-1">
                 <div>
                     <h4 style="text-align:center">Appointment Requests</h4>
                 </div>
-                <table id="example" class="table table-striped" style="width:100%">
+                <table id="example" class="table table-striped" style="width:100%;">
                     <thead>
                         <tr>
                             <th>Request No.</th>

@@ -1,5 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
+<style>
+    <?php
+    include("./admin.css");
+    ?>
+</style>
 
 <body>
     <div class="col py-1 margin">
@@ -76,14 +81,23 @@
             -webkit-transition: all 0.3s ease-in-out;
             transition: all 0.3s ease-in-out;
             text-align: center !important;
-            background-color: #448aff;
+            background-color: #fff;
             padding: 10px 0;
+            color: rgb(100, 100, 100);
         }
 
         .order-visitor-card:hover {
             background-color: darkblue;
             color: #fff;
+            
         }
+
+        .card-block h4,
+        p {
+            color: lightseagreen;
+        }
+
+      
     </style>
 </body>
 
