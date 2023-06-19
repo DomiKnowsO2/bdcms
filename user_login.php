@@ -33,9 +33,9 @@
                     <i class="fas fa-user-circle"></i>
                     <input class="user-input" type="text" name="uname" placeholder="Username" required>
                     <input class="user-input" type="password" name="password" placeholder="Password" required>
-                    <div class="options-01">
+                    <!-- <div class="options-01">
                         <label class="remember-me"><input type="checkbox" name="">Remember me</label>
-                    </div>
+                    </div> -->
 
                     <input class="btn" type="submit" value="LOGIN"><br>
                     <div class="options-02 signup">
