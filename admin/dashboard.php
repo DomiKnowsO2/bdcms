@@ -71,6 +71,11 @@
             </div>
             <!-- sale card end -->
         </div>
+        <div class="calendarContainer">
+            <?php
+            include('./calendar/index.php');
+            ?>
+        </div>
     </div>
     <style>
         .margin {
@@ -86,18 +91,20 @@
             color: rgb(100, 100, 100);
         }
 
-        .order-visitor-card:hover {
-            background-color: darkblue;
-            color: #fff;
-            
-        }
-
         .card-block h4,
         p {
             color: lightseagreen;
         }
 
-      
+        .order-visitor-card:hover .card-block h4,
+        .order-visitor-card:hover .card-block h6,
+        .order-visitor-card:hover p {
+            color: #fff;
+        }
+
+        .order-visitor-card:hover {
+            background-color: lightseagreen;
+        }
     </style>
 </body>
 

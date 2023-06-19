@@ -10,10 +10,9 @@ include './inc/header.php';
 
 <body>
     <div class="container-fluid">
-        <div class="row flex-nowrap">
+        <div class="row flex-nowrap" style="height:100vh;">
             <?php
             include './inc/navbar.php';
-
             $page = isset($_GET['page']) ? $_GET['page'] : 'home';
 
             if (!file_exists($page . ".php") && !is_dir($page)) {
