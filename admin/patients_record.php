@@ -16,7 +16,10 @@ if (isset($_POST['Savechanges'])) {
         header('location:./index.php?page=requests');
         exit();
     }
-} ?>
+}
+
+?>
+
 <body>
     <div class="col py-1">
         <div class="container-fluid bg-light">
@@ -32,6 +35,7 @@ if (isset($_POST['Savechanges'])) {
                         <tr>
                             <th>Patient No.</th>
                             <th>Last Name</th>
+                            <th>Middle Name</th>
                             <th>First Name</th>
                             <th>Birthdate</th>
                             <th>Age</th>
@@ -54,6 +58,7 @@ if (isset($_POST['Savechanges'])) {
                             echo "<tr>";
                             echo "<td>" . $row['patient_id'] . "</td>";
                             echo "<td>" . $row['lastName'] . "</td>";
+                            echo "<td>" . $row['middleName'] . "</td>";
                             echo "<td>" . $row['firstName'] . "</td>";
                             echo "<td>" . $row['birthdate'] . "</td>";
                             echo "<td>" . $age . "</td>";
@@ -61,8 +66,8 @@ if (isset($_POST['Savechanges'])) {
                             echo "<td>" . $row['email'] . "</td>";
                             echo "<td>" . $row['phone'] . "</td>";
                             echo "<td>";
-                            echo "<button type='button' class='btn btn-primary' data-bs-toggle='modal' data-bs-target='#addRecord' data-bs-request-id='" . $row['patient_id'] . "'>Edit</button> ";
-                            echo "<button type='button' class='btn btn-primary' data-bs-toggle='modal' data-bs-target='#addRecord' data-bs-request-id='" . $row['patient_id'] . "'>Delete</button>";
+                            echo "<button type='button' class='btn btn-primary edit-btn' data-bs-toggle='modal' data-bs-target='#addRecord' data-patient-id='" . $row['patient_id'] . "'>Edit</button>";
+                            echo "<button type='button' onclick='deleteStocks(". $row['patient_id'] .")' class='btn btn-primary' data-bs-toggle='modal' data-bs-request-id='" . $row['patient_id'] . "'>Delete</button>";
                             echo "</td>";
                             /*echo "<td>";
                             echo "<a href='change_status.php?id=".$row['id']."' type='button' class='btn btn-primary' data-bs-toggle='modal' data-bs-target='#exampleModal'>Change";
@@ -87,14 +92,21 @@ if (isset($_POST['Savechanges'])) {
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="addRecordLabel">Add Patient Record</h5>
+                    <h5 class="modal-title" id="addRecordLabel">Patient Record</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <div class="modal-body">
-                    <form action="add_record.php" method="post">
+                <form action="add_record.php" method="post">
+                    <div class="modal-body">
+                        <div class="mb-3">
+                            <input type="text" class="form-control" id="patient_id" name="patient_id" readonly>
+                        </div>
                         <div class="mb-3">
                             <label for="lastName" class="form-label">Last Name:</label>
                             <input type="text" class="form-control" id="lastName" name="lastName" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="middleName" class="form-label">Middle Name:</label>
+                            <input type="middleName" class="form-control" id="middleName" name="middleName" required>
                         </div>
                         <div class="mb-3">
                             <label for="firstName" class="form-label">First Name:</label>
@@ -105,27 +117,24 @@ if (isset($_POST['Savechanges'])) {
                             <input type="date" class="form-control" id="birthdate" name="birthdate" required>
                         </div>
                         <div class="mb-3">
-                            <label for="age" class="form-label">Age:</label>
-                            <input type="number" class="form-control" id="age" name="age" required>
+                            <!-- <label for="age" class="form-label">Age:</label> -->
+                            <input type="hidden" class="form-control" id="age" name="age" required>
                         </div>
                         <div class="mb-3">
                             <label for="address" class="form-label">Address:</label>
                             <input type="text" class="form-control" id="address" name="address" required>
                         </div>
                         <div class="mb-3">
-                            <label for="email" class="form-label">Email:</label>
-                            <input type="email" class="form-control" id="email" name="email" required>
-                        </div>
-                        <div class="mb-3">
                             <label for="phone" class="form-label">Phone:</label>
                             <input type="tel" class="form-control" id="phone" name="phone" required>
                         </div>
-                    </form>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-primary">Save</button>
-                </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" name="AddPatientRecord" class="btn btn-primary">Save</button>
+                    </div>
+                </form>
+
             </div>
         </div>
     </div>
@@ -136,17 +145,58 @@ if (isset($_POST['Savechanges'])) {
 <script src="https://cdn.datatables.net/1.12.1/js/dataTables.bootstrap5.min.js"></script>
 
 <script>
-    $(document).ready(function () {
+    $(document).ready(function() {
         $('#example').DataTable();
     });
+    
+    function deleteStocks(id) {
+        if (confirm("Are you sure you want to delete this Product?")) {
+            window.location.href = "add_record.php?action=delete&id=" + id;
+        }}
 </script>
 
 <script>
-    $(document).ready(function () {
-        $('#list').change(function () {
+    $(document).ready(function() {
+        $('#list').change(function() {
             var selected = $(this).val();
-            $.get("change_query.php?selected=" + selected, function (data) {
+            $.get("change_query.php?selected=" + selected, function(data) {
                 $('.result').html(data);
+            });
+        });
+
+        $('#addRecord').on('hidden.bs.modal', function() {
+            $('#patient_id').val('');
+            $('#patientId').val('');
+            $('#lastName').val('');
+            $('#middleName').val('');
+            $('#firstName').val('');
+            $('#birthdate').val('');
+            $('#age').val('');
+            $('#address').val('');
+            $('#phone').val('');
+        });
+
+        $('.edit-btn').click(function() {
+            var patientId = $(this).data('patient-id');
+
+            $.ajax({
+                url: './edit_patients_record.php',
+                type: 'post',
+                data: {
+                    patientId: patientId
+                },
+                dataType: 'json',
+                success: function(response) {
+                    $('#patient_id').val(response.patient_id);
+                    $('#lastName').val(response.lastName);
+                    $('#middleName').val(response.middleName);
+                    $('#firstName').val(response.firstName);
+                    $('#birthdate').val(response.birthdate);
+                    $('#age').val(response.age);
+                    $('#address').val(response.address);
+                    $('#phone').val(response.phone);
+
+                }
             });
         });
     });

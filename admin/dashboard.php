@@ -60,12 +60,12 @@
             -webkit-transition: all 0.3s ease-in-out;
             transition: all 0.3s ease-in-out;
             text-align: center !important;
-            /* background-color: ; */
+            background-color: #448aff;
             padding: 10px 0;
         }
 
         .order-visitor-card:hover {
-            background-color: #448aff;
+            background-color: darkblue;
             color: #fff;
         }
     </style>
