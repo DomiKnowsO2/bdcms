@@ -4,7 +4,7 @@
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta charset="utf-8">
-    <title>BDCMS</title>
+    <title>USER LOGIN</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" charset="utf-8"></script>
 
@@ -13,10 +13,10 @@
 
 <body>
 
-    <img src="images/img3-removebg-preview.png" alt="This is a test image" style="display: flex;">
+    <img src="images/Image.png" alt="This is a test image" style="display: flex;">
     <!--form area start-->
     <div class="form">
-        <h1>BDCMS</h1>
+        <h1>USER LOGIN</h1>
         <!--login form start-->
         <form class="login-form" action="inc/checkpassword.php" method="post">
             <i class="fas fa-user-circle"></i>
@@ -27,7 +27,7 @@
             </div>
             -->
             <input class="btn" type="submit" value="LOGIN">
-            <a href="../index.php">Back to Home</a>
+            <a href="#">Create an account</a>
             <!--<div class="options-02">
                 <p>Not Registered? <a href="#">Create an Account</a></p><br>
             </div>
@@ -35,7 +35,7 @@
         </form>
         <!--login form end-->
         <!--signup form start-->
-        <form class="signup-form" action="" method="post">
+        <form class="signup-form" action="" method="post" id="signup">
             <i class="fas fa-user-plus"></i>
             <input class="user-input" type="text" name="" placeholder="Username" required>
             <input class="user-input" type="email" name="" placeholder="Email Address" required>
@@ -84,9 +84,10 @@
     h1 {
         text-align: center;
         font-weight: 400;
-        color: rgb(11, 24, 4);
+        color: white;
         font-family: 'Courier New', Courier, monospace;
-        font-size: 50px;
+        font-size: 45px;
+        padding-top: 10px;
     }
 
     .form {
@@ -95,17 +96,16 @@
         position: absolute;
         width: 320px;
         text-align: center;
-        background-color: white;
-        opacity: 0.5;
+        background-color: #08A671;
+        opacity: 0.7;
         height: 70%;
         width: 20%;
 
     }
 
     .form i {
-        z-index: index 1;
-        ;
-        color: rgb(0, 0, 0);
+        z-index: 0;
+        color: white;
         font-size: 65px;
         margin-bottom: 40px;
         padding: 50px;
@@ -121,16 +121,17 @@
     .form .user-input {
         width: 300px;
         height: 55px;
-        margin-bottom: 50px;
+        margin-bottom: 20px;
         outline: none;
         border: none;
-        background: rgba(94, 193, 173, 0.592);
+        background: white;
         color: #000;
         font-size: 14px;
         text-align: center;
         border-radius: 5px;
         transition: 0.5s;
         transition-property: border-left, border-right, box-shadow;
+        opacity: 0.8;
     }
 
     .form .user-input:hover,
@@ -168,6 +169,7 @@
     }
 
     .form .btn {
+        margin-bottom: 10px;
         outline: none;
         border: none;
         width: 300px;
