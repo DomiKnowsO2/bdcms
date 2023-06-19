@@ -1,6 +1,22 @@
 <!DOCTYPE html>
 <html lang="en">
+<?php
+include('../db-connect.php');
+if (isset($_POST['Savechanges'])) {
+    $request_id = $_POST['request_id'];
+    $newStatus = $_POST['statusSelect'];
 
+    $updateQuery = "UPDATE requests_tb SET status = '$newStatus' WHERE request_id = $request_id";
+    $updateResult = mysqli_query($conn, $updateQuery);
+
+    if ($updateResult) {
+        header('location:./index.php?page=requests');
+        exit();
+    } else {
+        header('location:./index.php?page=requests');
+        exit();
+    }
+} ?>
 <body>
     <div class="col py-1">
         <div class="container-fluid bg-light">
@@ -11,7 +27,7 @@
                 <table id="example" class="table table-striped" style="width:100%">
                     <thead>
                         <tr>
-                            <?php echo "<button type='button' class='btn btn-primary' data-bs-toggle='modal' data-bs-target='#addRecord'> Add </button>"; ?>
+                            <?php echo "<button type='button' class='btn btn-primary' data-bs-toggle='modal' data-bs-target='#addRecord'> Add Patients Record</button>"; ?>
                         </tr>
                         <tr>
                             <th>Patient No.</th>

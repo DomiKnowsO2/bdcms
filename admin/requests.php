@@ -1,23 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-<?php
-include('../db-connect.php');
-if (isset($_POST['Savechanges'])) {
-    $request_id = $_POST['request_id'];
-    $newStatus = $_POST['statusSelect'];
-
-    $updateQuery = "UPDATE requests_tb SET status = '$newStatus' WHERE request_id = $request_id";
-    $updateResult = mysqli_query($conn, $updateQuery);
-
-    if ($updateResult) {
-        // echo "alert('hahaha naggagana yes')";
-        // You can redirect or display a success message here
-    } else {
-        // echo "buras ugak sana inda abo ko na agoman ko ni na mag kklase mabagsak mn sana";
-        // Handle the scenario when the update query fails
-        // You can redirect or display an error message here
-    }
-} ?>
 
 <body>
     <div class="col py-1">
@@ -45,31 +27,32 @@ if (isset($_POST['Savechanges'])) {
                         <?php
                         $data = mysqli_query($conn, "SELECT * FROM requests_tb");
                         while ($row = mysqli_fetch_array($data)) {
-                            echo "<tr>";
-                            echo "<td>" . $row['request_id'] . "</td>";
-                            echo "<td>" . $row['lastName'] . "</td>";
-                            echo "<td>" . $row['firstName'] . "</td>";
-                            echo "<td>" . $row['address'] . "</td>";
-                            echo "<td>" . $row['email'] . "</td>";
-                            echo "<td>" . $row['phone'] . "</td>";
-                            echo "<td>" . $row['appointment_date'] . "</td>";
-                            echo "<td>" . $row['status'] . "</td>";
-                            echo "<td>";
-                            echo "<button type='button' class='btn btn-primary' data-bs-toggle='modal' data-bs-target='#changeStatusModal' data-bs-request-id='" . $row['request_id'] . "'>Change</button>";
-                            echo "</td>";
+                            if ($row['status'] != "Approve") {
+                                echo "<tr>";
+                                echo "<td>" . $row['request_id'] . "</td>";
+                                echo "<td>" . $row['lastName'] . "</td>";
+                                echo "<td>" . $row['firstName'] . "</td>";
+                                echo "<td>" . $row['address'] . "</td>";
+                                echo "<td>" . $row['email'] . "</td>";
+                                echo "<td>" . $row['phone'] . "</td>";
+                                echo "<td>" . $row['appointment_date'] . "</td>";
+                                echo "<td>" . $row['status'] . "</td>";
+                                echo "<td>";
+                                echo "<button type='button' class='btn btn-primary' data-bs-toggle='modal' data-bs-target='#changeStatusModal' data-bs-request-id='" . $row['request_id'] . "'>Change</button>";
+                                echo "</td>";
 
-                            /*
+                                /*
                             echo "<td>";
                             echo "<a href='delete_schedule.php?id=".$row['id']."' type='button' class='btn btn-primary'>Delete";
                             echo "</a>";
                             echo "</td>";*/
-                            echo "</tr>";
+                                echo "</tr>";
+                            }
                         }
                         ?>
                     </tbody>
                 </table>
-                <div class="modal fade" id="changeStatusModal" tabindex="-1" aria-labelledby="changeStatusModalLabel"
-                    aria-hidden="true">
+                <div class="modal fade" id="changeStatusModal" tabindex="-1" aria-labelledby="changeStatusModalLabel" aria-hidden="true">
                     <div class="modal-dialog">
                         <div class="modal-content" id="modal-body">
                             <!-- <div class="modal-header">
@@ -100,8 +83,8 @@ if (isset($_POST['Savechanges'])) {
     </div>
 
     <script>
-        $(document).ready(function () {
-            $('#changeStatusModal').on('show.bs.modal', function (event) {
+        $(document).ready(function() {
+            $('#changeStatusModal').on('show.bs.modal', function(event) {
                 var button = $(event.relatedTarget); // Button that triggered the modal
                 var requestId = button.data('bs-request-id'); // Extract request ID from data attribute
 
@@ -111,10 +94,10 @@ if (isset($_POST['Savechanges'])) {
                     data: {
                         requestId: requestId
                     },
-                    success: function (response) {
+                    success: function(response) {
                         $('#modal-body').html(response);
                     },
-                    error: function (xhr, status, error) {
+                    error: function(xhr, status, error) {
                         // Handle the error scenario
                         console.log(error);
                     }
@@ -132,7 +115,7 @@ if (isset($_POST['Savechanges'])) {
 <script src="https://cdn.datatables.net/1.12.1/js/dataTables.bootstrap5.min.js"></script>
 
 <script>
-    $(document).ready(function () {
+    $(document).ready(function() {
         $('#example').DataTable();
 
         // $(document).on('click', '.btn', function () {

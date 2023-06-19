@@ -1,6 +1,24 @@
 <?php
 $page = substr($_SERVER['SCRIPT_NAME'], strrpos($_SERVER['SCRIPT_NAME'], "/") + 1);
 // require_once('../../db-connect.php');
+$mysqli = new mysqli("localhost", "root", "", "bdcmsdb");
+if ($mysqli->connect_errno) {
+    echo "Failed to connect to MySQL: " . $mysqli->connect_error;
+    exit();
+}
+
+$alertcount = "SELECT COUNT(*) AS PendingCount FROM requests_tb WHERE status = 'Pending'";
+$result_Alert = $mysqli->query($alertcount);
+
+if (!$result_Alert) {
+    echo "Error executing query: " . $mysqli->error;
+    exit();
+}
+
+$row_Alert = $result_Alert->fetch_assoc();
+$Alert_Count = $row_Alert['PendingCount'];
+
+$mysqli->close();
 ?>
 
 <div class="col-auto col-md-3 col-xl-2 px-sm-2 px-0 bg-dark">
@@ -11,12 +29,12 @@ $page = substr($_SERVER['SCRIPT_NAME'], strrpos($_SERVER['SCRIPT_NAME'], "/") + 
         <ul class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start" id="menu">
             <li class="nav-item">
                 <a href="./index.php?page=dashboard" class="nav-link align-middle px-0">
-                    <i class="bi bi-speedometer2"></i> <span class="ms-1 d-none d-sm-inline">Dashboard</span>
+                    <i class="fa fa-tachometer-alt"></i> <span class="ms-1 d-none d-sm-inline">Dashboard</span>
                 </a>
             </li>
             <li class="nav-item">
                 <a href="./index.php" class="nav-link align-middle px-0">
-                    <i class="bi bi-house"></i> <span class="ms-1 d-none d-sm-inline">Home</span>
+                    <i class="fa fa-house"></i> <span class="ms-1 d-none d-sm-inline">Home</span>
                 </a>
             </li>
             <!--
@@ -68,13 +86,13 @@ $page = substr($_SERVER['SCRIPT_NAME'], strrpos($_SERVER['SCRIPT_NAME'], "/") + 
                     </li>-->
             <li>
                 <a href="./index.php?page=requests" class="nav-link px-0 align-middle">
-                <i class="bi bi-envelope"></i><span class="ms-1 d-none d-sm-inline">
-                        <?php //echo getData('request_tb') 
-                        ?>Requests
-                    </span> </a>
+                    <i class="fa fa-envelope"></i>
+                    <span class="ms-1 d-none d-sm-inline">Requests</span>
+                    <span class="ms-5 spancount align-middle"><?php echo $Alert_Count; ?></span>
+                </a>
             </li>
             <li>
-                <a href="./index.php?page=patients_record" class="nav-link px-0 align-middle">
+                <a href="./index.php?page=patients_record" class="nav-link px-0 align-middle" >
                     <i class="fa fa-user"></i> <span class="ms-1 d-none d-sm-inline">Patients Record</span>
                 </a>
             </li>
@@ -107,3 +125,35 @@ $page = substr($_SERVER['SCRIPT_NAME'], strrpos($_SERVER['SCRIPT_NAME'], "/") + 
         </div>
     </div>
 </div>
+<style>
+    .spancount{
+        color: #fff;
+        background-color: rgb(255, 0, 0);
+        font-size: 0.9em;
+        width: 25px;
+        height: 25px;
+        border-radius: 50%;
+        display: inline-flex;
+        position: absolute;
+        justify-content: center;
+        align-items: center;
+    }
+     /* .spancounts {
+        position: absolute;
+        color: #fff;
+        background-color: rgb(255, 0, 0);
+        border-radius: 50%;
+        text-align: center;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        right: 10px;
+        font-size: 0.9em;
+        width: 250px;
+        height: 25px;
+    } */
+
+    .align-middle i {
+        width: 30px;
+    }
+</style>

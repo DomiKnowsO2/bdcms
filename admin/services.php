@@ -66,7 +66,7 @@ if (isset($_POST['add'])) {
                 <div style="display:flex;justify-content: space-between;">
                     <div></div>
                     <h4 style="text-align:center">Services Record</h4>
-                    <?php echo "<button type='button' class='btn btn-primary' data-bs-toggle='modal' data-bs-target='#addRecord'> Add </button>"; ?>
+                    <?php echo "<button type='button' class='btn btn-primary' data-bs-toggle='modal' data-bs-target='#addRecord'> Add Service Record </button>"; ?>
                 </div>
                 <br>
                 <table id="example" class="table table-striped" style="width:100%">
