@@ -43,7 +43,7 @@
                                 echo "<td>" . $row['appointment_date'] . "</td>";
                                 echo "<td>" . $row['status'] . "</td>";
                                 echo "<td>";
-                                echo "<button type='button' class='btn btn-primary' data-bs-toggle='modal' data-bs-target='#changeStatusModal' data-bs-request-id='" . $row['request_id'] . "'>Change</button>";
+                                echo "<button type='button' class='btn btn-primary' data-bs-toggle='modal' data-bs-target='#changeStatusModal' data-bs-request-id='" . $row['request_id'] . "'>Change Status</button>";
                                 echo "</td>";
 
                                 /*
@@ -57,7 +57,8 @@
                         ?>
                     </tbody>
                 </table>
-                <div class="modal fade" id="changeStatusModal" tabindex="-1" aria-labelledby="changeStatusModalLabel" aria-hidden="true">
+                <div class="modal fade" id="changeStatusModal" tabindex="-1" aria-labelledby="changeStatusModalLabel"
+                    aria-hidden="true">
                     <div class="modal-dialog">
                         <div class="modal-content" id="modal-body">
                             <!-- <div class="modal-header">
@@ -88,8 +89,8 @@
     </div>
 
     <script>
-        $(document).ready(function() {
-            $('#changeStatusModal').on('show.bs.modal', function(event) {
+        $(document).ready(function () {
+            $('#changeStatusModal').on('show.bs.modal', function (event) {
                 var button = $(event.relatedTarget); // Button that triggered the modal
                 var requestId = button.data('bs-request-id'); // Extract request ID from data attribute
 
@@ -99,10 +100,10 @@
                     data: {
                         requestId: requestId
                     },
-                    success: function(response) {
+                    success: function (response) {
                         $('#modal-body').html(response);
                     },
-                    error: function(xhr, status, error) {
+                    error: function (xhr, status, error) {
                         // Handle the error scenario
                         console.log(error);
                     }
@@ -120,7 +121,7 @@
 <script src="https://cdn.datatables.net/1.12.1/js/dataTables.bootstrap5.min.js"></script>
 
 <script>
-    $(document).ready(function() {
+    $(document).ready(function () {
         $('#example').DataTable();
 
         // $(document).on('click', '.btn', function () {
