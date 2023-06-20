@@ -14,9 +14,7 @@
 
     <!-- CSS -->
     <link rel="stylesheet" type="text/css" href="./calendar/evo-calendar/css/evo-calendar.min.css">
-    <link rel="stylesheet" type="text/css" href="./calendar/evo-calendar/css/evo-calendar.orange-coral.min.css">
     <link rel="stylesheet" type="text/css" href="./calendar/evo-calendar/css/evo-calendar.midnight-blue.min.css">
-    <link rel="stylesheet" type="text/css" href="./calendar/evo-calendar/css/evo-calendar.royal-navy.min.css">
 
     <link rel="stylesheet" type="text/css" href="./calendar/demo/demo.css">
     <!-- Fonts -->
@@ -27,30 +25,28 @@
 
 <body>
     <main>
-        <div class="main-container">
-            <section id="demos">
-                <div class="section-content">
-                    <div class="action-buttons">
-                        <button style="display: none;"  data-set-theme="Midnight Blue"></button>
-                    </div>
-                    <div class="console-log">
-                        <div class="log-content">
-                            <div class="--noshadow" id="demoEvoCalendar"></div>
-                        </div>
-                    </div>
-                    <div class="action-buttons">
-                        <button class="btn-action" id="addBtn">ADD EVENT</button>
-                        <button class="btn-action" id="removeBtn" disabled>REMOVE
-                            EVENT</button>
-                    </div>
-                </div>
-            </section>
+        <div class="console-log">
+            <div class="log-content">
+                <div class="--noshadow" id="calendar"></div>
+            </div>
+        </div>
+        <div class="action-buttons">
+            <button class="btn-action" id="addBtn">ADD EVENT</button>
+            <button class="btn-action" id="removeBtn" disabled>REMOVE
+                EVENT</button>
         </div>
     </main>
     <!-- jQuery -->
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.4.1/dist/jquery.min.js"></script>
     <script src="./calendar/evo-calendar/js/evo-calendar.min.js"></script>
     <script src="./calendar/demo/demo.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('#calendar').evoCalendar({
+                theme: 'Midnight Blue'
+            })
+        })
+    </script>
 </body>
 
 </html>

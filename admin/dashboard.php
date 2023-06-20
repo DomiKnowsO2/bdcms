@@ -79,7 +79,7 @@
     </div>
     <style>
         .margin {
-            margin-top: 5%;
+            margin-top: 2%;
         }
 
         .order-visitor-card {

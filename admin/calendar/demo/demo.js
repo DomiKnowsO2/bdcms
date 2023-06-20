@@ -11,7 +11,7 @@ var events = [ {
 }, {
     id: "9jU6g6f",
     name: "Holiday #1",
-    description: "Lorem ipsum dolor sit amet.",
+    description: "Lorem ipsum dolor sit ametes.",
     date: today.getMonth() + 1 + "/10/" + today.getFullYear(),
     type: "holiday"
 }, {
@@ -30,13 +30,13 @@ var events = [ {
 }, {
     id: "dsu7HUc",
     name: "Birthday #1",
-    description: "Lorem ipsum dolor sit amet.",
+    description: "sample 1.",
     date: new Date(),
     type: "birthday"
 }, {
     id: "dsu7HUc",
     name: "Birthday #2",
-    description: "Lorem ipsum dolor sit amet.",
+    description: "sample 2.",
     date: today.getMonth() + 1 + "/27/" + today.getFullYear(),
     type: "birthday"
 } ];
