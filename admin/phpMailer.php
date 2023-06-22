@@ -22,6 +22,11 @@ if (isset($_POST['Savechanges'])) {
         if ($mailResult && mysqli_num_rows($mailResult) > 0) {
             $row = mysqli_fetch_assoc($mailResult);
             $email = $row['email'];
+            $appointment_date = $row['appointment_date'];
+            $date = date("M-d-Y", strtotime($appointment_date));
+            $time = date("h:ia", strtotime($appointment_date));
+            $formatted_date = date("F d, Y", strtotime($date));
+            $formatted_time = date("h:ia", strtotime($time));
 
             if ($newStatus == 'Approve') {
                 $mail = new PHPMailer(true);
@@ -38,15 +43,23 @@ if (isset($_POST['Savechanges'])) {
 
                 $mail->isHTML(true);
                 $mail->Subject = 'APPOINTMENT SCHEDULE';
-                $mail->Body = '<h1>Request Approved</h1>';
+                $mail->Body = 'Dear Patient,
+
+                We are pleased to inform you that your appointment request has been approved by our dental clinic. Your scheduled date and time are as follows:<br /><br />
+                
+                Date: '.$formatted_date.'<br />
+                Time: '.$formatted_time.'<br /><br />
+                
+                Please arrive at least 15 minutes before your appointment to complete the necessary paperwork. If you have any questions or need to reschedule, please contact us at +639706557001 or email us at bdcmsystem@gmail.com.
+                
+                We look forward to seeing you soon and providing you with the best dental care possible.<br /><br />
+                
+                Sincerely,<br />
+                Balatan Dental Clinic';
 
                 $mail->send();
 
-                echo '
-                    <script>
-                        alert("This is a test ' . $email . '");
-                    </script>
-                ';
+                header('location:./index.php?page=requests');
             }
             exit();
         }
@@ -55,4 +68,3 @@ if (isset($_POST['Savechanges'])) {
         exit();
     }
 }
-?>
