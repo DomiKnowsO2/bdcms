@@ -19,36 +19,33 @@
                             <th>No.</th>
                             <th>Last Name</th>
                             <th>First Name</th>
+                            <th>Service</th>
                             <th>Address</th>
                             <th>Email</th>
                             <th>Phone</th>
                             <th>Appointment Date</th>
                             <th>Status</th>
+                            <th>Action</th>
                         </tr>
                     </thead>
                     <tbody>
 
                         <?php
-                        $data = mysqli_query($conn, "SELECT * FROM requests_tb WHERE `status` = 'Approve'");
+                        $data = mysqli_query($conn, "SELECT r.*, s.service_name FROM requests_tb r INNER JOIN services_tb s ON r.service_id = s.service_id WHERE r.status = 'Approve'");
                         while ($row = mysqli_fetch_array($data)) {
                             echo "<tr>";
                             echo "<td>" . $row['request_id'] . "</td>";
                             echo "<td>" . $row['lastName'] . "</td>";
                             echo "<td>" . $row['firstName'] . "</td>";
+                            echo "<td>" . $row['service_name'] . "</td>";
                             echo "<td>" . $row['address'] . "</td>";
                             echo "<td>" . $row['email'] . "</td>";
                             echo "<td>" . $row['phone'] . "</td>";
                             echo "<td>" . $row['appointment_date'] . "</td>";
                             echo "<td>" . $row['status'] . "</td>";
-                            /*echo "<td>";
-                            echo "<a href='change_status.php?id=".$row['id']."' type='button' class='btn btn-primary' data-bs-toggle='modal' data-bs-target='#exampleModal'>Change";
-                            echo "</a>";
-                            echo "</td>";
                             echo "<td>";
-                            echo "<a href='delete_schedule.php?id=".$row['id']."' type='button' class='btn btn-primary'>Delete";
-                            echo "</a>";
-                            echo "</td>";*/
-                            echo "</tr>";
+                            echo "<button type='button' class='btn btn-primary' data-bs-toggle='modal' data-bs-target='#changeStatusModal' data-bs-request-id='" . $row['request_id'] . "'>Care Form</button>";
+                            echo "</td>";
                         }
                         ?>
                     </tbody>
@@ -57,7 +54,13 @@
         </div>
 
     </div>
+    <div class="modal fade" id="changeStatusModal" tabindex="-1" aria-labelledby="changeStatusModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content" id="modal-body">
 
+            </div>
+        </div>
+    </div>
 
 </body>
 <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
@@ -67,18 +70,27 @@
 <script>
     $(document).ready(function() {
         $('#example').DataTable();
-    });
-</script>
+        $('#changeStatusModal').on('show.bs.modal', function(event) {
+            var button = $(event.relatedTarget); // Button that triggered the modal
+            var requestId = button.data('bs-request-id'); // Extract request ID from data attribute
 
-<!-- <script>
-    $(document).ready(function () {
-        $('#list').change(function () {
-            var selected = $(this).val();
-            $.get("change_query.php?selected=" + selected, function (data) {
-                $('.result').html(data);
+            $.ajax({
+                type: 'POST',
+                url: 'Post-OperativeForm.php',
+                data: {
+                    requestId: requestId
+                },
+                success: function(response) {
+                    $('#modal-body').html(response);
+                },
+                error: function(xhr, status, error) {
+                    // Handle the error scenario
+                    console.log(error);
+                }
             });
+
         });
     });
-</script> -->
+</script>
 
 </html>

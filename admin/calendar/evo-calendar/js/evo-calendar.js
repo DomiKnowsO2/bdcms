@@ -42,7 +42,7 @@
                 eventDisplayDefault: true,
                 eventListToggler: true,
                 calendarEvents: null
-            };
+            }; 
             _.options = $.extend({}, _.defaults, settings);
 
             _.initials = {

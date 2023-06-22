@@ -6,6 +6,18 @@
     ?>
 </style>
 
+<head>
+    <!-- CSS -->
+    <link rel="stylesheet" type="text/css" href="./calendar/evo-calendar/css/evo-calendar.min.css">
+    <link rel="stylesheet" type="text/css" href="./calendar/evo-calendar/css/evo-calendar.midnight-blue.min.css">
+
+    <link rel="stylesheet" type="text/css" href="./calendar/demo/demo.css">
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Mono&display=swap" rel="stylesheet">
+</head>
+
 <body>
     <div class="col py-1 margin">
 
@@ -75,16 +87,56 @@
             <?php
             include('./calendar/index.php');
             ?>
+            <!-- jQuery -->
+            <script src="https://cdn.jsdelivr.net/npm/jquery@3.4.1/dist/jquery.min.js"></script>
+            <script src="./calendar/evo-calendar/js/evo-calendar.min.js"></script>
+            <script src="./calendar/demo/demo.js"></script>
+            <script>
+                $(document).ready(function() {
+                    $('#calendar').evoCalendar({
+                        theme: 'Midnight Blue',
+                        calendarEvents: [
+                            <?php
+                            $sqlCalendar = mysqli_query($conn, "SELECT r.*, s.service_name FROM requests_tb r INNER JOIN services_tb s ON r.service_id = s.service_id ORDER BY r.appointment_date ASC");
+                            while ($row = mysqli_fetch_array($sqlCalendar)) {
+                                echo "{";
+                                echo "id: '" . $row['request_id'] . "',";
+                                echo "badge: '"  . date('g:i a', strtotime($row['appointment_date'])) . "', ";
+                                echo "name: '" . $row['firstName'] . " " . $row['lastName'] . "',";
+                                echo "description: '"  . $row['service_name'] . "<br>" . "',";
+                                echo "date: '" . $row['appointment_date'] . "',";
+                                echo "type: 'event',";
+                                echo "color: ";
+
+                                $status = $row['status'];
+                                if ($status === "Approve") {
+                                    echo "'#198754'";
+                                } elseif ($status === "Reject") {
+                                    echo "'#dc3545'";
+                                } elseif ($status === "Done") {
+                                    echo "'lightseagreen'";
+                                } else {
+                                    echo "'#fd7e14'";
+                                }
+
+                                echo "},";
+                            }
+                            ?>
+                        ]
+                    });
+                });
+            </script>
         </div>
     </div>
     <style>
         .margin {
             margin-top: 2%;
+            /* background-color: pink; */
         }
 
         .order-visitor-card {
-            -webkit-transition: all 0.3s ease-in-out;
-            transition: all 0.3s ease-in-out;
+            /* -webkit-transition: all 0.3s ease-in-out;
+            transition: all 0.3s ease-in-out; */
             text-align: center !important;
             background-color: #fff;
             padding: 10px 0;

@@ -19,6 +19,7 @@
                             <th>Request No.</th>
                             <th>Last Name</th>
                             <th>First Name</th>
+                            <th>Service</th>
                             <th>Address</th>
                             <th>Email</th>
                             <th>Phone</th>
@@ -30,13 +31,14 @@
                     <tbody>
 
                         <?php
-                        $data = mysqli_query($conn, "SELECT * FROM requests_tb");
+                        $data = mysqli_query($conn, "SELECT r.*, s.service_name FROM requests_tb r INNER JOIN services_tb s ON r.service_id = s.service_id");
                         while ($row = mysqli_fetch_array($data)) {
-                            if ($row['status'] != "Approve") {
+                            if ($row['status'] != "Approve" && $row['status'] !="Done") {
                                 echo "<tr>";
                                 echo "<td>" . $row['request_id'] . "</td>";
                                 echo "<td>" . $row['lastName'] . "</td>";
                                 echo "<td>" . $row['firstName'] . "</td>";
+                                echo "<td>" . $row['service_name'] . "</td>";
                                 echo "<td>" . $row['address'] . "</td>";
                                 echo "<td>" . $row['email'] . "</td>";
                                 echo "<td>" . $row['phone'] . "</td>";
@@ -57,27 +59,10 @@
                         ?>
                     </tbody>
                 </table>
-                <div class="modal fade" id="changeStatusModal" tabindex="-1" aria-labelledby="changeStatusModalLabel"
-                    aria-hidden="true">
+                <div class="modal fade" id="changeStatusModal" tabindex="-1" aria-labelledby="changeStatusModalLabel" aria-hidden="true">
                     <div class="modal-dialog">
                         <div class="modal-content" id="modal-body">
-                            <!-- <div class="modal-header">
-                                <h5 class="modal-title" id="changeStatusModalLabel">Change Status</h5>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                    aria-label="Close"></button>
-                            </div>
-                            <div class="modal-body">
-                                <label for="statusSelect">Select Status:</label>
-                                <select id="statusSelect" class="form-select">
-                                    <option value="Pending">Pending</option>
-                                    <option value="Accept">Accept</option>
-                                    <option value="Reject">Reject</option>
-                                </select>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                <button type="submit" class="btn btn-primary">Save changes</button>
-                            </div> -->
+                          
                         </div>
                     </div>
                 </div>
@@ -89,8 +74,8 @@
     </div>
 
     <script>
-        $(document).ready(function () {
-            $('#changeStatusModal').on('show.bs.modal', function (event) {
+        $(document).ready(function() {
+            $('#changeStatusModal').on('show.bs.modal', function(event) {
                 var button = $(event.relatedTarget); // Button that triggered the modal
                 var requestId = button.data('bs-request-id'); // Extract request ID from data attribute
 
@@ -100,10 +85,10 @@
                     data: {
                         requestId: requestId
                     },
-                    success: function (response) {
+                    success: function(response) {
                         $('#modal-body').html(response);
                     },
-                    error: function (xhr, status, error) {
+                    error: function(xhr, status, error) {
                         // Handle the error scenario
                         console.log(error);
                     }
@@ -121,7 +106,7 @@
 <script src="https://cdn.datatables.net/1.12.1/js/dataTables.bootstrap5.min.js"></script>
 
 <script>
-    $(document).ready(function () {
+    $(document).ready(function() {
         $('#example').DataTable();
 
         // $(document).on('click', '.btn', function () {

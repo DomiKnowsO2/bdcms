@@ -14,7 +14,6 @@ if ($result && mysqli_num_rows($result) > 0) {
     $currentStatus = '';
 }
 
-
 ?>
 
 <form action="patients_record.php" method="post">

@@ -1,3 +1,6 @@
+<?php
+include('./db-connect.php');
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -6,7 +9,9 @@
    <meta http-equiv="X-UA-Compatible" content="IE=edge">
    <meta name="viewport" content="width=device-width, initial-scale=1.0">
    <title>BDCMS</title>
-
+   <link rel="stylesheet" href="./admin/calendar/evo-calendar/css/evo-calendar.min.css">
+   <link rel="stylesheet" href="./admin/calendar/evo-calendar/css/evo-calendar.royal-navy.min.css">
+   <link rel="stylesheet" href="./admin/calendar/demo/demo.css">
    <!-- sample commit2 -->
    <!-- font awesome cdn link  -->
    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
@@ -36,11 +41,11 @@
                <a href="#about">about</a>
                <a href="#services">services</a>
                <a href="#reviews">reviews</a>
-               <a href="#contact">contact</a>
+               <a href="#contact">Schedule</a>
                <a href="./admin/login.php">admin</a>
             </nav>
             <nav>
-               <a href="#contact" class="link-btn">make appointment</a>
+               <a href="user_login.php" class="link-btn">make appointment</a>
                <a href="user_login.php" class="link-btn">login</a>
             </nav>
             <div id="menu-btn" class="fas fa-bars"></div>
@@ -65,7 +70,7 @@
                <p>Dr. Ricardo P. Enciso</p>
                <p>Assistant Felwin B. Barreda</p>
 
-               <a href="#contact" class="link-btn">make appointment</a>
+               <a href="user_login.php" class="link-btn">make appointment</a>
             </div>
          </div>
 
@@ -93,7 +98,7 @@
                   <p>"“Every tooth in a man's head is more valuable than a diamond.” So remember to brush your teeth,
                      and look after them as well as you would look after a diamond!"</p>
                   <p></p>
-                  <a href="#contact" class="link-btn">make appointment</a>
+                  <a href="user_login.php" class="link-btn">make appointment</a>
             </div>
 
          </div>
@@ -247,9 +252,47 @@
 
    <section class="contact" id="contact">
 
-      <h1 class="heading">make appointment</h1>
+      <h1 class="heading">Appointment Schedule</h1>
+      <div class="box-container container">
+         <?php include('./admin/calendar/index.php') ?>
+      </div>
+      <script src="https://cdn.jsdelivr.net/npm/jquery@3.4.1/dist/jquery.min.js"></script>
+      <script src="./admin/calendar/evo-calendar/js/evo-calendar.min.js"></script>
+      <script src="./admin/calendar/demo/demo.js"></script>
+      <script>
+         $(document).ready(function() {
+            $('#calendar').evoCalendar({
+               theme: 'Royal Navy',
+               calendarEvents: [
+                  <?php
+                  $sqlCalendar = mysqli_query($conn, "SELECT r.*, s.service_name FROM requests_tb r INNER JOIN services_tb s ON r.service_id = s.service_id ORDER BY r.appointment_date ASC");
+                  while ($row = mysqli_fetch_array($sqlCalendar)) {
+                     echo "{";
+                     echo "id: '" . $row['request_id'] . "',";
+                     echo "badge: '"  . date('g:i a', strtotime($row['appointment_date'])) . "', ";
+                     echo "name: '" . $row['firstName'] . " " . $row['lastName'] . "',";
+                     echo "description: '"  . $row['service_name'] . "<br>" . "',";
+                     echo "date: '" . $row['appointment_date'] . "',";
+                     echo "type: 'event',";
+                     echo "color: ";
 
-      <form action="save_appointment.php" method="post">
+                     $status = $row['status'];
+                     if ($status === "Approve") {
+                        echo "'#198754'";
+                     } elseif ($status === "Reject") {
+                        echo "'#dc3545'";
+                     } else {
+                        echo "'#fd7e14'";
+                     }
+
+                     echo "},";
+                  }
+                  ?>
+               ]
+            });
+         });
+      </script>
+      <!-- <form action="save_appointment.php" method="post">
          <span>First name :</span>
          <input type="text" name="fname" placeholder="Enter your Firstname" class="box" required>
          <span>Last name :</span>
@@ -263,7 +306,7 @@
          <span>appointment date :</span>
          <input type="datetime-local" name="date" class="box" required>
          <input type="submit" value="make appointment" name="submit" class="link-btn">
-      </form>
+      </form> -->
 
    </section>
 

@@ -1,3 +1,6 @@
+<script>
+    var defaultTheme = getRandom(1);
+
 var today = new Date();
 
 var events = [ {
@@ -68,7 +71,7 @@ function getWeeksInMonth(a, b) {
 week_date = getWeeksInMonth(today.getMonth(), today.getFullYear())[2];
 
 $(document).ready(function() {
-    $("#demoEvoCalendar").evoCalendar({
+    $("#calendar").evoCalendar({
         format: "MM dd, yyyy",
         titleFormat: "MM",
         calendarEvents: [{
@@ -104,7 +107,7 @@ $(document).ready(function() {
     });
     $("#addBtn").click(function(a) {
         curAdd = getRandom(events.length);
-        $("#demoEvoCalendar").evoCalendar("addCalendarEvent", events[curAdd]);
+        $("#calendar").evoCalendar("addCalendarEvent", events[curAdd]);
         active_events.push(events[curAdd]);
         events.splice(curAdd, 1);
         if (0 === events.length) a.target.disabled = !0;
@@ -112,18 +115,18 @@ $(document).ready(function() {
     });
     $("#removeBtn").click(function(a) {
         curRmv = getRandom(active_events.length);
-        $("#demoEvoCalendar").evoCalendar("removeCalendarEvent", active_events[curRmv].id);
+        $("#calendar").evoCalendar("removeCalendarEvent", active_events[curRmv].id);
         events.push(active_events[curRmv]);
         active_events.splice(curRmv, 1);
         if (0 === active_events.length) a.target.disabled = !0;
         if (events.length > 0) $("#addBtn").prop("disabled", !1);
     });
-    a($("[data-set-theme]")['Midnight Blue']);
+    a($("[data-set-theme]")[defaultTheme]);
     function a(a) {
         var b = a.dataset.setTheme;
         $("[data-set-theme]").removeClass("active");
         $(a).addClass("active");
-        $("#demoEvoCalendar").evoCalendar("setTheme", b);
+        $("#calendar").evoCalendar("setTheme", b);
     }
     var b = getRandom($("[data-settings]").length);
     var c = $("[data-settings]")[b];
@@ -300,3 +303,4 @@ $('[data-go*="#"]').on("click", function(a) {
         scrollTop: c
     }, 500);
 });
+</script>

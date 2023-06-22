@@ -1,3 +1,81 @@
+<?php
+session_start();
+// Check if the user is already logged in
+if (isset($_SESSION['email'])) {
+    // Redirect the user to the home page
+    header('Location: ./user.php');
+}
+
+// Check if the form has been submitted
+if (isset($_POST['login'])) {
+    if (isset($_POST['email']) && isset($_POST['password'])) {
+        // Connect to the database
+        $db = new PDO('mysql:host=localhost;dbname=bdcmsdb', 'root', '');
+
+        // Get the username and password from the form
+        $email = $_POST['email'];
+        $password = $_POST['password'];
+
+        // Check if the username and password exist in the database
+        $sql = "SELECT * FROM `patient_tb` WHERE email = ? AND password = ?";
+        $stmt = $db->prepare($sql);
+        $stmt->execute(array($email, $password));
+
+        // If the username and password exist, log the user in
+        if ($stmt->rowCount() > 0) {
+            // Set the session variables
+            $_SESSION['email'] = $email;
+            $_SESSION['logged_in'] = true;
+
+            // Redirect the user to the home page
+            header('Location: ./user.php #contact');
+        } else {
+            // Display an error message
+            echo "<script> alert('Invalid username or password!'); history.go(-1);</script>";
+        }
+    }
+}
+
+if (isset($_POST['signup'])) {
+    if (isset($_POST['email']) && isset($_POST['password'])) {
+        // Connect to the database
+        $db = new PDO('mysql:host=localhost;dbname=bdcmsdb', 'root', '');
+
+        // Get the username and password from the form
+        $email = $_POST['email'];
+        $password = $_POST['password'];
+
+        // Check if the email already exists in the database
+        $checkEmailQuery = "SELECT * FROM `patient_tb` WHERE email = ?";
+        $stmt = $db->prepare($checkEmailQuery);
+        $stmt->execute(array($email));
+
+        // If the email already exists, display an error message
+        if ($stmt->rowCount() > 0) {
+            echo "<script> alert('Email Already Have an account!'); history.go(-1);</script>";
+        } else {
+            // Insert the new user into the database
+            $insertQuery = "INSERT INTO `patient_tb` (`email`, `password`) VALUES (?, ?)";
+            $stmt = $db->prepare($insertQuery);
+            $stmt->execute(array($email, $password));
+
+            // If the insert was successful, log the user in
+            if ($stmt->rowCount() > 0) {
+                // Set the session variables
+                $_SESSION['email'] = $email;
+                $_SESSION['logged_in'] = true;
+
+                // Redirect the user to the home page
+                header('Location: ./user.php #contact');
+                exit(); // Add exit() to prevent further execution
+            } else {
+                // Display an error message
+                echo "<script> alert('Invalid username or password!'); history.go(-1);</script>";
+            }
+        }
+    }
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -24,11 +102,11 @@
                 <a href="login.php" class="logo">BDC<span>MS</span></a>
 
                 <nav class="nav">
-                    <a href="#home">home</a>
-                    <a href="#about">about</a>
-                    <a href="#services">services</a>
-                    <a href="#reviews">reviews</a>
-                    <a href="#contact">contact</a>
+                    <a href="index.php #home">home</a>
+                    <a href="index.php #about">about</a>
+                    <a href="index.php #services">services</a>
+                    <a href="index.php #reviews">reviews</a>
+                    <a href="index.php #contact">contact</a>
                     <a href="./admin/login.php">admin</a>
                 </nav>
                 <div id="menu-btn" class="fas fa-bars"></div>
@@ -45,10 +123,10 @@
                 <h1>SIGN UP</h1>
                 <form class="signup-form" action="" method="post" id="signup">
                     <i class="fas fa-user-plus"></i>
-                    <input class="user-input" type="text" name="" placeholder="Username" required>
-                    <input class="user-input" type="email" name="" placeholder="Email Address" required>
-                    <input class="user-input" type="password" name="" placeholder="Password" required>
-                    <input class="btn" type="submit" name="" value="SIGN UP">
+                    <!-- <input class="user-input" type="text" name="" placeholder="Username" required> -->
+                    <input class="user-input" type="email" name="email" placeholder="Email Address" required>
+                    <input class="user-input" type="password" name="password" placeholder="Password" required>
+                    <input class="btn" type="submit" name="signup" value="SIGN UP">
                     <div class="options-02 login">
                         <p>Already Registered? <a href="#">Sign In</a></p><br>
                     </div>
@@ -58,15 +136,15 @@
         <div class="container1">
             <div class="form login">
                 <h1>USER LOGIN</h1>
-                <form class="login-form" action="inc/checkpassword.php" method="post">
+                <form class="login-form" action="" method="post">
                     <i class="fas fa-user-circle"></i>
-                    <input class="user-input" type="text" name="uname" placeholder="Username" required>
+                    <input class="user-input" type="email" name="email" placeholder="Email Address" required>
                     <input class="user-input" type="password" name="password" placeholder="Password" required>
                     <!-- <div class="options-01">
                         <label class="remember-me"><input type="checkbox" name="">Remember me</label>
                     </div> -->
 
-                    <input class="btn" type="submit" value="LOGIN"><br>
+                    <input class="btn" type="submit" name="login" value="LOGIN"><br>
                     <div class="options-02 signup">
                         <p>Not Registered? <a href="#">Create an Account</a></p><br>
                     </div>
@@ -277,7 +355,7 @@
         .form_container {
             width: 25%;
             height: auto !important;
-            /* background-color: white; */
+            background-color: #08a671b3;
             background-image: url(./images/Image.png);
             background-position: center center;
             background-size: cover;
@@ -298,7 +376,6 @@
             border: 1px solid white;
             text-align: center;
             font-family: "Poppins", sans-serif;
-            background-color: #08A671;
             opacity: 0.9;
         }
 
@@ -391,13 +468,14 @@
         }
 
         .form .options-02 {
-            color: #bbb;
+            color: #fff;
             font-size: 14px;
             margin-top: 30px;
         }
 
         .form .options-02 a {
-            color: #4285F4;
+            color: #fff;
+            border-bottom: 2px solid #fff;
         }
     </style>
 
