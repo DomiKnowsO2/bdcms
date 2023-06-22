@@ -43,7 +43,7 @@ if (isset($_POST['Savechanges'])) {
 
                 $mail->isHTML(true);
                 $mail->Subject = 'APPOINTMENT SCHEDULE';
-                $mail->Body = 'Dear Patient,
+                $mail->Body = 'Dear Patient,<br /><br />
 
                 We are pleased to inform you that your appointment request has been approved by our dental clinic. Your scheduled date and time are as follows:<br /><br />
                 

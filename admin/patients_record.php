@@ -70,10 +70,12 @@ if (isset($_POST['Savechanges'])) {
                             echo "<td>" . $row['address'] . "</td>";
                             echo "<td>" . $row['email'] . "</td>";
                             echo "<td>" . $row['phone'] . "</td>";
-                            echo "<td>";
+                            echo "<td class='text-center'>";
+                            echo "<div class='d-grid gap-2 d-sm-flex justify-content-sm-center'>";
                             echo "<button type='button' class='btn btn-primary edit-btn' data-bs-toggle='modal' data-bs-target='#addRecord' data-patient-id='" . $row['patient_id'] . "'>Edit</button>";
                             echo "<button type='button' class='btn btn-primary details-btn' data-bs-toggle='modal' data-bs-target='#detailsmodal' data-patient-id='" . $row['patient_id'] . "'>Details</button>";
                             // echo "<button type='button' onclick='deleteStocks(" . $row['patient_id'] . ")' class='btn btn-primary' data-bs-toggle='modal' data-bs-request-id='" . $row['patient_id'] . "'>Delete</button>";
+                            echo "</div>";
                             echo "</td>";
                             echo "</tr>";
                         }
@@ -137,10 +139,10 @@ if (isset($_POST['Savechanges'])) {
         </div>
     </div>
 
-    <div class="modal fade" id="detailsmodal" tabindex="-1" aria-labelledby="detailRecordLabel" aria-hidden="true" >
+    <div class="modal fade" id="detailsmodal" tabindex="-1" aria-labelledby="detailRecordLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-xl">
             <div class="modal-content" id="modal-body_post">
-               
+
             </div>
         </div>
     </div>
@@ -227,5 +229,10 @@ if (isset($_POST['Savechanges'])) {
         });
     });
 </script>
+<style>
+    .text-center .d-grid {
+        align-items: center;
+    }
+</style>
 
 </html>

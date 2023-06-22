@@ -281,10 +281,11 @@ include('./db-connect.php');
                         echo "'#198754'";
                      } elseif ($status === "Reject") {
                         echo "'#dc3545'";
+                     } elseif ($status === "Done") {
+                        echo "'lightseagreen'";
                      } else {
                         echo "'#fd7e14'";
                      }
-
                      echo "},";
                   }
                   ?>
