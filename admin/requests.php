@@ -76,8 +76,8 @@
     <script>
         $(document).ready(function() {
             $('#changeStatusModal').on('show.bs.modal', function(event) {
-                var button = $(event.relatedTarget); // Button that triggered the modal
-                var requestId = button.data('bs-request-id'); // Extract request ID from data attribute
+                var button = $(event.relatedTarget); 
+                var requestId = button.data('bs-request-id'); 
 
                 $.ajax({
                     type: 'POST',
@@ -109,14 +109,6 @@
     $(document).ready(function() {
         $('#example').DataTable();
 
-        // $(document).on('click', '.btn', function () {
-        //     var button = $(this);
-        //     var requestId = button.data('bs-request-id'); // Extract request ID from data attribute
-
-        //     alert(requestId);
-
-        //    
-        // });
 
     });
 </script>

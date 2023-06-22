@@ -72,7 +72,7 @@ if (isset($_POST['Savechanges'])) {
                             echo "<td>" . $row['phone'] . "</td>";
                             echo "<td>";
                             echo "<button type='button' class='btn btn-primary edit-btn' data-bs-toggle='modal' data-bs-target='#addRecord' data-patient-id='" . $row['patient_id'] . "'>Edit</button>";
-                            echo "<button type='button' class='btn btn-primary edit-btn' data-bs-toggle='modal' data-bs-target='#addRecord' data-patient-id='" . $row['patient_id'] . "'>Details</button>";
+                            echo "<button type='button' class='btn btn-primary details-btn' data-bs-toggle='modal' data-bs-target='#detailsmodal' data-patient-id='" . $row['patient_id'] . "'>Details</button>";
                             // echo "<button type='button' onclick='deleteStocks(" . $row['patient_id'] . ")' class='btn btn-primary' data-bs-toggle='modal' data-bs-request-id='" . $row['patient_id'] . "'>Delete</button>";
                             echo "</td>";
                             echo "</tr>";
@@ -96,7 +96,7 @@ if (isset($_POST['Savechanges'])) {
                 <form action="add_record.php" method="post">
                     <div class="modal-body">
                         <div class="mb-3">
-                            <input type="text" class="form-control" id="patient_id" name="patient_id" readonly>
+                            <input type="hidden" class="form-control" id="patient_id" name="patient_id" readonly>
                         </div>
                         <div class="mb-3">
                             <label for="lastName" class="form-label">Last Name:</label>
@@ -133,6 +133,14 @@ if (isset($_POST['Savechanges'])) {
                     </div>
                 </form>
 
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="detailsmodal" tabindex="-1" aria-labelledby="detailRecordLabel" aria-hidden="true" >
+        <div class="modal-dialog modal-dialog-centered modal-xl">
+            <div class="modal-content" id="modal-body_post">
+               
             </div>
         </div>
     </div>
@@ -194,7 +202,26 @@ if (isset($_POST['Savechanges'])) {
                     $('#age').val(response.age);
                     $('#address').val(response.address);
                     $('#phone').val(response.phone);
+                }
+            });
+        });
 
+        $('#detailsmodal').on('show.bs.modal', function(event) {
+            var button = $(event.relatedTarget);
+            var requestId = button.data('patient-id');
+
+            $.ajax({
+                type: 'POST',
+                url: './details.php',
+                data: {
+                    requestId: requestId
+                },
+                success: function(response) {
+                    $('#modal-body_post').html(response);
+                },
+                error: function(xhr, status, error) {
+                    // Handle the error scenario
+                    console.log(error);
                 }
             });
         });
