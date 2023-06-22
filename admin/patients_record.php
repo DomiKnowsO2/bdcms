@@ -19,11 +19,12 @@ if (isset($_POST['Savechanges'])) {
 }
 
 ?>
- <style>
-        <?php
-        include("./admin.css");
-        ?>
-    </style>
+<style>
+    <?php
+    include("./admin.css");
+    ?>
+</style>
+
 <body>
     <div class="col py-1">
         <div class="container-fluid bg-light edges">
@@ -71,16 +72,9 @@ if (isset($_POST['Savechanges'])) {
                             echo "<td>" . $row['phone'] . "</td>";
                             echo "<td>";
                             echo "<button type='button' class='btn btn-primary edit-btn' data-bs-toggle='modal' data-bs-target='#addRecord' data-patient-id='" . $row['patient_id'] . "'>Edit</button>";
-                            echo "<button type='button' onclick='deleteStocks(". $row['patient_id'] .")' class='btn btn-primary' data-bs-toggle='modal' data-bs-request-id='" . $row['patient_id'] . "'>Delete</button>";
+                            echo "<button type='button' class='btn btn-primary edit-btn' data-bs-toggle='modal' data-bs-target='#addRecord' data-patient-id='" . $row['patient_id'] . "'>Details</button>";
+                            // echo "<button type='button' onclick='deleteStocks(" . $row['patient_id'] . ")' class='btn btn-primary' data-bs-toggle='modal' data-bs-request-id='" . $row['patient_id'] . "'>Delete</button>";
                             echo "</td>";
-                            /*echo "<td>";
-                            echo "<a href='change_status.php?id=".$row['id']."' type='button' class='btn btn-primary' data-bs-toggle='modal' data-bs-target='#exampleModal'>Change";
-                            echo "</a>";
-                            echo "</td>";
-                            echo "<td>";
-                            echo "<a href='delete_schedule.php?id=".$row['id']."' type='button' class='btn btn-primary'>Delete";
-                            echo "</a>";
-                            echo "</td>";*/
                             echo "</tr>";
                         }
                         ?>
@@ -152,11 +146,12 @@ if (isset($_POST['Savechanges'])) {
     $(document).ready(function() {
         $('#example').DataTable();
     });
-    
+
     function deleteStocks(id) {
         if (confirm("Are you sure you want to delete this Product?")) {
             window.location.href = "add_record.php?action=delete&id=" + id;
-        }}
+        }
+    }
 </script>
 
 <script>

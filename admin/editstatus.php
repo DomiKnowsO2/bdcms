@@ -16,7 +16,7 @@ if ($result && mysqli_num_rows($result) > 0) {
 
 ?>
 
-<form action="patients_record.php" method="post">
+<form action="phpMailer.php" method="post">
     <div class="modal-header">
         <h5 class="modal-title" id="changeStatusModalLabel">Change Status</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>

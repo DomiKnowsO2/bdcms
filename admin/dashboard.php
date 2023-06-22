@@ -96,7 +96,8 @@
                     $('#calendar').evoCalendar({
                         theme: 'Midnight Blue',
                         calendarEvents: [
-                            <?php
+
+                         <?php
                             $sqlCalendar = mysqli_query($conn, "SELECT r.*, s.service_name FROM requests_tb r INNER JOIN services_tb s ON r.service_id = s.service_id ORDER BY r.appointment_date ASC");
                             while ($row = mysqli_fetch_array($sqlCalendar)) {
                                 echo "{";
