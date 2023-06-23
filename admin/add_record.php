@@ -36,28 +36,38 @@ if (isset($_POST['AddPatientRecord'])) {
         $age = $_POST['age'];
         $address = $_POST['address'];
         $phone = $_POST['phone'];
-
-        // Prepare the SQL statement
+        $service = $_POST['service'];
+        $status = "Approve";
+        $date = date('Y-m-d');
+    
         $stmt = $conn->prepare("INSERT INTO `patient_tb`(`firstName`, `middleName`, `lastName`, `birthdate`, `address`, `phone`) VALUES (?, ?, ?, ?, ?, ?)");
-
-        // Bind the parameters
         $stmt->bind_param("ssssss", $firstName, $middleName, $lastName, $birthdate, $address, $phone);
-
-        // Execute the statement
         $stmt->execute();
-
-        // Check if the insert was successful
+    
         if ($stmt->affected_rows > 0) {
-            echo "Record added successfully";
-            header('location:./index.php?page=patients_record');
+            $patient_id = $conn->insert_id;
+    
+            $stmt2 = $conn->prepare("INSERT INTO `requests_tb` (patient_id, firstName, middleName, lastName, address, email, phone, service_id, appointment_date, status) 
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+            $stmt2->bind_param("ssssssssss", $patient_id, $firstName, $middleName, $lastName, $address, $email, $phone, $service, $date, $status);
+            $stmt2->execute();
+    
+            if ($stmt2->affected_rows > 0) {
+                echo "Record added successfully";
+                header('location: ./index.php?page=patients_record');
+            } else {
+                echo "Failed to add record";
+                header('location: ./index.php?page=patients_record');
+            }
+    
+            $stmt2->close();
         } else {
             echo "Failed to add record";
-            header('location:./index.php?page=patients_record');
+            header('location: ./index.php?page=patients_record');
         }
-
-        // Close the statement
+    
         $stmt->close();
-    } else {
+    }   else {
         echo "<div class='alert alert-danger'>Patient ID found</div>";
         // Get form values
         $ID = $_POST['patient_id'];

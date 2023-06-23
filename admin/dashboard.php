@@ -96,15 +96,21 @@
                     $('#calendar').evoCalendar({
                         theme: 'Midnight Blue',
                         calendarEvents: [
-
-                         <?php
+                            <?php
                             $sqlCalendar = mysqli_query($conn, "SELECT r.*, s.service_name FROM requests_tb r INNER JOIN services_tb s ON r.service_id = s.service_id ORDER BY r.appointment_date ASC");
                             while ($row = mysqli_fetch_array($sqlCalendar)) {
                                 echo "{";
                                 echo "id: '" . $row['request_id'] . "',";
-                                echo "badge: '"  . date('g:i a', strtotime($row['appointment_date'])) . "', ";
-                                echo "name: '" . $row['firstName'] . " " . $row['lastName'] . "',";
-                                echo "description: '"  . $row['service_name'] . "<br>" . "',";
+                                echo "badge: '" . date('g:i a', strtotime($row['appointment_date'])) . "', ";
+                                echo "name: '";
+                                $name = $row['firstName'] . " " . $row['lastName'];
+                                $maxLength = 15;
+                                if (strlen($name) > $maxLength) {
+                                    $name = substr($name, 0, $maxLength) . "...";
+                                }
+                                echo $name;
+                                echo "',";
+                                echo "description: '" . $row['service_name'] . "<br>" . "',";
                                 echo "date: '" . $row['appointment_date'] . "',";
                                 echo "type: 'event',";
                                 echo "color: ";
@@ -119,7 +125,6 @@
                                 } else {
                                     echo "'#fd7e14'";
                                 }
-
                                 echo "},";
                             }
                             ?>
