@@ -67,10 +67,13 @@ Dentist: Dr. Ricardo P. Enciso
 
 Post-Operative Care Instructions:
 ____________________________
+
 Vital Signs and Observations:
 ____________________________
+
 Comments for the Doctor:
 ____________________________
+
 Total Payment: <?php echo "₱".$service_price; ?>
 
 
