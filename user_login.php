@@ -99,7 +99,7 @@ if (isset($_POST['signup'])) {
 
             <div class="row align-items-center justify-content-between">
 
-                <a href="login.php" class="logo">BDC<span>MS</span></a>
+                <a href="index.php" class="logo">BDC<span>MS</span></a>
 
                 <nav class="nav">
                     <a href="index.php #home">home</a>
@@ -155,7 +155,7 @@ if (isset($_POST['signup'])) {
     </div>
 
     <script>
-        document.addEventListener("DOMContentLoaded", function() {
+        document.addEventListener("DOMContentLoaded", function () {
             // Get the container elements
             var container1 = document.querySelector(".container1");
             var container2 = document.querySelector(".container2");
@@ -165,13 +165,13 @@ if (isset($_POST['signup'])) {
             var createAccountOption = document.querySelector(".options-02.signup a");
 
             // Add event listeners
-            signInOption.addEventListener("click", function(event) {
+            signInOption.addEventListener("click", function (event) {
                 event.preventDefault(); // Prevent the default link behavior
                 container1.style.display = "block";
                 container2.style.display = "none";
             });
 
-            createAccountOption.addEventListener("click", function(event) {
+            createAccountOption.addEventListener("click", function (event) {
                 event.preventDefault(); // Prevent the default link behavior
                 container1.style.display = "none";
                 container2.style.display = "block";

@@ -34,7 +34,7 @@ include('./db-connect.php');
 
          <div class="row align-items-center justify-content-between">
 
-            <a href="login.php" class="logo">BDC<span>MS</span></a>
+            <a href="#" class="logo">BDC<span>MS</span></a>
 
             <nav class="nav">
                <a href="#home">home</a>
@@ -260,7 +260,7 @@ include('./db-connect.php');
       <script src="./admin/calendar/evo-calendar/js/evo-calendar.min.js"></script>
       <script src="./admin/calendar/demo/demo.js"></script>
       <script>
-         $(document).ready(function() {
+         $(document).ready(function () {
             $('#calendar').evoCalendar({
                theme: 'Royal Navy',
                calendarEvents: [
@@ -270,14 +270,7 @@ include('./db-connect.php');
                      echo "{";
                      echo "id: '" . $row['request_id'] . "',";
                      echo "badge: '" . date('g:i a', strtotime($row['appointment_date'])) . "', ";
-                     echo "name: '";
-                     $name = $row['firstName'] . " " . $row['lastName'];
-                     $maxLength = 13; 
-                     if (strlen($name) > $maxLength) {
-                        $name = substr($name, 0, $maxLength) . "...";
-                     }
-                     echo $name;
-                     echo "',";
+                     echo "name: '" . $row['firstName'] . " " . $row['lastName'] . "',";
                      echo "description: '" . $row['service_name'] . "<br>" . "',";
                      echo "date: '" . $row['appointment_date'] . "',";
                      echo "type: 'event',";

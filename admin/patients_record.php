@@ -74,7 +74,7 @@ if (isset($_POST['Savechanges'])) {
                             echo "<div class='d-grid gap-2 d-sm-flex justify-content-sm-center'>";
                             echo "<button type='button' class='btn btn-primary edit-btn' data-bs-toggle='modal' data-bs-target='#addRecord' data-patient-id='" . $row['patient_id'] . "'>Edit</button>";
                             echo "<button type='button' class='btn btn-primary details-btn' data-bs-toggle='modal' data-bs-target='#detailsmodal' data-patient-id='" . $row['patient_id'] . "'>Details</button>";
-                            echo "<button type='button' onclick='deleteStocks(" . $row['patient_id'] . ")' class='btn btn-primary' data-bs-toggle='modal' data-bs-request-id='" . $row['patient_id'] . "'>Delete</button>";
+                            // echo "<button type='button' onclick='deleteStocks(" . $row['patient_id'] . ")' class='btn btn-primary' data-bs-toggle='modal' data-bs-request-id='" . $row['patient_id'] . "'>Delete</button>";
                             echo "</div>";
                             echo "</td>";
                             echo "</tr>";
@@ -128,15 +128,15 @@ if (isset($_POST['Savechanges'])) {
                             <label for="phone" class="form-label">Phone:</label>
                             <input type="tel" class="form-control" id="phone" name="phone" required>
                         </div>
-                        <div class="mb-3"> 
-                            <label for="service"  class="form-label">Service:</label>
+                        <div class="mb-3">
+                            <label for="service" class="form-label">Service:</label>
                             <select name="service" id="service" class="form-control" required>
                                 <option value="">Please Select</option>
                                 <?php
                                 $servicesquery = "SELECT * FROM services_tb";
                                 $servicesresult = mysqli_query($conn, $servicesquery);
-                                while ($servicerow = $servicesresult->fetch_assoc()) :
-                                ?>
+                                while ($servicerow = $servicesresult->fetch_assoc()):
+                                    ?>
                                     <option value="<?php echo $servicerow['service_id']; ?>"><?php echo $servicerow['service_name']; ?>
                                     </option>
                                 <?php endwhile; ?>
@@ -167,7 +167,7 @@ if (isset($_POST['Savechanges'])) {
 <script src="https://cdn.datatables.net/1.12.1/js/dataTables.bootstrap5.min.js"></script>
 
 <script>
-    $(document).ready(function() {
+    $(document).ready(function () {
         $('#example').DataTable();
     });
 
@@ -179,15 +179,15 @@ if (isset($_POST['Savechanges'])) {
 </script>
 
 <script>
-    $(document).ready(function() {
-        $('#list').change(function() {
+    $(document).ready(function () {
+        $('#list').change(function () {
             var selected = $(this).val();
-            $.get("change_query.php?selected=" + selected, function(data) {
+            $.get("change_query.php?selected=" + selected, function (data) {
                 $('.result').html(data);
             });
         });
 
-        $('#addRecord').on('hidden.bs.modal', function() {
+        $('#addRecord').on('hidden.bs.modal', function () {
             $('#patient_id').val('');
             $('#patientId').val('');
             $('#lastName').val('');
@@ -199,7 +199,7 @@ if (isset($_POST['Savechanges'])) {
             $('#phone').val('');
         });
 
-        $('.edit-btn').click(function() {
+        $('.edit-btn').click(function () {
             var patientId = $(this).data('patient-id');
 
             $.ajax({
@@ -209,7 +209,7 @@ if (isset($_POST['Savechanges'])) {
                     patientId: patientId
                 },
                 dataType: 'json',
-                success: function(response) {
+                success: function (response) {
                     $('#patient_id').val(response.patient_id);
                     $('#lastName').val(response.lastName);
                     $('#middleName').val(response.middleName);
@@ -222,7 +222,7 @@ if (isset($_POST['Savechanges'])) {
             });
         });
 
-        $('#detailsmodal').on('show.bs.modal', function(event) {
+        $('#detailsmodal').on('show.bs.modal', function (event) {
             var button = $(event.relatedTarget);
             var requestId = button.data('patient-id');
 
@@ -232,10 +232,10 @@ if (isset($_POST['Savechanges'])) {
                 data: {
                     requestId: requestId
                 },
-                success: function(response) {
+                success: function (response) {
                     $('#modal-body_post').html(response);
                 },
-                error: function(xhr, status, error) {
+                error: function (xhr, status, error) {
                     // Handle the error scenario
                     console.log(error);
                 }

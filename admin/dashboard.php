@@ -36,7 +36,7 @@
                             echo $row_accepted['accepted_count'];
                             ?>
                         </h4>
-                        <p class="m-b-0">Total Appointments</p>
+                        <!-- <p class="m-b-0">Total Appointments</p> -->
                     </div>
                 </div>
             </div>
@@ -52,7 +52,7 @@
                             echo $row_pending['pending_count'];
                             ?>
                         </h4>
-                        <p class="m-b-0">36% From Last 6 Months</p>
+                        <!-- <p class="m-b-0">36% From Last 6 Months</p> -->
                     </div>
                 </div>
             </div>
@@ -77,7 +77,7 @@
                     <div class="card-block">
                         <h6 class="m-b-0">Top Services</h6>
                         <h4 class="m-t-15 m-b-15"><i class="fas fa-star m-r-15 text-c-green"></i>6325</h4>
-                        <p class="m-b-0">36% From Last 6 Months</p>
+                        <p class="m-b-0"></p>
                     </div>
                 </div>
             </div>
@@ -92,24 +92,18 @@
             <script src="./calendar/evo-calendar/js/evo-calendar.min.js"></script>
             <script src="./calendar/demo/demo.js"></script>
             <script>
-                $(document).ready(function() {
+                $(document).ready(function () {
                     $('#calendar').evoCalendar({
                         theme: 'Midnight Blue',
                         calendarEvents: [
+
                             <?php
                             $sqlCalendar = mysqli_query($conn, "SELECT r.*, s.service_name FROM requests_tb r INNER JOIN services_tb s ON r.service_id = s.service_id ORDER BY r.appointment_date ASC");
                             while ($row = mysqli_fetch_array($sqlCalendar)) {
                                 echo "{";
                                 echo "id: '" . $row['request_id'] . "',";
                                 echo "badge: '" . date('g:i a', strtotime($row['appointment_date'])) . "', ";
-                                echo "name: '";
-                                $name = $row['firstName'] . " " . $row['lastName'];
-                                $maxLength = 15;
-                                if (strlen($name) > $maxLength) {
-                                    $name = substr($name, 0, $maxLength) . "...";
-                                }
-                                echo $name;
-                                echo "',";
+                                echo "name: '" . $row['firstName'] . " " . $row['lastName'] . "',";
                                 echo "description: '" . $row['service_name'] . "<br>" . "',";
                                 echo "date: '" . $row['appointment_date'] . "',";
                                 echo "type: 'event',";
