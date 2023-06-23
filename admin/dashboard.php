@@ -36,7 +36,7 @@
                             echo $row_accepted['accepted_count'];
                             ?>
                         </h4>
-                        <!-- <p class="m-b-0">Total Appointments</p> -->
+                        <p class="m-b-0"></p>
                     </div>
                 </div>
             </div>
@@ -52,7 +52,7 @@
                             echo $row_pending['pending_count'];
                             ?>
                         </h4>
-                        <!-- <p class="m-b-0">36% From Last 6 Months</p> -->
+                        <p class="m-b-0"></p>
                     </div>
                 </div>
             </div>
@@ -68,7 +68,7 @@
                             echo $row_patients['patients_count'];
                             ?>
                         </h4>
-                        <p class="m-b-0">48% From Last 24 Hours</p>
+                        <p class="m-b-0"></p>
                     </div>
                 </div>
             </div>
@@ -76,7 +76,7 @@
                 <div class="card text-center order-visitor-card">
                     <div class="card-block">
                         <h6 class="m-b-0">Top Services</h6>
-                        <h4 class="m-t-15 m-b-15"><i class="fas fa-star m-r-15 text-c-green"></i>6325</h4>
+                        <h4 class="m-t-15 m-b-15"><i class="fas fa-star m-r-15 text-c-green"></i>Tooth Extraction</h4>
                         <p class="m-b-0"></p>
                     </div>
                 </div>

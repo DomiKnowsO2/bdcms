@@ -73,8 +73,8 @@ if (isset($_POST['Savechanges'])) {
                             echo "<td class='text-center'>";
                             echo "<div class='d-grid gap-2 d-sm-flex justify-content-sm-center'>";
                             echo "<button type='button' class='btn btn-primary edit-btn' data-bs-toggle='modal' data-bs-target='#addRecord' data-patient-id='" . $row['patient_id'] . "'>Edit</button>";
-                            echo "<button type='button' class='btn btn-primary details-btn' data-bs-toggle='modal' data-bs-target='#detailsmodal' data-patient-id='" . $row['patient_id'] . "'>Details</button>";
-                            // echo "<button type='button' onclick='deleteStocks(" . $row['patient_id'] . ")' class='btn btn-primary' data-bs-toggle='modal' data-bs-request-id='" . $row['patient_id'] . "'>Delete</button>";
+                            echo "<button type='button' onclick='deleteStocks(" . $row['patient_id'] . ")' class='btn btn-danger' data-bs-toggle='modal' data-bs-request-id='" . $row['patient_id'] . "'>Delete</button>";
+                            echo "<button style='background-color: green;' type='button' class='btn btn-danger' data-bs-toggle='modal' data-bs-target='#detailsmodal' data-patient-id='" . $row['patient_id'] . "'>Details</button>";
                             echo "</div>";
                             echo "</td>";
                             echo "</tr>";
