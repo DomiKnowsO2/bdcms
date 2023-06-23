@@ -68,7 +68,6 @@
                             echo $row_patients['patients_count'];
                             ?>
                         </h4>
-                        <p class="m-b-0">48% From Last 24 Hours</p>
                     </div>
                 </div>
             </div>
@@ -92,7 +91,7 @@
             <script src="./calendar/evo-calendar/js/evo-calendar.min.js"></script>
             <script src="./calendar/demo/demo.js"></script>
             <script>
-                $(document).ready(function () {
+                $(document).ready(function() {
                     $('#calendar').evoCalendar({
                         theme: 'Midnight Blue',
                         calendarEvents: [
