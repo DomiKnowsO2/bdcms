@@ -68,7 +68,10 @@
                             echo $row_patients['patients_count'];
                             ?>
                         </h4>
+<<<<<<< HEAD
                         <p class="m-b-0"></p>
+=======
+>>>>>>> 94d849e8c45816fea74d0a92f6588ae47c42244c
                     </div>
                 </div>
             </div>
@@ -92,7 +95,7 @@
             <script src="./calendar/evo-calendar/js/evo-calendar.min.js"></script>
             <script src="./calendar/demo/demo.js"></script>
             <script>
-                $(document).ready(function () {
+                $(document).ready(function() {
                     $('#calendar').evoCalendar({
                         theme: 'Midnight Blue',
                         calendarEvents: [
