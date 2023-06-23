@@ -29,7 +29,7 @@ $result = mysqli_query($conn, $query);
 </div>
 <div class="modal-footer">
     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-    <!-- <button type="submit" name="AddPatientRecord" class="btn btn-primary">New Record</button> -->
+    <!-- <button type="submit" name="AddPatientForm" class="btn btn-primary">New Record</button> -->
 </div>
 
 <style>

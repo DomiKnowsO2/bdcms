@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 22, 2023 at 06:59 AM
+-- Generation Time: Jun 23, 2023 at 05:54 AM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -59,6 +59,15 @@ CREATE TABLE `history_tb` (
   `appointment_date` datetime NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `history_tb`
+--
+
+INSERT INTO `history_tb` (`history_id`, `patient_id`, `service_id`, `service_details`, `appointment_date`) VALUES
+(14, 30, 30, 'Patient Information:\r\nFull Name: John Llenard Prestado Nagal\r\nDate of Birth: 0001-12-03\r\nContact Number: 0909090909\r\n\r\nProcedure Information:\r\nProcedure Name: Dental Examination/Check Up\r\nDate of Procedure: June-23-2023 12:00am\r\nDentist: Dr. Ricardo P. Enciso\r\n\r\nPost-Operative Care Instructions:\r\n____________________________\r\nVital Signs and Observations:\r\n____________________________\r\nComments for the Doctor:\r\n____________________________\r\nTotal Payment: ₱150.00\r\n\r\nFollow-Up Appointment:\r\nDate: _________________________________\r\nTime: _________________________________\r\n        ', '2023-06-23 00:00:00'),
+(15, 31, 31, 'Patient Information:\r\nFull Name: Ricardo  Prestado Enciso\r\nDate of Birth: 0001-01-02\r\nContact Number: 0909090909\r\n\r\nProcedure Information:\r\nProcedure Name: Dental Examination/Check Up\r\nDate of Procedure: June-23-2023 12:00am\r\nDentist: Dr. Ricardo P. Enciso\r\n\r\nPost-Operative Care Instructions:\r\n____________________________\r\nVital Signs and Observations:\r\ndead\r\nComments for the Doctor:\r\ndid not survive the operation\r\nTotal Payment: ₱150.00\r\n\r\nFollow-Up Appointment:\r\nDate: _________________________________\r\nTime: _________________________________\r\n        ', '2023-06-23 00:00:00'),
+(16, 32, 32, 'Patient Information:\r\nFull Name: John Llenard Prestado Nagal\r\nDate of Birth: 2023-06-24\r\nContact Number: 0909090909\r\n\r\nProcedure Information:\r\nProcedure Name: Dental Examination/Check Up\r\nDate of Procedure: June-23-2023 12:00am\r\nDentist: Dr. Ricardo P. Enciso\r\n\r\nPost-Operative Care Instructions:\r\n____________________________\r\n\r\nVital Signs and Observations:\r\nhahahahah gadan na\r\n\r\nComments for the Doctor:\r\n____________________________\r\n\r\nTotal Payment: ₱150.00\r\n\r\nFollow-Up Appointment:\r\nDate: _________________________________\r\nTime: _________________________________\r\n        ', '2023-06-23 00:00:00');
+
 -- --------------------------------------------------------
 
 --
@@ -74,7 +83,7 @@ CREATE TABLE `patient_tb` (
   `birthdate` date NOT NULL,
   `address` varchar(255) NOT NULL,
   `phone` varchar(11) NOT NULL,
-  `email` varchar(100) NOT NULL,
+  `email` varchar(100) DEFAULT NULL,
   `password` varchar(1000) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -84,7 +93,7 @@ CREATE TABLE `patient_tb` (
 
 INSERT INTO `patient_tb` (`patient_id`, `firstName`, `middleName`, `lastName`, `birthdate`, `address`, `phone`, `email`, `password`) VALUES
 (1, 'John Llenard', 'Prestado', 'Nagal', '2002-05-29', 'Tagbong Pili Camarines sur', '09222555100', 'nagaljohnllenard@gmail.com', 'john'),
-(23, 'John Llenard', 'Prestado', 'Nagal', '2002-05-29', 'Tagbong', '09222555100', 'jonagal@my.cspc.edu.ph', 'admin');
+(32, 'John Llenard', 'Prestado', 'Nagal', '2023-06-24', 'Tagbong', '0909090909', NULL, '');
 
 -- --------------------------------------------------------
 
@@ -101,7 +110,7 @@ CREATE TABLE `requests_tb` (
   `middleName` varchar(100) NOT NULL,
   `lastName` varchar(100) NOT NULL,
   `address` varchar(255) NOT NULL,
-  `email` varchar(100) NOT NULL,
+  `email` varchar(100) DEFAULT NULL,
   `phone` varchar(11) NOT NULL,
   `appointment_date` datetime NOT NULL,
   `status` varchar(50) NOT NULL
@@ -112,15 +121,10 @@ CREATE TABLE `requests_tb` (
 --
 
 INSERT INTO `requests_tb` (`request_id`, `patient_id`, `service_id`, `firstName`, `middleName`, `lastName`, `address`, `email`, `phone`, `appointment_date`, `status`) VALUES
-(1, 1, 1, 'Jayson', '', 'Alamo', 'Balatan', 'jay@gmail.com', '09518961446', '2023-06-21 08:58:00', 'Pending'),
-(2, 1, 2, 'Brent', '', 'Alcoba', 'Sta. Cruz', 'brent1213@gmail.com', '09123568921', '2023-06-21 21:54:00', 'Pending'),
-(3, 1, 3, 'Juan', '', 'Juan', 'Balatan', 'juan123@gmail.com', '09501657896', '2023-06-21 14:56:00', 'Pending'),
-(4, 1, 4, 'charm', '', 'obero', 'lapsi', 'charm123@gmail.com', '09785961464', '2023-06-21 16:38:00', 'Pending'),
-(5, 1, 4, 'Dominic', '', 'Bañaria', 'San Juan, Baao, Cam. Sur', 'dominicbanaria28@gmail.com', '09518971564', '2023-06-21 00:55:00', 'Pending'),
-(6, 1, 1, 'john llenard', 'prestado', 'nagal', 'tagbong', 'nagaljohnllenard@gmail.com', '09567201068', '2023-06-23 12:00:00', 'Pending'),
-(7, 23, 1, 'John Llenard', 'Prestado', 'Nagal', 'Tagbong', 'jonagal@my.cspc.edu.ph', '09222555100', '2023-06-23 12:00:00', 'Pending'),
-(8, 23, 1, 'John Llenard', 'Prestado', 'Nagal', 'Tagbong', 'jonagal@my.cspc.edu.ph', '09222555100', '2023-06-23 12:00:00', 'Pending'),
-(9, 23, 1, 'John Llenard', 'Prestado', 'Nagal', 'Tagbong', 'jonagal@my.cspc.edu.ph', '09222555100', '2023-06-23 14:00:00', 'Pending');
+(13, 30, 4, 'John Llenard', 'Prestado', 'Nagal', 'Tagbong', NULL, '0909090909', '2023-06-23 00:00:00', 'Done'),
+(14, 31, 4, 'Ricardo ', 'Prestado', 'Enciso', 'Tagbong', NULL, '0909090909', '2023-06-23 00:00:00', 'Done'),
+(15, 32, 4, 'John Llenard', 'Prestado', 'Nagal', 'Tagbong', NULL, '0909090909', '2023-06-23 00:00:00', 'Done'),
+(16, 1, 3, 'John Llenard', 'Prestado', 'Nagal', 'Tagbong Pili Camarines sur', 'nagaljohnllenard@gmail.com', '09222555100', '2023-06-24 12:00:00', 'Approve');
 
 -- --------------------------------------------------------
 
@@ -194,19 +198,19 @@ ALTER TABLE `admin`
 -- AUTO_INCREMENT for table `history_tb`
 --
 ALTER TABLE `history_tb`
-  MODIFY `history_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `history_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT for table `patient_tb`
 --
 ALTER TABLE `patient_tb`
-  MODIFY `patient_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
+  MODIFY `patient_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
 
 --
 -- AUTO_INCREMENT for table `requests_tb`
 --
 ALTER TABLE `requests_tb`
-  MODIFY `request_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `request_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT for table `services_tb`

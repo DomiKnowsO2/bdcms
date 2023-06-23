@@ -38,7 +38,7 @@ if (isset($_POST['AddPatientRecord'])) {
         $phone = $_POST['phone'];
         $service = $_POST['service'];
         $status = "Approve";
-        $date = date('Y-m-d');
+        $date = date('Y-m-d H:i:s');
     
         $stmt = $conn->prepare("INSERT INTO `patient_tb`(`firstName`, `middleName`, `lastName`, `birthdate`, `address`, `phone`) VALUES (?, ?, ?, ?, ?, ?)");
         $stmt->bind_param("ssssss", $firstName, $middleName, $lastName, $birthdate, $address, $phone);
