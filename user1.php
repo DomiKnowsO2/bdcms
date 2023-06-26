@@ -229,15 +229,15 @@ form.appendChild(inputlname);
 
 var labelbirthdate = document.createElement('label');
 labelbirthdate.textContent = 'Birth Date:';
-<?php if (!empty($birthdate)) : ?>
+<?php if (!empty($birthdate) && $birthdate !== '0000-00-00') : ?>
    labelbirthdate.style.display = 'none';
 <?php endif; ?>
 form.appendChild(labelbirthdate);
 
 var inputbirthdate = document.createElement('input');
-inputbirthdate.type = '<?php echo (!empty($birthdate)) ? "hidden" : "date"; ?>';
+inputbirthdate.type = '<?php echo (!empty($birthdate) && $birthdate !== '0000-00-00') ? "hidden" : "date"; ?>';
 inputbirthdate.name = 'birthdate';
-inputbirthdate.value = '<?php echo $birthdate; ?>';
+inputbirthdate.value = '<?php echo ($birthdate !== '0000-00-00') ? $birthdate : ''; ?>';
 inputbirthdate.placeholder = 'Enter your birthdate';
 form.appendChild(inputbirthdate);
 
