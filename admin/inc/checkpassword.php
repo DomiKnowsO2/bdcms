@@ -1,30 +1,5 @@
 <?php
-// include 'db-connect.php';
-// session_start();
-
-// $username = $_POST['uname'];
-// $password = $_POST['password'];
-
-// $checkpassword = mysqli_query($conn, "SELECT * FROM `admin` WHERE username = '$username'");
-// if ($checkpassword->num_rows > 0) {
-// 	while ($row = mysqli_fetch_array($checkpassword)) {
-// 		if ($password == $row['password']) {
-
-// 			header("location: ./home.php");
-// 		} else {
-// 			echo "<script> alert('Incorrect Username or Password!'); history.go(-1);</script>";
-// 		}
-// 	}
-// }
-// else{
-// 	echo "<script> alert('Username or Password are Not found!'); history.go(-1);</script>";
-// }
-// $conn->close();
-
-?>
-
-
-<?php
+session_start();
 // Check if the user is already logged in
 if (isset($_SESSION['uname'])) {
 	// Redirect the user to the home page
@@ -47,9 +22,18 @@ if (isset($_POST['uname']) && isset($_POST['password'])) {
 
 	// If the username and password exist, log the user in
 	if ($stmt->rowCount() > 0) {
+		// Fetch the row from the result set
+		$row = $stmt->fetch(PDO::FETCH_ASSOC);
+
+		// Get the column name
+		$columnName = $row['name'];
+		$link = $row['link'];
+
 		// Set the session variables
+		$_SESSION['link'] = $link;
+		$_SESSION['name'] = $columnName;
 		$_SESSION['uname'] = $username;
-		$_SESSION['logged_in'] = true;
+		$_SESSION['logged_admin'] = true;
 
 		// Redirect the user to the home page
 		header('Location: ../index.php');
@@ -58,4 +42,3 @@ if (isset($_POST['uname']) && isset($_POST['password'])) {
 		echo "<script> alert('Invalid username or password!'); history.go(-1);</script>";
 	}
 }
-?>

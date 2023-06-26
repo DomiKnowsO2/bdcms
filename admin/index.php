@@ -1,5 +1,15 @@
 <?php
-// session_start();
+session_start();
+
+if (!isset($_SESSION['name']) || !isset($_SESSION['link'])) {
+    header("Location: login.php");
+    exit;
+}
+
+$name = $_SESSION['name'];
+$link = $_SESSION['link'];
+$_SESSION['admin'] = 'admin';
+
 include('../db-connect.php');
 ?>
 <!DOCTYPE html>

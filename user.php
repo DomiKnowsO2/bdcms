@@ -1,6 +1,7 @@
 <?php
 session_start();
 include('./db-connect.php');
+// $_SESSION['user'] = 'user';
 
 $patient_id = "";
 $firstName = "";
@@ -47,10 +48,12 @@ if (isset($_SESSION['email'])) {
 
    <!-- custom css file link  -->
    <link rel="stylesheet" href="css/style.css">
+   <link rel="stylesheet" href="./css/mod.css">
 
 
    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/4.6.1/js/bootstrap.min.js"></script>
 
 </head>
 
@@ -60,30 +63,34 @@ if (isset($_SESSION['email'])) {
 
    <header class="header fixed-top">
 
-      <div class="container">
+      <div class="row align-items-center justify-content-between">
+         <nav>
+            <a href="#" class="logo">BDC<span>MS</span></a>
+         </nav>
 
-         <div class="row align-items-center justify-content-between">
 
-            <a href="login.php" class="logo">BDC<span>MS</span></a>
+         <nav class="nav">
+            <a href="#home">home</a>
+            <a href="#about">about</a>
+            <a href="#services">services</a>
+            <a href="#reviews">reviews</a>
+            <a href="#contact">Appointment</a>
+         </nav>
+         <nav class="right none">
 
-            <nav class="nav">
-               <a href="#home">home</a>
-               <a href="#about">about</a>
-               <a href="#services">services</a>
-               <a href="#reviews">reviews</a>
-               <a href="#contact">contact</a>
-            </nav>
-            <nav>
-               <a href="#contact" class="link-btn">make appointment</a>
-               <a href="./admin/logout.php" class="link-btn">Log out</a>
-            </nav>
-            <div id="menu-btn" class="fas fa-bars"></div>
+            <a href="#" class="btn btn-round btn-green align-items-center justify-content-center" data-toggle="tooltip" data-placement="bottom" title="Notification" data-delay="1000">
+               <i class="fas fa-bell"><span class="notification">2</span></i>
+            </a>
+            <a href="./admin/logout.php" class="btn btn-round btn-green align-items-center justify-content-center" data-toggle="tooltip" data-placement="bottom" title="Logout" data-delay="1000">
+               <i class="fas fa-sign-out-alt"></i>
+            </a>
 
-         </div>
+         </nav>
+         <div id="menu-btn" class="fas fa-bars"></div>
 
       </div>
-
    </header>
+ 
 
 
    <section class="contact" id="contact">
@@ -91,7 +98,7 @@ if (isset($_SESSION['email'])) {
       <h1 class="heading">make appointment</h1>
 
       <form action="save_appointment.php" method="post">
-         <input type="hidden" name="patient_id" value="<?php echo $patient_id; ?>" class="box" required>
+         <input type="number" name="patient_id" value="<?php echo $patient_id; ?>" class="box" required>
          <span>First name :</span>
          <input type="text" name="fname" value="<?php echo $firstName; ?>" placeholder="Enter your Firstname" class="box" required>
          <span>Middle name :</span>
@@ -122,7 +129,9 @@ if (isset($_SESSION['email'])) {
 
          <span>appointment date :</span>
          <!-- <input type="datetime-local" name="date" class="box" required> -->
-         <input type="datetime-local" id="myDatePicker" name="date" class="box" required>
+         <!-- <input type="datetime-local" id="myDatePicker" name="date" class="box" required> -->
+         <input type="text" name="date" id="date"class="box" placeholder="Enter your date">
+         <input type="text" name="time" id="time"class="box" placeholder="Enter your time">
          <input type="submit" value="make appointment" name="submit" class="link-btn">
       </form>
 
@@ -133,9 +142,11 @@ if (isset($_SESSION['email'])) {
          dateFormat: "Y-m-d H:i",
          // Add more options as needed
       });
+
+      $(function() {
+         $('[data-toggle="tooltip"]').tooltip()
+      });
    </script>
-
-
    <script src="js/script.js"></script>
 
 </body>

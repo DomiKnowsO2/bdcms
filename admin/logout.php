@@ -1,13 +1,11 @@
 <?php
-session_start(); // Start the session if not already started
+session_start(); 
+   
+    unset($_SESSION['link']);
+    unset($_SESSION['name']);
+    unset($_SESSION['uname']);
+    unset($_SESSION['logged_admin']);
 
-// Clear all session variables
-$_SESSION = array();
-
-// Destroy the session
-session_destroy();
-
-// Redirect to the login page or any other desired page
 header("Location: ../index.php");
 exit;
 ?>
