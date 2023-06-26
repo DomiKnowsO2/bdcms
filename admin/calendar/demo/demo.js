@@ -1,5 +1,7 @@
 var today = new Date();
 
+var currentTime = today.toLocaleTimeString();
+
 var events = [ {
     id: "imwyx6S",
     name: "Event #3",

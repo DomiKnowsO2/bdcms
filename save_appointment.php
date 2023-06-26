@@ -11,7 +11,7 @@ if (isset($_POST['submit'])) {
     $email = mysqli_real_escape_string($conn, $_POST['email']);
     $number = mysqli_real_escape_string($conn, $_POST['number']);
     $service = mysqli_real_escape_string($conn, $_POST['service']);
-    $date = mysqli_real_escape_string($conn, $_POST['date']);
+    $date = mysqli_real_escape_string($conn, $_POST['date']." ". $_POST['time']);
     $status = "Pending";
 
     $insert = mysqli_query($conn, "INSERT INTO `requests_tb` (patient_id, firstName, middleName, lastName, address, email, phone, service_id, appointment_date, status) VALUES ('$patient_id', '$fname', '$mname', '$lname', '$address', '$email', '$number', '$service', '$date', '$status')") or die('Query failed');
@@ -19,7 +19,7 @@ if (isset($_POST['submit'])) {
     $update = mysqli_query($conn, "UPDATE `patient_tb` SET `firstName` = '$fname', `middleName` = '$mname', `lastName` = '$lname',`birthdate`='$birthdate', `address` = '$address', `phone` = '$number' WHERE `patient_id` = '$patient_id'") or die('Query failed');
 
     if ($insert && $update) {
-        echo "<script> alert('Appointment made successfully!'); location.replace('./user.php'); </script>";
+        echo "<script> alert('Appointment made successfully!'); location.replace('./user1.php'); </script>";
     } else {
         echo "<script> alert('Appointment Failed!'); history.go(-1); </script>";
     }

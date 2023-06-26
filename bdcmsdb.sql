@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 23, 2023 at 05:54 AM
+-- Generation Time: Jun 26, 2023 at 06:27 AM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -33,16 +33,18 @@ DROP TABLE IF EXISTS `admin`;
 CREATE TABLE `admin` (
   `id` int(11) NOT NULL,
   `username` varchar(255) NOT NULL,
-  `password` varchar(255) NOT NULL
+  `password` varchar(255) NOT NULL,
+  `name` varchar(100) NOT NULL,
+  `link` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `admin`
 --
 
-INSERT INTO `admin` (`id`, `username`, `password`) VALUES
-(1, 'admin', 'password'),
-(4, 'Admin', 'admin');
+INSERT INTO `admin` (`id`, `username`, `password`, `name`, `link`) VALUES
+(1, 'admin', 'admin', 'Dominic Bañaria', 'https://scontent.fmnl26-1.fna.fbcdn.net/v/t39.30808-1/320521404_565065432100842_5358095008287230586_n.jpg?stp=dst-jpg_p320x320&_nc_cat=100&cb=99be929b-59f725be&ccb=1-7&_nc_sid=7206a8&_nc_eui2=AeFM3Io6Sm8L-RmhWf259URrhU92RFqbhLGFT3ZEWpuEsan290F18TyGfdGbfrI0vz6YH6aOZ3VMv2RQ0q-onOku&_nc_ohc=R-L3IG074XkAX9J5p9S&_nc_ht=scontent.fmnl26-1.fna&oh=00_AfAIGfKz0FqVFtwTvpf2vwNq3TLSFwj-Er0KxutW966t7Q&oe=649A56D2'),
+(2, 'admin', 'jayson', 'Jayson Ani Alamo', 'https://scontent.fmnl26-2.fna.fbcdn.net/v/t39.30808-1/352743983_646894333536212_117214995778575484_n.jpg?stp=dst-jpg_s320x320&_nc_cat=111&cb=99be929b-59f725be&ccb=1-7&_nc_sid=7206a8&_nc_eui2=AeEI3A--cvx6pkS6Gh35KSFQ_4JLIRf05_D_gkshF_Tn8Nh7HjY440yDs9vWE8PRMP9NQVpBxhhO8Q1oWxePnfCC&_nc_ohc=4OYwWacckW4AX919r92&_nc_ht=scontent.fmnl26-2.fna&oh=00_AfBQRTBunqCG8EYGFU-q-ItKuDzZpF0QFCtlW4U3mPIXHg&oe=649BC92C');
 
 -- --------------------------------------------------------
 
@@ -59,15 +61,6 @@ CREATE TABLE `history_tb` (
   `appointment_date` datetime NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
---
--- Dumping data for table `history_tb`
---
-
-INSERT INTO `history_tb` (`history_id`, `patient_id`, `service_id`, `service_details`, `appointment_date`) VALUES
-(14, 30, 30, 'Patient Information:\r\nFull Name: John Llenard Prestado Nagal\r\nDate of Birth: 0001-12-03\r\nContact Number: 0909090909\r\n\r\nProcedure Information:\r\nProcedure Name: Dental Examination/Check Up\r\nDate of Procedure: June-23-2023 12:00am\r\nDentist: Dr. Ricardo P. Enciso\r\n\r\nPost-Operative Care Instructions:\r\n____________________________\r\nVital Signs and Observations:\r\n____________________________\r\nComments for the Doctor:\r\n____________________________\r\nTotal Payment: ₱150.00\r\n\r\nFollow-Up Appointment:\r\nDate: _________________________________\r\nTime: _________________________________\r\n        ', '2023-06-23 00:00:00'),
-(15, 31, 31, 'Patient Information:\r\nFull Name: Ricardo  Prestado Enciso\r\nDate of Birth: 0001-01-02\r\nContact Number: 0909090909\r\n\r\nProcedure Information:\r\nProcedure Name: Dental Examination/Check Up\r\nDate of Procedure: June-23-2023 12:00am\r\nDentist: Dr. Ricardo P. Enciso\r\n\r\nPost-Operative Care Instructions:\r\n____________________________\r\nVital Signs and Observations:\r\ndead\r\nComments for the Doctor:\r\ndid not survive the operation\r\nTotal Payment: ₱150.00\r\n\r\nFollow-Up Appointment:\r\nDate: _________________________________\r\nTime: _________________________________\r\n        ', '2023-06-23 00:00:00'),
-(16, 32, 32, 'Patient Information:\r\nFull Name: John Llenard Prestado Nagal\r\nDate of Birth: 2023-06-24\r\nContact Number: 0909090909\r\n\r\nProcedure Information:\r\nProcedure Name: Dental Examination/Check Up\r\nDate of Procedure: June-23-2023 12:00am\r\nDentist: Dr. Ricardo P. Enciso\r\n\r\nPost-Operative Care Instructions:\r\n____________________________\r\n\r\nVital Signs and Observations:\r\nhahahahah gadan na\r\n\r\nComments for the Doctor:\r\n____________________________\r\n\r\nTotal Payment: ₱150.00\r\n\r\nFollow-Up Appointment:\r\nDate: _________________________________\r\nTime: _________________________________\r\n        ', '2023-06-23 00:00:00');
-
 -- --------------------------------------------------------
 
 --
@@ -80,7 +73,7 @@ CREATE TABLE `patient_tb` (
   `firstName` varchar(100) NOT NULL,
   `middleName` varchar(100) NOT NULL,
   `lastName` varchar(100) NOT NULL,
-  `birthdate` date NOT NULL,
+  `birthdate` date DEFAULT NULL,
   `address` varchar(255) NOT NULL,
   `phone` varchar(11) NOT NULL,
   `email` varchar(100) DEFAULT NULL,
@@ -92,8 +85,7 @@ CREATE TABLE `patient_tb` (
 --
 
 INSERT INTO `patient_tb` (`patient_id`, `firstName`, `middleName`, `lastName`, `birthdate`, `address`, `phone`, `email`, `password`) VALUES
-(1, 'John Llenard', 'Prestado', 'Nagal', '2002-05-29', 'Tagbong Pili Camarines sur', '09222555100', 'nagaljohnllenard@gmail.com', 'john'),
-(32, 'John Llenard', 'Prestado', 'Nagal', '2023-06-24', 'Tagbong', '0909090909', NULL, '');
+(1, 'John Llenard', 'Prestado', 'Nagal', '2002-05-29', 'Tagbong Pili Camarines sur', '09222555100', 'nagaljohnllenard@gmail.com', 'john');
 
 -- --------------------------------------------------------
 
@@ -121,10 +113,9 @@ CREATE TABLE `requests_tb` (
 --
 
 INSERT INTO `requests_tb` (`request_id`, `patient_id`, `service_id`, `firstName`, `middleName`, `lastName`, `address`, `email`, `phone`, `appointment_date`, `status`) VALUES
-(13, 30, 4, 'John Llenard', 'Prestado', 'Nagal', 'Tagbong', NULL, '0909090909', '2023-06-23 00:00:00', 'Done'),
-(14, 31, 4, 'Ricardo ', 'Prestado', 'Enciso', 'Tagbong', NULL, '0909090909', '2023-06-23 00:00:00', 'Done'),
-(15, 32, 4, 'John Llenard', 'Prestado', 'Nagal', 'Tagbong', NULL, '0909090909', '2023-06-23 00:00:00', 'Done'),
-(16, 1, 3, 'John Llenard', 'Prestado', 'Nagal', 'Tagbong Pili Camarines sur', 'nagaljohnllenard@gmail.com', '09222555100', '2023-06-24 12:00:00', 'Approve');
+(30, 1, 3, 'John Llenard', 'Prestado', 'Nagal', 'Tagbong Pili Camarines sur', 'nagaljohnllenard@gmail.com', '09222555100', '2023-06-30 11:00:00', 'Pending'),
+(31, 1, 3, 'John Llenard', 'Prestado', 'Nagal', 'Tagbong Pili Camarines sur', 'nagaljohnllenard@gmail.com', '09222555100', '2023-06-29 11:00:00', 'Pending'),
+(32, 1, 4, 'John Llenard', 'Prestado', 'Nagal', 'Tagbong Pili Camarines sur', 'nagaljohnllenard@gmail.com', '09222555100', '2023-06-29 17:00:00', 'Pending');
 
 -- --------------------------------------------------------
 
@@ -198,19 +189,19 @@ ALTER TABLE `admin`
 -- AUTO_INCREMENT for table `history_tb`
 --
 ALTER TABLE `history_tb`
-  MODIFY `history_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `history_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 
 --
 -- AUTO_INCREMENT for table `patient_tb`
 --
 ALTER TABLE `patient_tb`
-  MODIFY `patient_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
+  MODIFY `patient_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=39;
 
 --
 -- AUTO_INCREMENT for table `requests_tb`
 --
 ALTER TABLE `requests_tb`
-  MODIFY `request_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `request_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
 
 --
 -- AUTO_INCREMENT for table `services_tb`
