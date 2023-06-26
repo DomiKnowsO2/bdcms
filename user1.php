@@ -133,22 +133,32 @@ if (isset($_SESSION['email'])) {
          $(document).ready(function() {
             $('#calendar').evoCalendar({
                theme: 'Royal Navy',
-               calendarEvents: [{
-                     id: 'bHay68s',
-                     name: 'New Year',
-                     description: 'Vacation leave for 3 days. sgsfghdgfh ufgsdhjfg auefsug uarf',
-                     date: '06/21/2020',
-                     type: 'holiday',
-                     everyYear: true
-                  },
-                  {
-                     id: '9894',
-                     name: 'New Year',
-                     description: 'Vacation leave for 3 days. sgsfghdgfh ufgsdhjfg auefsug uarf',
-                     date: '06/21/2020',
-                     type: 'holiday',
-                     everyYear: true
+               calendarEvents: [
+                  <?php
+                  $sqlCalendar = mysqli_query($conn, "SELECT r.*, s.service_name FROM requests_tb r INNER JOIN services_tb s ON r.service_id = s.service_id ORDER BY r.appointment_date ASC");
+                  while ($row = mysqli_fetch_array($sqlCalendar)) {
+                     echo "{";
+                     echo "id: '" . $row['request_id'] . "',";
+                     echo "badge: '" . date('g:i a', strtotime($row['appointment_date'])) . "', ";
+                     echo "name: '" . $row['firstName'] . " " . $row['lastName'] . "',";
+                     echo "description: '" . $row['service_name'] . "<br>" . "',";
+                     echo "date: '" . $row['appointment_date'] . "',";
+                     echo "type: 'event',";
+                     echo "color: ";
+
+                     $status = $row['status'];
+                     if ($status === "Approve") {
+                        echo "'#198754'";
+                     } elseif ($status === "Reject") {
+                        echo "'#dc3545'";
+                     } elseif ($status === "Done") {
+                        echo "'lightseagreen'";
+                     } else {
+                        echo "'#fd7e14'";
+                     }
+                     echo "},";
                   }
+                  ?>
                ]
             });
 
@@ -177,12 +187,12 @@ if (isset($_SESSION['email'])) {
             title.className = 'title';
             title.innerHTML = '<strong>Appointment Form</strong>';
 
-               var inputid = document.createElement('input');
-               inputid.type = 'hidden';
-               inputid.name = 'patient_id';
-               inputid.value = '<?php echo $patient_id; ?>';
+            var inputid = document.createElement('input');
+            inputid.type = 'hidden';
+            inputid.name = 'patient_id';
+            inputid.value = '<?php echo $patient_id; ?>';
 
-               form.appendChild(inputid);
+            form.appendChild(inputid);
 
             var labelfname = document.createElement('label');
             labelfname.textContent = 'First Name:';
@@ -198,95 +208,95 @@ if (isset($_SESSION['email'])) {
             form.appendChild(inputfname);
 
             var labelmname = document.createElement('label');
-labelmname.textContent = 'Middle Name:';
-<?php if (!empty($middleName)) : ?>
-   labelmname.style.display = 'none';
-<?php endif; ?>
-form.appendChild(labelmname);
+            labelmname.textContent = 'Middle Name:';
+            <?php if (!empty($middleName)) : ?>
+               labelmname.style.display = 'none';
+            <?php endif; ?>
+            form.appendChild(labelmname);
 
-var inputmname = document.createElement('input');
-inputmname.type = '<?php echo (!empty($middleName)) ? "hidden" : "text"; ?>';
-inputmname.name = 'mname';
-inputmname.value = '<?php echo $middleName; ?>';
-inputmname.placeholder = 'Enter your middle name';
-form.appendChild(inputmname);
-
-
-var labellname = document.createElement('label');
-labellname.textContent = 'Last Name:';
-<?php if (!empty($lastName)) : ?>
-   labellname.style.display = 'none';
-<?php endif; ?>
-form.appendChild(labellname);
-
-var inputlname = document.createElement('input');
-inputlname.type = '<?php echo (!empty($lastName)) ? "hidden" : "text"; ?>';
-inputlname.name = 'lname';
-inputlname.value = '<?php echo $lastName; ?>';
-inputlname.placeholder = 'Enter your last name';
-form.appendChild(inputlname);
+            var inputmname = document.createElement('input');
+            inputmname.type = '<?php echo (!empty($middleName)) ? "hidden" : "text"; ?>';
+            inputmname.name = 'mname';
+            inputmname.value = '<?php echo $middleName; ?>';
+            inputmname.placeholder = 'Enter your middle name';
+            form.appendChild(inputmname);
 
 
-var labelbirthdate = document.createElement('label');
-labelbirthdate.textContent = 'Birth Date:';
-<?php if (!empty($birthdate) && $birthdate !== '0000-00-00') : ?>
-   labelbirthdate.style.display = 'none';
-<?php endif; ?>
-form.appendChild(labelbirthdate);
+            var labellname = document.createElement('label');
+            labellname.textContent = 'Last Name:';
+            <?php if (!empty($lastName)) : ?>
+               labellname.style.display = 'none';
+            <?php endif; ?>
+            form.appendChild(labellname);
 
-var inputbirthdate = document.createElement('input');
-inputbirthdate.type = '<?php echo (!empty($birthdate) && $birthdate !== '0000-00-00') ? "hidden" : "date"; ?>';
-inputbirthdate.name = 'birthdate';
-inputbirthdate.value = '<?php echo ($birthdate !== '0000-00-00') ? $birthdate : ''; ?>';
-inputbirthdate.placeholder = 'Enter your birthdate';
-form.appendChild(inputbirthdate);
-
-
-var labeladdress = document.createElement('label');
-labeladdress.textContent = 'Address:';
-<?php if (!empty($address)) : ?>
-   labeladdress.style.display = 'none';
-<?php endif; ?>
-form.appendChild(labeladdress);
-
-var inputaddress = document.createElement('input');
-inputaddress.type = '<?php echo (!empty($address)) ? "hidden" : "text"; ?>';
-inputaddress.name = 'address';
-inputaddress.value = '<?php echo $address; ?>';
-inputaddress.placeholder = 'Enter your address';
-form.appendChild(inputaddress);
+            var inputlname = document.createElement('input');
+            inputlname.type = '<?php echo (!empty($lastName)) ? "hidden" : "text"; ?>';
+            inputlname.name = 'lname';
+            inputlname.value = '<?php echo $lastName; ?>';
+            inputlname.placeholder = 'Enter your last name';
+            form.appendChild(inputlname);
 
 
-var labelemail = document.createElement('label');
-labelemail.textContent = 'Email:';
-<?php if (!empty($email)) : ?>
-   labelemail.style.display = 'none';
-<?php endif; ?>
-form.appendChild(labelemail);
+            var labelbirthdate = document.createElement('label');
+            labelbirthdate.textContent = 'Birth Date:';
+            <?php if (!empty($birthdate) && $birthdate !== '0000-00-00') : ?>
+               labelbirthdate.style.display = 'none';
+            <?php endif; ?>
+            form.appendChild(labelbirthdate);
 
-var inputemail = document.createElement('input');
-inputemail.type = '<?php echo (!empty($email)) ? "hidden" : "email"; ?>';
-inputemail.name = 'email';
-inputemail.value = '<?php echo $email; ?>';
-inputemail.placeholder = 'Enter your email';
-form.appendChild(inputemail);
+            var inputbirthdate = document.createElement('input');
+            inputbirthdate.type = '<?php echo (!empty($birthdate) && $birthdate !== '0000-00-00') ? "hidden" : "date"; ?>';
+            inputbirthdate.name = 'birthdate';
+            inputbirthdate.value = '<?php echo ($birthdate !== '0000-00-00') ? $birthdate : ''; ?>';
+            inputbirthdate.placeholder = 'Enter your birthdate';
+            form.appendChild(inputbirthdate);
 
 
-var labelnumber = document.createElement('label');
-labelnumber.textContent = 'Your Number:';
-<?php if (!empty($phone)) : ?>
-   labelnumber.style.display = 'none';
-<?php endif; ?>
-form.appendChild(labelnumber);
+            var labeladdress = document.createElement('label');
+            labeladdress.textContent = 'Address:';
+            <?php if (!empty($address)) : ?>
+               labeladdress.style.display = 'none';
+            <?php endif; ?>
+            form.appendChild(labeladdress);
 
-var inputnumber = document.createElement('input');
-inputnumber.type = '<?php echo (!empty($phone)) ? "hidden" : "text"; ?>';
-inputnumber.name = 'number';
-inputnumber.value = '<?php echo $phone; ?>';
-inputnumber.placeholder = 'Enter your phone number';
-form.appendChild(inputnumber);
+            var inputaddress = document.createElement('input');
+            inputaddress.type = '<?php echo (!empty($address)) ? "hidden" : "text"; ?>';
+            inputaddress.name = 'address';
+            inputaddress.value = '<?php echo $address; ?>';
+            inputaddress.placeholder = 'Enter your address';
+            form.appendChild(inputaddress);
 
-               
+
+            var labelemail = document.createElement('label');
+            labelemail.textContent = 'Email:';
+            <?php if (!empty($email)) : ?>
+               labelemail.style.display = 'none';
+            <?php endif; ?>
+            form.appendChild(labelemail);
+
+            var inputemail = document.createElement('input');
+            inputemail.type = '<?php echo (!empty($email)) ? "hidden" : "email"; ?>';
+            inputemail.name = 'email';
+            inputemail.value = '<?php echo $email; ?>';
+            inputemail.placeholder = 'Enter your email';
+            form.appendChild(inputemail);
+
+
+            var labelnumber = document.createElement('label');
+            labelnumber.textContent = 'Your Number:';
+            <?php if (!empty($phone)) : ?>
+               labelnumber.style.display = 'none';
+            <?php endif; ?>
+            form.appendChild(labelnumber);
+
+            var inputnumber = document.createElement('input');
+            inputnumber.type = '<?php echo (!empty($phone)) ? "hidden" : "text"; ?>';
+            inputnumber.name = 'number';
+            inputnumber.value = '<?php echo $phone; ?>';
+            inputnumber.placeholder = 'Enter your phone number';
+            form.appendChild(inputnumber);
+
+
             var label1 = document.createElement('label');
             label1.textContent = 'Appointment Date:';
             var input1 = document.createElement('input');
