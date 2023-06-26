@@ -93,7 +93,7 @@ if (isset($_SESSION['email'])) {
    </header>
    <section class="contact" id="contact">
 
-      <h1 class="heading">make appointment</h1>
+      <!-- <h1 class="heading">make appointment</h1>
 
       <form action="save_appointment.php" method="post">
          <input type="hidden" name="patient_id" value="<?php echo $patient_id; ?>" class="box" required>
@@ -111,7 +111,7 @@ if (isset($_SESSION['email'])) {
          <input type="email" name="email" value="<?php echo $email; ?>" placeholder="Enter your Email" class="box" required>
          <span>your number :</span>
          <input type="text" name="number" value="<?php echo $phone; ?>" placeholder="Enter your Phone Number" class="box" required>
-      </form>
+      </form> -->
    </section>
    <section class="contact" id="contact">
       <h1 class="heading">make appointment</h1>
