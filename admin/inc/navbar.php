@@ -23,7 +23,8 @@ $mysqli->close();
 
 <div class="col-auto col-md-3 col-xl-2  px-0 newbg">
     <div class="col-auto col-xl-2 position">
-        <div class="d-flex flex-column align-items-center align-items-sm-start px-3 pt-2 text-white min-vh-100 position">
+        <div
+            class="d-flex flex-column align-items-center align-items-sm-start px-3 pt-2 text-white min-vh-100 position">
             <a href="#" class="d-flex align-items-center pb-3 mb-md-0 me-md-auto text-white text-decoration-none">
                 <span class="fs-5 d-none d-sm-inline" style="justify-items:center;">Admin</span>
             </a>
@@ -35,7 +36,7 @@ $mysqli->close();
                 </li>
                 <li class="nav-item">
                     <a href="./index.php" class="nav-link align-middle px-0">
-                        <i class="fa fa-house"></i> <span class="ms-1 d-none d-sm-inline">Home</span>
+                        <i class="fa fa-house"></i> <span class="ms-1 d-none d-sm-inline">Schedule</span>
                     </a>
                 </li>
                 <!--
@@ -89,7 +90,9 @@ $mysqli->close();
                     <a href="./index.php?page=requests" class="nav-link px-0 align-middle">
                         <i class="fa fa-envelope"></i>
                         <span class="ms-1 d-none d-sm-inline">Requests</span>
-                        <span class="ms-5 spancount align-middle"><?php echo $Alert_Count; ?></span>
+                        <span class="ms-5 spancount align-middle">
+                            <?php echo $Alert_Count; ?>
+                        </span>
                     </a>
                 </li>
                 <li class="nav-item">
@@ -110,8 +113,11 @@ $mysqli->close();
             </ul>
             <hr>
             <div class="dropdown pb-4">
-                <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
-                    <img src="https://scontent.fmnl26-2.fna.fbcdn.net/v/t39.30808-6/292438159_2098232643682338_5156325390179115562_n.jpg?_nc_cat=109&cb=99be929b-59f725be&ccb=1-7&_nc_sid=174925&_nc_eui2=AeHDvVQ_QM_eU1uJkf6Kpm0Xi0W_UPmmFl-LRb9Q-aYWXwXpr5fmX9LNXcymF-xbRYqjO0uqfuM5tEnX11Jt0uHj&_nc_ohc=gC9KzL8sBngAX8E-THJ&_nc_zt=23&_nc_ht=scontent.fmnl26-2.fna&oh=00_AfDMf1vfeouYSq8YnXcJTudzfHxEIn-DnDWwXJwOhDE5ng&oe=64991747" alt="hugenerd" width="30" height="30" class="rounded-circle" style="overflow: hidden;background-size: cover;background-position: center;">
+                <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle"
+                    id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
+                    <img src="https://scontent.fmnl26-2.fna.fbcdn.net/v/t39.30808-6/292438159_2098232643682338_5156325390179115562_n.jpg?_nc_cat=109&cb=99be929b-59f725be&ccb=1-7&_nc_sid=174925&_nc_eui2=AeHDvVQ_QM_eU1uJkf6Kpm0Xi0W_UPmmFl-LRb9Q-aYWXwXpr5fmX9LNXcymF-xbRYqjO0uqfuM5tEnX11Jt0uHj&_nc_ohc=gC9KzL8sBngAX8E-THJ&_nc_zt=23&_nc_ht=scontent.fmnl26-2.fna&oh=00_AfDMf1vfeouYSq8YnXcJTudzfHxEIn-DnDWwXJwOhDE5ng&oe=64991747"
+                        alt="hugenerd" width="30" height="30" class="rounded-circle"
+                        style="overflow: hidden;background-size: cover;background-position: center;">
                     <span class="d-none d-sm-inline mx-1">Admin</span>
                 </a>
                 <ul class="dropdown-menu dropdown-menu-dark text-small shadow">

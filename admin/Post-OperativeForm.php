@@ -48,7 +48,8 @@ if ($result && mysqli_num_rows($result) > 0) {
         <input type="hidden" name="patient_id" value='<?php echo $currentPatientId; ?>'>
         <input type="hidden" name="service_id" value='<?php echo $currentPatientId; ?>'>
         <input type="hidden" name="appointment_date" value='<?php echo $currentAppointmentDate; ?>'>
-        <input type="hidden" id="statusSelect" name="statusSelect" value='Done' placeholder="<?php echo $currentStatus; ?>">
+        <input type="hidden" id="statusSelect" name="statusSelect" value='Done'
+            placeholder="<?php echo $currentStatus; ?>">
         <textarea name="careForm" id="careForm" cols="30" rows="22" class="form-control">
 Patient Information:
 Full Name: <?php echo $currentFirstName . " " . $currentMiddleName . " " . $currentLastName; ?>
@@ -74,7 +75,7 @@ ____________________________
 Comments for the Doctor:
 ____________________________
 
-Total Payment: <?php echo "₱".$service_price; ?>
+Total Payment: <?php echo "₱" . $service_price; ?>
 
 
 Follow-Up Appointment:
