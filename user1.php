@@ -27,8 +27,6 @@ if (isset($_SESSION['email'])) {
       $address = $row['address'];
       $phone = $row['phone'];
    }
-   $notification_count_query = "SELECT COUNT(*) AS notification_count FROM notification_tb WHERE patient_id = '$patient_id' AND count = 0";
-   $notification_count_result = mysqli_query($conn, $notification_count_query);
 
    if ($notification_count_result && mysqli_num_rows($notification_count_result) > 0) {
       $notification_count_row = mysqli_fetch_assoc($notification_count_result);
