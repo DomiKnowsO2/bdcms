@@ -76,18 +76,6 @@ CREATE TABLE `notification_tb` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `notification_tb`
---
-
-INSERT INTO `notification_tb` (`notification_id`, `patient_id`, `notification_Message`, `count`) VALUES
-(11, 1, 'We regret to inform you that your appointment request has been rejected by our dental clinic. Your scheduled date and time are as follows:\r\nDate: June 30, 2023\r\nTime: 02:00pm', 1),
-(12, 1, 'We regret to inform you that your appointment request has been rejected by our dental clinic. Your scheduled date and time are as follows:\r\nDate: June 28, 2023\r\nTime: 01:00pm', 1),
-(13, 1, 'We regret to inform you that your appointment request has been rejected by our dental clinic. Your scheduled date and time are as follows:\r\nDate: June 29, 2023\r\nTime: 01:00pm', 1),
-(14, 1, 'We regret to inform you that your appointment request has been rejected by our dental clinic. Your scheduled date and time are as follows:\r\nDate: July 10, 2023\r\nTime: 01:00pm', 1);
-
--- --------------------------------------------------------
-
---
 -- Table structure for table `patient_tb`
 --
 
@@ -103,15 +91,6 @@ CREATE TABLE `patient_tb` (
   `email` varchar(100) DEFAULT NULL,
   `password` varchar(1000) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `patient_tb`
---
-
-INSERT INTO `patient_tb` (`patient_id`, `firstName`, `middleName`, `lastName`, `birthdate`, `address`, `phone`, `email`, `password`) VALUES
-(1, 'John Llenard', 'Prestado', 'Nagal', '2002-05-29', 'Tagbong Pili Camarines sur', '09222555100', 'nagaljohnllenard@gmail.com', 'john'),
-(40, 'John Llenard', 'prestado', 'nagal', '1989-01-26', 'Tagbong', '09567201068', 'jonagal@my.cspc.edu.ph', '123456'),
-(41, 'John Llenard', 'prestado', 'nagal', '2001-05-29', 'Tagbong', '09567201068', 'kapaycpato@gmail.com', '123456');
 
 -- --------------------------------------------------------
 
@@ -206,37 +185,37 @@ ALTER TABLE `services_tb`
 -- AUTO_INCREMENT for table `admin`
 --
 ALTER TABLE `admin`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `history_tb`
 --
 ALTER TABLE `history_tb`
-  MODIFY `history_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
+  MODIFY `history_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1;
 
 --
 -- AUTO_INCREMENT for table `notification_tb`
 --
 ALTER TABLE `notification_tb`
-  MODIFY `notification_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `notification_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1;
 
 --
 -- AUTO_INCREMENT for table `patient_tb`
 --
 ALTER TABLE `patient_tb`
-  MODIFY `patient_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=42;
+  MODIFY `patient_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1;
 
 --
 -- AUTO_INCREMENT for table `requests_tb`
 --
 ALTER TABLE `requests_tb`
-  MODIFY `request_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=64;
+  MODIFY `request_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1;
 
 --
 -- AUTO_INCREMENT for table `services_tb`
 --
 ALTER TABLE `services_tb`
-  MODIFY `service_id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `service_id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
