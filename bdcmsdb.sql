@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 26, 2023 at 06:27 AM
+-- Generation Time: Jun 27, 2023 at 09:00 AM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -64,6 +64,30 @@ CREATE TABLE `history_tb` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `notification_tb`
+--
+
+DROP TABLE IF EXISTS `notification_tb`;
+CREATE TABLE `notification_tb` (
+  `notification_id` int(11) NOT NULL,
+  `patient_id` int(11) NOT NULL,
+  `notification_Message` text NOT NULL,
+  `count` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `notification_tb`
+--
+
+INSERT INTO `notification_tb` (`notification_id`, `patient_id`, `notification_Message`, `count`) VALUES
+(11, 1, 'We regret to inform you that your appointment request has been rejected by our dental clinic. Your scheduled date and time are as follows:\r\nDate: June 30, 2023\r\nTime: 02:00pm', 1),
+(12, 1, 'We regret to inform you that your appointment request has been rejected by our dental clinic. Your scheduled date and time are as follows:\r\nDate: June 28, 2023\r\nTime: 01:00pm', 1),
+(13, 1, 'We regret to inform you that your appointment request has been rejected by our dental clinic. Your scheduled date and time are as follows:\r\nDate: June 29, 2023\r\nTime: 01:00pm', 1),
+(14, 1, 'We regret to inform you that your appointment request has been rejected by our dental clinic. Your scheduled date and time are as follows:\r\nDate: July 10, 2023\r\nTime: 01:00pm', 1);
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `patient_tb`
 --
 
@@ -85,7 +109,9 @@ CREATE TABLE `patient_tb` (
 --
 
 INSERT INTO `patient_tb` (`patient_id`, `firstName`, `middleName`, `lastName`, `birthdate`, `address`, `phone`, `email`, `password`) VALUES
-(1, 'John Llenard', 'Prestado', 'Nagal', '2002-05-29', 'Tagbong Pili Camarines sur', '09222555100', 'nagaljohnllenard@gmail.com', 'john');
+(1, 'John Llenard', 'Prestado', 'Nagal', '2002-05-29', 'Tagbong Pili Camarines sur', '09222555100', 'nagaljohnllenard@gmail.com', 'john'),
+(40, 'John Llenard', 'prestado', 'nagal', '1989-01-26', 'Tagbong', '09567201068', 'jonagal@my.cspc.edu.ph', '123456'),
+(41, 'John Llenard', 'prestado', 'nagal', '2001-05-29', 'Tagbong', '09567201068', 'kapaycpato@gmail.com', '123456');
 
 -- --------------------------------------------------------
 
@@ -107,15 +133,6 @@ CREATE TABLE `requests_tb` (
   `appointment_date` datetime NOT NULL,
   `status` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `requests_tb`
---
-
-INSERT INTO `requests_tb` (`request_id`, `patient_id`, `service_id`, `firstName`, `middleName`, `lastName`, `address`, `email`, `phone`, `appointment_date`, `status`) VALUES
-(30, 1, 3, 'John Llenard', 'Prestado', 'Nagal', 'Tagbong Pili Camarines sur', 'nagaljohnllenard@gmail.com', '09222555100', '2023-06-30 11:00:00', 'Pending'),
-(31, 1, 3, 'John Llenard', 'Prestado', 'Nagal', 'Tagbong Pili Camarines sur', 'nagaljohnllenard@gmail.com', '09222555100', '2023-06-29 11:00:00', 'Pending'),
-(32, 1, 4, 'John Llenard', 'Prestado', 'Nagal', 'Tagbong Pili Camarines sur', 'nagaljohnllenard@gmail.com', '09222555100', '2023-06-29 17:00:00', 'Pending');
 
 -- --------------------------------------------------------
 
@@ -157,6 +174,12 @@ ALTER TABLE `history_tb`
   ADD PRIMARY KEY (`history_id`);
 
 --
+-- Indexes for table `notification_tb`
+--
+ALTER TABLE `notification_tb`
+  ADD PRIMARY KEY (`notification_id`);
+
+--
 -- Indexes for table `patient_tb`
 --
 ALTER TABLE `patient_tb`
@@ -192,16 +215,22 @@ ALTER TABLE `history_tb`
   MODIFY `history_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 
 --
+-- AUTO_INCREMENT for table `notification_tb`
+--
+ALTER TABLE `notification_tb`
+  MODIFY `notification_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+
+--
 -- AUTO_INCREMENT for table `patient_tb`
 --
 ALTER TABLE `patient_tb`
-  MODIFY `patient_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=39;
+  MODIFY `patient_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=42;
 
 --
 -- AUTO_INCREMENT for table `requests_tb`
 --
 ALTER TABLE `requests_tb`
-  MODIFY `request_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
+  MODIFY `request_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=64;
 
 --
 -- AUTO_INCREMENT for table `services_tb`
