@@ -17,6 +17,7 @@
     <img src="images/img4.jpg" alt="This is a test image" height="650" width="500">
     <!--form area start-->
     <div class="form">
+        <div>
         <h1>BDCMS</h1>
         <!--login form start-->
         <form class="login-form" action="inc/checkpassword.php" method="post">
@@ -48,7 +49,7 @@
             -->
 
         </form>
-        <!--signup form end-->
+        <!--signup form end--></div>
     </div>
     <!--form area end-->
     <script type="text/javascript">

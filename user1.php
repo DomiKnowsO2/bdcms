@@ -27,6 +27,15 @@ if (isset($_SESSION['email'])) {
       $address = $row['address'];
       $phone = $row['phone'];
    }
+   $notification_count_query = "SELECT COUNT(*) AS notification_count FROM notification_tb WHERE patient_id = '$patient_id' AND count = 0";
+   $notification_count_result = mysqli_query($conn, $notification_count_query);
+
+   if ($notification_count_result && mysqli_num_rows($notification_count_result) > 0) {
+      $notification_count_row = mysqli_fetch_assoc($notification_count_result);
+      $notification_count = $notification_count_row['notification_count'];
+   } else {
+      $notification_count = 0;
+   }
 }
 ?>
 <!DOCTYPE html>
@@ -79,39 +88,50 @@ if (isset($_SESSION['email'])) {
          </nav>
          <nav class="right none">
 
-            <a href="#" class="btn btn-round btn-green align-items-center justify-content-center" data-toggle="tooltip" data-placement="bottom" title="Notification" data-delay="1000">
-               <i class="fas fa-bell"><span class="notification">2</span></i>
+            <a href="#" class="btn btn-round btn-green align-items-center justify-content-center" id="myBtn" data-toggle="tooltip" data-placement="bottom" title="Notification">
+               <i class="fas fa-bell">
+                  <?php if ($notification_count == 0) {
+                  } else { ?>
+                     <span class="notification"><?php echo $notification_count; ?></span>
+                  <?php } ?>
+               </i>
             </a>
+            <script>
+               var notificationButton = document.getElementById('myBtn');
+               notificationButton.addEventListener('click', function() {
+                  <?php
+                  $notification_count = 0;
+                  ?>
+
+                  var xhr = new XMLHttpRequest();
+                  xhr.open('POST', './includes/update_notification_count.php', true);
+                  xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+                  xhr.onreadystatechange = function() {
+                     if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
+                        // Update the displayed count to 0
+                        var notificationCount = document.querySelector('.notification');
+                        if (notificationCount) {
+                           notificationCount.textContent = '0';
+                           notificationCount.style.display = 'none';
+                        }
+                     }
+                  };
+                  xhr.send('patient_id=<?php echo $patient_id; ?>');
+
+               });
+            </script>
             <a href="./admin/logout.php" class="btn btn-round btn-green align-items-center justify-content-center" data-toggle="tooltip" data-placement="bottom" title="Logout" data-delay="1000">
                <i class="fas fa-sign-out-alt"></i>
             </a>
 
          </nav>
+
          <div id="menu-btn" class="fas fa-bars"></div>
 
       </div>
    </header>
    <section class="contact" id="contact">
-
-      <!-- <h1 class="heading">make appointment</h1>
-
-      <form action="save_appointment.php" method="post">
-         <input type="hidden" name="patient_id" value="<?php echo $patient_id; ?>" class="box" required>
-         <span>First name :</span>
-         <input type="text" name="fname" value="<?php echo $firstName; ?>" placeholder="Enter your Firstname" class="box" required>
-         <span>Middle name :</span>
-         <input type="text" name="mname" value="<?php echo $middleName; ?>" placeholder="Enter your Middlename" class="box" required>
-         <span>Last name :</span>
-         <input type="text" name="lname" value="<?php echo $lastName; ?>" placeholder="Enter your Lastname" class="box" required>
-         <span>Birth Date :</span>
-         <input type="date" name="birthdate" value="<?php echo $birthdate; ?>" placeholder="Enter your birthdate" class="box" required>
-         <span>Address :</span>
-         <input type="text" name="address" value="<?php echo $address; ?>" placeholder="Enter your Address" class="box" required>
-         <span>your email :</span>
-         <input type="email" name="email" value="<?php echo $email; ?>" placeholder="Enter your Email" class="box" required>
-         <span>your number :</span>
-         <input type="text" name="number" value="<?php echo $phone; ?>" placeholder="Enter your Phone Number" class="box" required>
-      </form> -->
+      <?php include('./modal.php'); ?>
    </section>
    <section class="contact" id="contact">
       <h1 class="heading">make appointment</h1>
@@ -318,44 +338,64 @@ if (isset($_SESSION['email'])) {
             input2.appendChild(option1);
 
             var timeOptions = [{
-                  value: '08:00',
+                  value: '08:00:00',
                   text: '8:00 AM'
                },
                {
-                  value: '09:00',
+                  value: '09:00:00',
                   text: '9:00 AM'
                },
                {
-                  value: '10:00',
+                  value: '10:00:00',
                   text: '10:00 AM'
                },
                {
-                  value: '11:00',
+                  value: '11:00:00',
                   text: '11:00 AM'
                },
                {
-                  value: '13:00',
+                  value: '13:00:00',
                   text: '1:00 PM'
                },
                {
-                  value: '14:00',
+                  value: '14:00:00',
                   text: '2:00 PM'
                },
                {
-                  value: '15:00',
+                  value: '15:00:00',
                   text: '3:00 PM'
                },
                {
-                  value: '16:00',
+                  value: '16:00:00',
                   text: '4:00 PM'
                },
                {
-                  value: '17:00',
+                  value: '17:00:00',
                   text: '5:00 PM'
                }
             ];
+            <?php
 
-            var reservedTimeSlots = ['08:00', '10:00', '13:00'];
+            $targetDate = '2023-06-30';
+
+            // Query the database
+            $sql = "SELECT TIME(appointment_date) AS time_only FROM requests_tb WHERE DATE(appointment_date) = '$targetDate'";
+            $result = $conn->query($sql);
+
+            $reservedTimeSlots = array(); // Initialize an empty array
+
+            if ($result->num_rows > 0) {
+               while ($row = $result->fetch_assoc()) {
+                  $time = $row['time_only'];
+                  $reservedTimeSlots[] = $time; // Add the time value to the array
+               }
+            } else {
+               echo "No matching records found.";
+            }
+
+            $conn->close();
+            ?>
+            var reservedTimeSlots = <?php echo json_encode($reservedTimeSlots); ?>;
 
             for (var i = 0; i < timeOptions.length; i++) {
                var option = document.createElement('option');
@@ -408,7 +448,7 @@ if (isset($_SESSION['email'])) {
             submitBtn.type = 'submit';
             submitBtn.name = 'submit';
             submitBtn.value = 'Submit';
-            submitBtn.className = 'addEventBtn';
+            submitBtn.className = 'addEventBtn bottom';
             form.appendChild(submitBtn);
 
             var inputs = form.getElementsByTagName('input');

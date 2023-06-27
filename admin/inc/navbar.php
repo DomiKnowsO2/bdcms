@@ -115,10 +115,10 @@ $mysqli->close();
             <div class="dropdown pb-4">
                 <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle"
                     id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
-                    <img src="https://scontent.fmnl26-2.fna.fbcdn.net/v/t39.30808-6/292438159_2098232643682338_5156325390179115562_n.jpg?_nc_cat=109&cb=99be929b-59f725be&ccb=1-7&_nc_sid=174925&_nc_eui2=AeHDvVQ_QM_eU1uJkf6Kpm0Xi0W_UPmmFl-LRb9Q-aYWXwXpr5fmX9LNXcymF-xbRYqjO0uqfuM5tEnX11Jt0uHj&_nc_ohc=gC9KzL8sBngAX8E-THJ&_nc_zt=23&_nc_ht=scontent.fmnl26-2.fna&oh=00_AfDMf1vfeouYSq8YnXcJTudzfHxEIn-DnDWwXJwOhDE5ng&oe=64991747"
+                    <img src="<?php echo $link?>"
                         alt="hugenerd" width="30" height="30" class="rounded-circle"
                         style="overflow: hidden;background-size: cover;background-position: center;">
-                    <span class="d-none d-sm-inline mx-1">Admin</span>
+                    <span class="d-none d-sm-inline mx-1"><?php echo $name?></span>
                 </a>
                 <ul class="dropdown-menu dropdown-menu-dark text-small shadow">
                     <!--<li><a class="dropdown-item" href="#">New project...</a></li>

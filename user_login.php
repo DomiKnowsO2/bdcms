@@ -120,33 +120,35 @@ if (isset($_POST['signup'])) {
     <img src="./images/Image.png" alt="This is a test image" height="500" width="400" class="img">
     <!--form area start-->
     <div class="form">
-        <h1>BDCMS</h1>
-        <!--login form start-->
-        <form class="signup-form" action="" method="post" id="signup">
-            <i class="fas fa-user-plus"></i>
-            <!-- <input class="user-input" type="text" name="" placeholder="Username" required> -->
-            <input class="user-input" type="email" name="email" placeholder="Email Address" required>
-            <input class="user-input" type="password" name="password" placeholder="Password" required>
-            <input class="btn" type="submit" name="signup" value="SIGN UP">
-            <div class="options-02 login">
-                <p>Already Registered? <a href="#">Sign In</a></p><br>
-            </div>
-        </form>
-        <!--login form end-->
-        <!-- signup form start -->
-        <form class="login-form" action="" method="post">
-            <i class="fas fa-user-circle"></i>
-            <input class="user-input" type="email" name="email" placeholder="Email Address" required>
-            <input class="user-input" type="password" name="password" placeholder="Password" required>
-            <!-- <div class="options-01">
+        <div>
+            <h1>BDCMS</h1>
+            <!--login form start-->
+            <form class="signup-form" action="" method="post" id="signup">
+                <i class="fas fa-user-plus"></i>
+                <!-- <input class="user-input" type="text" name="" placeholder="Username" required> -->
+                <input class="user-input" type="email" name="email" placeholder="Email Address" required>
+                <input class="user-input" type="password" name="password" placeholder="Password" required>
+                <input class="btn" type="submit" name="signup" value="SIGN UP">
+                <div class="options-02 login">
+                    <p>Already Registered? <a href="#">Sign In</a></p><br>
+                </div>
+            </form>
+            <!--login form end-->
+            <!-- signup form start -->
+            <form class="login-form" action="" method="post">
+                <i class="fas fa-user-circle"></i>
+                <input class="user-input" type="email" name="email" placeholder="Email Address" required>
+                <input class="user-input" type="password" name="password" placeholder="Password" required>
+                <!-- <div class="options-01">
                         <label class="remember-me"><input type="checkbox" name="">Remember me</label>
                     </div> -->
 
-            <input class="btn" type="submit" name="login" value="LOGIN"><br>
-            <div class="options-02 signup">
-                <p>Not Registered? <a href="#">Create an Account</a></p><br>
-        </form>
-        <!--signup form end-->
+                <input class="btn" type="submit" name="login" value="LOGIN"><br>
+                <div class="options-02 signup">
+                    <p>Not Registered? <a href="#">Create an Account</a></p><br>
+            </form>
+            <!--signup form end-->
+        </div>
     </div>
 
     <!--form area end-->
@@ -175,7 +177,8 @@ if (isset($_POST['signup'])) {
     .img {
         background-color: #08a671b3;
     }
-::placeholder,
+
+    ::placeholder,
     .options-02 {
         color: #fff !important;
     }

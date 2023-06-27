@@ -8,7 +8,6 @@ if (!isset($_SESSION['name']) || !isset($_SESSION['link'])) {
 
 $name = $_SESSION['name'];
 $link = $_SESSION['link'];
-$_SESSION['admin'] = 'admin';
 
 include('../db-connect.php');
 ?>
