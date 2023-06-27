@@ -27,6 +27,8 @@ if (isset($_SESSION['email'])) {
       $address = $row['address'];
       $phone = $row['phone'];
    }
+   $notification_count_query = "SELECT COUNT(*) AS notification_count FROM notification_tb WHERE patient_id = '$patient_id' AND count = 0";
+   $notification_count_result = mysqli_query($conn, $notification_count_query);
 
    if ($notification_count_result && mysqli_num_rows($notification_count_result) > 0) {
       $notification_count_row = mysqli_fetch_assoc($notification_count_result);
@@ -85,7 +87,6 @@ if (isset($_SESSION['email'])) {
             <a href="#contact">Appointment</a>
          </nav>
          <nav class="right none">
-
             <a href="#" class="btn btn-round btn-green align-items-center justify-content-center" id="myBtn" data-toggle="tooltip" data-placement="bottom" title="Notification">
                <i class="fas fa-bell">
                   <?php if ($notification_count == 0) {
@@ -123,7 +124,6 @@ if (isset($_SESSION['email'])) {
             </a>
 
          </nav>
-
          <div id="menu-btn" class="fas fa-bars"></div>
 
       </div>
@@ -372,6 +372,7 @@ if (isset($_SESSION['email'])) {
                   text: '5:00 PM'
                }
             ];
+
             <?php
 
             $targetDate = '2023-06-30';
@@ -393,6 +394,7 @@ if (isset($_SESSION['email'])) {
 
             $conn->close();
             ?>
+            
             var reservedTimeSlots = <?php echo json_encode($reservedTimeSlots); ?>;
 
             for (var i = 0; i < timeOptions.length; i++) {
@@ -446,7 +448,7 @@ if (isset($_SESSION['email'])) {
             submitBtn.type = 'submit';
             submitBtn.name = 'submit';
             submitBtn.value = 'Submit';
-            submitBtn.className = 'addEventBtn bottom';
+            submitBtn.className = 'addEventBtn';
             form.appendChild(submitBtn);
 
             var inputs = form.getElementsByTagName('input');
