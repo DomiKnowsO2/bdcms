@@ -19,7 +19,7 @@ if (isset($_POST['submit'])) {
     $update = mysqli_query($conn, "UPDATE `patient_tb` SET `firstName` = '$fname', `middleName` = '$mname', `lastName` = '$lname',`birthdate`='$birthdate', `address` = '$address', `phone` = '$number' WHERE `patient_id` = '$patient_id'") or die('Query failed');
 
     if ($insert && $update) {
-        echo "<script> alert('Appointment made successfully!'); location.replace('./user1.php'); </script>";
+        header("Location: ./user1.php");
     } else {
         echo "<script> alert('Appointment Failed!'); history.go(-1); </script>";
     }

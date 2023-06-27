@@ -87,6 +87,7 @@ if (isset($_SESSION['email'])) {
             <a href="#contact">Appointment</a>
          </nav>
          <nav class="right none">
+
             <a href="#" class="btn btn-round btn-green align-items-center justify-content-center" id="myBtn" data-toggle="tooltip" data-placement="bottom" title="Notification">
                <i class="fas fa-bell">
                   <?php if ($notification_count == 0) {
@@ -119,11 +120,12 @@ if (isset($_SESSION['email'])) {
 
                });
             </script>
-            <a href="./admin/logout.php" class="btn btn-round btn-green align-items-center justify-content-center" data-toggle="tooltip" data-placement="bottom" title="Logout" data-delay="1000">
+            <a href="./includes/logout.php" class="btn btn-round btn-green align-items-center justify-content-center" data-toggle="tooltip" data-placement="bottom" title="Logout" data-delay="1000">
                <i class="fas fa-sign-out-alt"></i>
             </a>
 
          </nav>
+
          <div id="menu-btn" class="fas fa-bars"></div>
 
       </div>
@@ -147,6 +149,7 @@ if (isset($_SESSION['email'])) {
       <script src="https://cdn.jsdelivr.net/npm/jquery@3.4.1/dist/jquery.min.js"></script>
       <script src="./admin/calendar/evo-calendar/js/evo-calendar.min.js"></script>
       <script src="./admin/calendar/demo/demo.js"></script>
+
       <script>
          $(document).ready(function() {
             $('#calendar').evoCalendar({
@@ -158,7 +161,7 @@ if (isset($_SESSION['email'])) {
                      echo "{";
                      echo "id: '" . $row['request_id'] . "',";
                      echo "badge: '" . date('g:i a', strtotime($row['appointment_date'])) . "', ";
-                     echo "name: '" . $row['firstName'] . " " . $row['lastName'] . "',";
+                     echo "name: '" . (strlen($row['firstName'] . " " . $row['lastName']) > 13 ? substr($row['firstName'] . " " . $row['lastName'], 0, 8) . "..." : $row['firstName'] . " " . $row['lastName']) . "',";
                      echo "description: '" . $row['service_name'] . "<br>" . "',";
                      echo "date: '" . $row['appointment_date'] . "',";
                      echo "type: 'event',";
@@ -179,7 +182,6 @@ if (isset($_SESSION['email'])) {
                   ?>
                ]
             });
-
             var eventHeader = document.querySelector('.event-header');
             var dateText = eventHeader.querySelector('p').textContent;
             var dateObj = new Date(dateText);
@@ -335,77 +337,6 @@ if (isset($_SESSION['email'])) {
             option1.text = 'Available Time';
             input2.appendChild(option1);
 
-            var timeOptions = [{
-                  value: '08:00:00',
-                  text: '8:00 AM'
-               },
-               {
-                  value: '09:00:00',
-                  text: '9:00 AM'
-               },
-               {
-                  value: '10:00:00',
-                  text: '10:00 AM'
-               },
-               {
-                  value: '11:00:00',
-                  text: '11:00 AM'
-               },
-               {
-                  value: '13:00:00',
-                  text: '1:00 PM'
-               },
-               {
-                  value: '14:00:00',
-                  text: '2:00 PM'
-               },
-               {
-                  value: '15:00:00',
-                  text: '3:00 PM'
-               },
-               {
-                  value: '16:00:00',
-                  text: '4:00 PM'
-               },
-               {
-                  value: '17:00:00',
-                  text: '5:00 PM'
-               }
-            ];
-
-            <?php
-
-            $targetDate = '2023-06-30';
-
-            // Query the database
-            $sql = "SELECT TIME(appointment_date) AS time_only FROM requests_tb WHERE DATE(appointment_date) = '$targetDate'";
-            $result = $conn->query($sql);
-
-            $reservedTimeSlots = array(); // Initialize an empty array
-
-            if ($result->num_rows > 0) {
-               while ($row = $result->fetch_assoc()) {
-                  $time = $row['time_only'];
-                  $reservedTimeSlots[] = $time; // Add the time value to the array
-               }
-            } else {
-               echo "No matching records found.";
-            }
-
-            $conn->close();
-            ?>
-            
-            var reservedTimeSlots = <?php echo json_encode($reservedTimeSlots); ?>;
-
-            for (var i = 0; i < timeOptions.length; i++) {
-               var option = document.createElement('option');
-               option.value = timeOptions[i].value;
-               option.text = timeOptions[i].text;
-
-               if (!reservedTimeSlots.includes(timeOptions[i].value)) {
-                  input2.appendChild(option);
-               }
-            }
             form.appendChild(label2);
             form.appendChild(input2);
 
@@ -427,7 +358,6 @@ if (isset($_SESSION['email'])) {
                if (xhr.readyState === 4 && xhr.status === 200) {
                   serviceOptions = JSON.parse(xhr.responseText);
 
-
                   for (var i = 0; i < serviceOptions.length; i++) {
                      var option = document.createElement('option');
                      option.value = serviceOptions[i].value;
@@ -448,7 +378,7 @@ if (isset($_SESSION['email'])) {
             submitBtn.type = 'submit';
             submitBtn.name = 'submit';
             submitBtn.value = 'Submit';
-            submitBtn.className = 'addEventBtn';
+            submitBtn.className = 'addEventBtn bottom';
             form.appendChild(submitBtn);
 
             var inputs = form.getElementsByTagName('input');
@@ -494,6 +424,7 @@ if (isset($_SESSION['email'])) {
                bottomBtn.style.display = 'none';
             }
 
+
             $('#calendar').on('selectDate', function() {
                var selectedDate = $('#calendar').evoCalendar('getActiveDate');
 
@@ -521,7 +452,95 @@ if (isset($_SESSION['email'])) {
                   formDiv.style.display = 'none';
                   formDiv.classList.remove('show-form');
                }
+
+               var xhr = new XMLHttpRequest();
+               xhr.open('GET', 'get_time_options.php?date=' + formattedDate, true);
+               xhr.onreadystatechange = function() {
+                  if (xhr.readyState === XMLHttpRequest.DONE) {
+                     if (xhr.status === 200) {
+                        // var reservedTimeSlotsss = xhr.responseText;
+                        // console.log(reservedTimeSlotsss);
+                        // var targetDate = xhr.responseText;
+                        // console.log('PHP targetDate:', targetDate);
+                        // var haha = 'PHP target';
+                        // console.log(haha);
+
+                        var reservedTimeSlotsServer = JSON.parse(xhr.responseText);
+                        console.log(reservedTimeSlotsServer);
+
+                        var reservedTimeSlotsCombined = reservedTimeSlots.concat(reservedTimeSlotsServer);
+                        console.log('Combined Reserved Time Slots:', reservedTimeSlotsCombined);
+
+                        var timeOptions = [{
+                  value: '',
+                  text: 'Available Time'
+               },{
+                  value: '08:00:00',
+                  text: '8:00 AM'
+               },
+               {
+                  value: '09:00:00',
+                  text: '9:00 AM'
+               },
+               {
+                  value: '10:00:00',
+                  text: '10:00 AM'
+               },
+               {
+                  value: '11:00:00',
+                  text: '11:00 AM'
+               },
+               {
+                  value: '13:00:00',
+                  text: '1:00 PM'
+               },
+               {
+                  value: '14:00:00',
+                  text: '2:00 PM'
+               },
+               {
+                  value: '15:00:00',
+                  text: '3:00 PM'
+               },
+               {
+                  value: '16:00:00',
+                  text: '4:00 PM'
+               },
+               {
+                  value: '17:00:00',
+                  text: '5:00 PM'
+               }
+            ];
+            input2.innerHTML = '';
+                        for (var i = 0; i < timeOptions.length; i++) {
+                           var option = document.createElement('option');
+                           option.value = timeOptions[i].value;
+                           option.text = timeOptions[i].text;
+
+                           if (!reservedTimeSlotsCombined.includes(timeOptions[i].value)) {
+                              input2.appendChild(option);
+                           }
+                        }
+                     } else {
+                        window.location.href = 'https://www.google.com';
+                     }
+                  }
+               };
+               xhr.send();
+
             });
+
+            var reservedTimeSlots = [];
+
+            // for (var i = 0; i < timeOptions.length; i++) {
+            //    var option = document.createElement('option');
+            //    option.value = timeOptions[i].value;
+            //    option.text = timeOptions[i].text;
+
+            //    if (!reservedTimeSlots.includes(timeOptions[i].value)) {
+            //       input2.appendChild(option);
+            //    }
+            // }
 
          });
       </script>
