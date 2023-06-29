@@ -25,5 +25,18 @@ if (isset($_POST['submit'])) {
     }
 }
 
+
+if (isset($_POST['add-list'])) {
+    $date = $_POST['date'];
+
+    $insert = mysqli_query($conn, "INSERT INTO `noappointment_tb` (date) VALUES ('$date')") or die('Query failed');
+
+    if ($insert) {
+        header("Location: ./admin/index.php?page=dashboard");
+    } else {
+        echo "<script> alert('Appointment Failed!'); history.go(-1); </script>";
+    }
+}
+
 $conn->close();
 ?>

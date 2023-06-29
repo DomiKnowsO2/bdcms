@@ -128,7 +128,7 @@
                         ]
                     });
                     var calendarEventsContainer = document.querySelector('.calendar-events');
-var eventHeader = document.querySelector('.event-list');
+var eventHeader = document.querySelector('.event-header');
 var dateText = eventHeader.querySelector('p').textContent;
 var dateObj = new Date(dateText);
 
@@ -140,45 +140,50 @@ var formattedDate = year + '-' + month + '-' + day;
 
 var eventEmpty = document.querySelector('.event-empty');
 var pElement = eventEmpty.querySelector('p');
-pElement.textContent = '';
+pElement.textContent = 'No Appointments today...';
 var addListContainer = document.createElement('div');
 addListContainer.className = 'add-list-container';
 
 var form = document.createElement('form');
-form.action = 'save_appointment.php';
+form.action = '../save_appointment.php';
 form.method = 'POST';
 
-var label1 = document.createElement('label');
-label1.textContent = 'Appointment Date:';
 var input1 = document.createElement('input');
 input1.className = 'Adate';
 input1.type = 'date';
 input1.name = 'date';
 input1.value = formattedDate;
 
-form.appendChild(label1);
 form.appendChild(input1);
 addListContainer.appendChild(form);
 
 var addListBtn = document.createElement('button');
-addListBtn.type = 'button';
+addListBtn.type = 'submit'; 
 addListBtn.name = 'add-list';
 addListBtn.className = 'scheduleListBtn';
-var plusIcon = document.createElement('i');
-plusIcon.className = 'fas fa-plus';
 
 var textSpan = document.createElement('span');
 textSpan.innerText = 'Busy Ako';
+addListBtn.appendChild(textSpan);
 
-form.appendChild(plusIcon);
-form.appendChild(textSpan);
+form.appendChild(addListBtn);
 
-addListContainer.appendChild(form);
 pElement.appendChild(addListContainer);
+
+var today = new Date();
+today.setHours(0, 0, 0, 0);
+
+var tomorrow = new Date(today);
+tomorrow.setDate(tomorrow.getDate() + 1);
+
+if (dateObj >= tomorrow) {
+    form.style.display = 'block';
+} else {
+    form.style.display = 'none';
+}
 
 $('#calendar').on('selectDate', function() {
   var selectedDate = $('#calendar').evoCalendar('getActiveDate');
-  var addListContainer = document.createElement('div');
 
   var newDateObj = new Date(selectedDate);
   newDateObj.setHours(0, 0, 0, 0);
@@ -190,28 +195,24 @@ $('#calendar').on('selectDate', function() {
   formattedDate = year + '-' + month + '-' + day;
   input1.value = formattedDate;
 
+  var currentDay = dateObj.getDay();
+  if (currentDay === 0) {
+    form.style.display = 'none';
+    textContents = 'We kindly inform you that there is no scheduling on Sundays. Our office operates from Monday to Saturday. We apologize for any inconvenience and appreciate your understanding.';
+  } else if (dateObj >= tomorrow) {
+    form.style.display = 'block';
+    textContents='';
+  } else {
+    form.style.display = 'none';
+    textContents='No Appointments today...';
+  }
+
   var calendarEventsContainer = document.querySelector('.calendar-events');
   var eventEmpty = document.querySelector('.event-empty');
   var pElement = eventEmpty.querySelector('p');
-  pElement.textContent = '';
-  addListContainer.className = 'add-list-container';
-
-  var addListBtn = document.createElement('button');
-  addListBtn.type = 'button';
-  addListBtn.className = 'scheduleListBtn';
-  var plusIcon = document.createElement('i');
-  plusIcon.className = 'fas fa-plus';
-
-  var textSpan = document.createElement('span');
-  textSpan.innerText = 'Busy Ako';
-
-  addListBtn.appendChild(plusIcon);
-  addListBtn.appendChild(textSpan);
-
-  addListContainer.appendChild(addListBtn);
+  pElement.textContent = textContents;
   pElement.appendChild(addListContainer);
 });
-
                 });
             </script>
         </div>

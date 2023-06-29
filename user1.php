@@ -444,20 +444,26 @@ if (isset($_SESSION['email'])) {
                var currentDay = dateObj.getDay();
                if (currentDay === 0) {
                   bottomBtn.style.display = 'none';
-                  // pElement.textContent = 'We kindly inform you that there is no scheduling on Sundays. Our office operates from Monday to Saturday. We apologize for any inconvenience and appreciate your understanding.';
+                  textContents = 'We kindly inform you that there is no scheduling on Sundays. Our office operates from Monday to Saturday. We apologize for any inconvenience and appreciate your understanding.';
                } else if (dateObj >= tomorrow) {
                   bottomBtn.style.display = 'block';
+                  textContents = 'Add Appointment';
                } else {
                   bottomBtn.style.display = 'none';
+               }
+
+               var calendarEventsContainer = document.querySelector('.calendar-events');
+               var eventEmpty = document.querySelector('.event-empty');
+               var pElement = eventEmpty ? eventEmpty.querySelector('p') : null;
+
+               if (pElement) {
+                  pElement.textContent = textContents;
                }
 
                var today = new Date();
                today.setHours(0, 0, 0, 0);
 
-               if (dateObj <= today) {
-                  formDiv.style.display = 'none';
-                  formDiv.classList.remove('show-form');
-               } else if (dateObj === 0) {
+               if (dateObj <= today || currentDay === 0) {
                   formDiv.style.display = 'none';
                   formDiv.classList.remove('show-form');
                }
@@ -467,12 +473,6 @@ if (isset($_SESSION['email'])) {
                xhr.onreadystatechange = function() {
                   if (xhr.readyState === XMLHttpRequest.DONE) {
                      if (xhr.status === 200) {
-                        // var reservedTimeSlotsss = xhr.responseText;
-                        // console.log(reservedTimeSlotsss);
-                        // var targetDate = xhr.responseText;
-                        // console.log('PHP targetDate:', targetDate);
-                        // var haha = 'PHP target';
-                        // console.log(haha);
 
                         var reservedTimeSlotsServer = JSON.parse(xhr.responseText);
                         console.log(reservedTimeSlotsServer);
@@ -537,6 +537,26 @@ if (isset($_SESSION['email'])) {
                };
                xhr.send();
 
+               var responseDataDate = false;
+               var xhr2 = new XMLHttpRequest();
+               xhr2.open('GET', 'get_date.php?date=' + formattedDate, true);
+               xhr2.onreadystatechange = function() {
+                  if (xhr2.readyState === XMLHttpRequest.DONE) {
+                     if (xhr2.status === 200) {
+                        console.log("Second XHR request completed");
+                        responseDataDate = JSON.parse(xhr2.responseText); // Update responseDataDate
+
+                        if (responseDataDate === true) {
+                           bottomBtn.style.display = 'none';
+                           textContents = 'busy c doc';
+                           pElement.textContent = textContents;
+                        }
+                     } else {
+                        window.location.href = 'https://www.google.com';
+                     }
+                  }
+               };
+               xhr2.send();
             });
 
             var reservedTimeSlots = [];
