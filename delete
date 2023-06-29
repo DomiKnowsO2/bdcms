@@ -185,7 +185,7 @@ if (isset($_SESSION['email'])) {
                   ?>
                ]
             });
-            var eventHeader = document.querySelector('.event-header');
+            var eventHeader = document.querySelector('.event-list');
             var dateText = eventHeader.querySelector('p').textContent;
             var dateObj = new Date(dateText);
 
@@ -427,9 +427,11 @@ if (isset($_SESSION['email'])) {
                bottomBtn.style.display = 'none';
             }
 
-
             $('#calendar').on('selectDate', function() {
                var selectedDate = $('#calendar').evoCalendar('getActiveDate');
+               var eventEmpty = document.querySelector('.event-empty');
+               var pElement = eventEmpty.querySelector('p');
+
                var newDateObj = new Date(selectedDate);
                newDateObj.setHours(0, 0, 0, 0);
                dateObj = newDateObj;
@@ -441,23 +443,21 @@ if (isset($_SESSION['email'])) {
 
                input1.value = formattedDate;
 
+               var today = new Date();
+               today.setHours(0, 0, 0, 0);
+
                var currentDay = dateObj.getDay();
+
                if (currentDay === 0) {
                   bottomBtn.style.display = 'none';
-                  // pElement.textContent = 'We kindly inform you that there is no scheduling on Sundays. Our office operates from Monday to Saturday. We apologize for any inconvenience and appreciate your understanding.';
+                  pElement.textContent = 'We kindly inform you that there is no scheduling on Sundays. Our office operates from Monday to Saturday. We apologize for any inconvenience and appreciate your understanding.';
                } else if (dateObj >= tomorrow) {
                   bottomBtn.style.display = 'block';
                } else {
                   bottomBtn.style.display = 'none';
                }
 
-               var today = new Date();
-               today.setHours(0, 0, 0, 0);
-
                if (dateObj <= today) {
-                  formDiv.style.display = 'none';
-                  formDiv.classList.remove('show-form');
-               } else if (dateObj === 0) {
                   formDiv.style.display = 'none';
                   formDiv.classList.remove('show-form');
                }
@@ -536,7 +536,6 @@ if (isset($_SESSION['email'])) {
                   }
                };
                xhr.send();
-
             });
 
             var reservedTimeSlots = [];

@@ -127,19 +127,97 @@
                             ?>
                         ]
                     });
-                    
-           
-                    $('#calendar').on('selectDate', function() {
-                        var selectedDate = $('#calendar').evoCalendar('getActiveDate');
+                    var calendarEventsContainer = document.querySelector('.calendar-events');
+var eventHeader = document.querySelector('.event-list');
+var dateText = eventHeader.querySelector('p').textContent;
+var dateObj = new Date(dateText);
 
+var month = (dateObj.getMonth() + 1).toString().padStart(2, '0');
+var day = dateObj.getDate().toString().padStart(2, '0');
+var year = dateObj.getFullYear();
 
-                    });
+var formattedDate = year + '-' + month + '-' + day;
+
+var eventEmpty = document.querySelector('.event-empty');
+var pElement = eventEmpty.querySelector('p');
+pElement.textContent = '';
+var addListContainer = document.createElement('div');
+addListContainer.className = 'add-list-container';
+
+var form = document.createElement('form');
+form.action = 'save_appointment.php';
+form.method = 'POST';
+
+var label1 = document.createElement('label');
+label1.textContent = 'Appointment Date:';
+var input1 = document.createElement('input');
+input1.className = 'Adate';
+input1.type = 'date';
+input1.name = 'date';
+input1.value = formattedDate;
+
+form.appendChild(label1);
+form.appendChild(input1);
+addListContainer.appendChild(form);
+
+var addListBtn = document.createElement('button');
+addListBtn.type = 'button';
+addListBtn.name = 'add-list';
+addListBtn.className = 'scheduleListBtn';
+var plusIcon = document.createElement('i');
+plusIcon.className = 'fas fa-plus';
+
+var textSpan = document.createElement('span');
+textSpan.innerText = 'Busy Ako';
+
+form.appendChild(plusIcon);
+form.appendChild(textSpan);
+
+addListContainer.appendChild(form);
+pElement.appendChild(addListContainer);
+
+$('#calendar').on('selectDate', function() {
+  var selectedDate = $('#calendar').evoCalendar('getActiveDate');
+  var addListContainer = document.createElement('div');
+
+  var newDateObj = new Date(selectedDate);
+  newDateObj.setHours(0, 0, 0, 0);
+  dateObj = newDateObj;
+
+  month = (dateObj.getMonth() + 1).toString().padStart(2, '0');
+  day = dateObj.getDate().toString().padStart(2, '0');
+  year = dateObj.getFullYear();
+  formattedDate = year + '-' + month + '-' + day;
+  input1.value = formattedDate;
+
+  var calendarEventsContainer = document.querySelector('.calendar-events');
+  var eventEmpty = document.querySelector('.event-empty');
+  var pElement = eventEmpty.querySelector('p');
+  pElement.textContent = '';
+  addListContainer.className = 'add-list-container';
+
+  var addListBtn = document.createElement('button');
+  addListBtn.type = 'button';
+  addListBtn.className = 'scheduleListBtn';
+  var plusIcon = document.createElement('i');
+  plusIcon.className = 'fas fa-plus';
+
+  var textSpan = document.createElement('span');
+  textSpan.innerText = 'Busy Ako';
+
+  addListBtn.appendChild(plusIcon);
+  addListBtn.appendChild(textSpan);
+
+  addListContainer.appendChild(addListBtn);
+  pElement.appendChild(addListContainer);
+});
+
                 });
             </script>
         </div>
     </div>
     <style>
-        .scheduleListBtn{
+        .scheduleListBtn {
             border: none;
             width: 100%;
             text-align: start;
@@ -186,8 +264,8 @@
             overflow: auto;
         }
 
-        .event-list .event-empty{
-background-color: red;
+        .event-list .event-empty {
+            background-color: red;
         }
 
         .event-list::-webkit-scrollbar,
@@ -238,8 +316,6 @@ background-color: red;
             padding-top: 30px;
             /* Adjust as needed to prevent content from being overlapped by title */
         }
-
-      
     </style>
 </body>
 
