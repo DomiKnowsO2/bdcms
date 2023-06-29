@@ -1,10 +1,10 @@
 <?php
 session_start();
 // Check if the user is already logged in
-// if (isset($_SESSION['email'])) {
-//     // Redirect the user to the home page
-//     header('Location: ./user1.php');
-// }
+if (isset($_SESSION['email'])) {
+    // Redirect the user to the home page
+    header('Location: ./user1.php');
+}
 
 // Check if the form has been submitted
 if (isset($_POST['login'])) {

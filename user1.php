@@ -1,7 +1,10 @@
 <?php
 session_start();
 include('./db-connect.php');
-
+if (!isset($_SESSION['email'])) {
+   header("Location: user_login.php");
+   exit;
+}
 $patient_id = "";
 $firstName = "";
 $middleName = "";
@@ -161,7 +164,7 @@ if (isset($_SESSION['email'])) {
                      echo "{";
                      echo "id: '" . $row['request_id'] . "',";
                      echo "badge: '" . date('g:i a', strtotime($row['appointment_date'])) . "', ";
-                     echo "name: '" . (strlen($row['firstName'] . " " . $row['lastName']) > 13 ? substr($row['firstName'] . " " . $row['lastName'], 0, 8) . "..." : $row['firstName'] . " " . $row['lastName']) . "',";
+                     echo "name: '" . (strlen($row['firstName'] . " " . $row['lastName']) > 13 ? substr($row['firstName'] . " " . $row['lastName'], 0, 10) . "..." : $row['firstName'] . " " . $row['lastName']) . "',";
                      echo "description: '" . $row['service_name'] . "<br>" . "',";
                      echo "date: '" . $row['appointment_date'] . "',";
                      echo "type: 'event',";
@@ -182,7 +185,7 @@ if (isset($_SESSION['email'])) {
                   ?>
                ]
             });
-            var eventHeader = document.querySelector('.event-header');
+            var eventHeader = document.querySelector('.event-list');
             var dateText = eventHeader.querySelector('p').textContent;
             var dateObj = new Date(dateText);
 
@@ -424,9 +427,10 @@ if (isset($_SESSION['email'])) {
                bottomBtn.style.display = 'none';
             }
 
-
             $('#calendar').on('selectDate', function() {
                var selectedDate = $('#calendar').evoCalendar('getActiveDate');
+               var eventEmpty = document.querySelector('.event-empty');
+               var pElement = eventEmpty.querySelector('p');
 
                var newDateObj = new Date(selectedDate);
                newDateObj.setHours(0, 0, 0, 0);
@@ -439,14 +443,19 @@ if (isset($_SESSION['email'])) {
 
                input1.value = formattedDate;
 
-               if (dateObj >= tomorrow) {
+               var today = new Date();
+               today.setHours(0, 0, 0, 0);
+
+               var currentDay = dateObj.getDay();
+
+               if (currentDay === 0 || currentDay === 6) {
+                  bottomBtn.style.display = 'none';
+                  pElement.textContent = 'We kindly inform you that scheduling is not available on weekends, including Saturdays and Sundays. Our office operates from Monday to Friday. We apologize for any inconvenience and appreciate your understanding.';
+               } else if (dateObj >= tomorrow) {
                   bottomBtn.style.display = 'block';
                } else {
                   bottomBtn.style.display = 'none';
                }
-
-               var today = new Date();
-               today.setHours(0, 0, 0, 0);
 
                if (dateObj <= today) {
                   formDiv.style.display = 'none';
@@ -472,46 +481,46 @@ if (isset($_SESSION['email'])) {
                         console.log('Combined Reserved Time Slots:', reservedTimeSlotsCombined);
 
                         var timeOptions = [{
-                  value: '',
-                  text: 'Available Time'
-               },{
-                  value: '08:00:00',
-                  text: '8:00 AM'
-               },
-               {
-                  value: '09:00:00',
-                  text: '9:00 AM'
-               },
-               {
-                  value: '10:00:00',
-                  text: '10:00 AM'
-               },
-               {
-                  value: '11:00:00',
-                  text: '11:00 AM'
-               },
-               {
-                  value: '13:00:00',
-                  text: '1:00 PM'
-               },
-               {
-                  value: '14:00:00',
-                  text: '2:00 PM'
-               },
-               {
-                  value: '15:00:00',
-                  text: '3:00 PM'
-               },
-               {
-                  value: '16:00:00',
-                  text: '4:00 PM'
-               },
-               {
-                  value: '17:00:00',
-                  text: '5:00 PM'
-               }
-            ];
-            input2.innerHTML = '';
+                              value: '',
+                              text: 'Available Time'
+                           }, {
+                              value: '08:00:00',
+                              text: '8:00 AM'
+                           },
+                           {
+                              value: '09:00:00',
+                              text: '9:00 AM'
+                           },
+                           {
+                              value: '10:00:00',
+                              text: '10:00 AM'
+                           },
+                           {
+                              value: '11:00:00',
+                              text: '11:00 AM'
+                           },
+                           {
+                              value: '13:00:00',
+                              text: '1:00 PM'
+                           },
+                           {
+                              value: '14:00:00',
+                              text: '2:00 PM'
+                           },
+                           {
+                              value: '15:00:00',
+                              text: '3:00 PM'
+                           },
+                           {
+                              value: '16:00:00',
+                              text: '4:00 PM'
+                           },
+                           {
+                              value: '17:00:00',
+                              text: '5:00 PM'
+                           }
+                        ];
+                        input2.innerHTML = '';
                         for (var i = 0; i < timeOptions.length; i++) {
                            var option = document.createElement('option');
                            option.value = timeOptions[i].value;
@@ -527,7 +536,6 @@ if (isset($_SESSION['email'])) {
                   }
                };
                xhr.send();
-
             });
 
             var reservedTimeSlots = [];
@@ -547,5 +555,44 @@ if (isset($_SESSION['email'])) {
    </section>
    <script src="js/script.js"></script>
 </body>
+<style>
+   .form {
+      overflow: auto;
+      width: 90%;
+      /* background-color: pink; */
+      background-color: rgb(33, 101, 131);
+      top: 5%;
+      /* padding-top: 5%; */
+      height: 90%;
+      position: absolute;
+      z-index: 10;
+      left: 5%;
+      display: none;
+      transition: transform 0.3s ease;
+      transform: translateY(100%);
+   }
+
+   .form .title {
+      position: sticky;
+      top: 0;
+      background-color: rgb(33, 101, 131);
+      color: white;
+      padding: 10px;
+      font-weight: bold;
+   }
+
+   .form .content {
+      padding-top: 30px;
+   }
+
+   .addEventContainer {
+      flex: 10%;
+      /* background-color: orange; */
+      padding: 10px;
+      width: 100%;
+      display: flex;
+      justify-content: center;
+   }
+</style>
 
 </html>

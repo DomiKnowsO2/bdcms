@@ -50,15 +50,6 @@
     text-align: right;
  }
 
- .addEventContainer {
-    /* background-color: orange; */
-    position: absolute;
-    bottom: 0;
-    padding: 10px;
-    width: 90%;
-    display: flex;
-    justify-content: center;
- }
 
  .addEventBtn {
     background-color: rgba(242, 244, 244, 0.15);
@@ -78,21 +69,38 @@
     border-bottom: 2px solid #fff;
     margin-bottom: 15px;
  }
+ .calendar-events {
+   display: flex;
+   flex-direction: column;
+   overflow: hidden;
+}
 
- .form {
-    width: 90%;
-    /* background-color: pink; */
-    background-color: rgb(33, 101, 131);
-    top: 5%;
-    padding-top: 5%;
-    height: 100%;
-    position: absolute;
-    z-index: 10;
-    left: 5%;
-    display: none;
-    transition: transform 0.3s ease;
-    transform: translateY(100%);
- }
+.event-list {
+   /* background-color: pink; */
+   flex: 90%;
+   overflow: auto;
+}
+
+.event-list::-webkit-scrollbar,
+.form::-webkit-scrollbar {
+   width: 0.3em;
+}
+
+.event-list::-webkit-scrollbar-track,
+.form::-webkit-scrollbar-track {
+   background: transparent;
+}
+
+.event-list::-webkit-scrollbar-thumb,
+.form::-webkit-scrollbar-thumb {
+   background: #fff;
+}
+
+.event-list::-webkit-scrollbar-thumb:hover.form::-webkit-scrollbar-thumb {
+   background: #555;
+}
+
+ 
 
  .form input.Adate[type="date"]::-webkit-calendar-picker-indicator {
     display: none;

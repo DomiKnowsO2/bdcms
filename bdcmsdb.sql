@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 27, 2023 at 09:00 AM
+-- Generation Time: Jun 28, 2023 at 02:51 PM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -44,7 +44,8 @@ CREATE TABLE `admin` (
 
 INSERT INTO `admin` (`id`, `username`, `password`, `name`, `link`) VALUES
 (1, 'admin', 'admin', 'Dominic Bañaria', 'https://scontent.fmnl26-1.fna.fbcdn.net/v/t39.30808-1/320521404_565065432100842_5358095008287230586_n.jpg?stp=dst-jpg_p320x320&_nc_cat=100&cb=99be929b-59f725be&ccb=1-7&_nc_sid=7206a8&_nc_eui2=AeFM3Io6Sm8L-RmhWf259URrhU92RFqbhLGFT3ZEWpuEsan290F18TyGfdGbfrI0vz6YH6aOZ3VMv2RQ0q-onOku&_nc_ohc=R-L3IG074XkAX9J5p9S&_nc_ht=scontent.fmnl26-1.fna&oh=00_AfAIGfKz0FqVFtwTvpf2vwNq3TLSFwj-Er0KxutW966t7Q&oe=649A56D2'),
-(2, 'admin', 'jayson', 'Jayson Ani Alamo', 'https://scontent.fmnl26-2.fna.fbcdn.net/v/t39.30808-1/352743983_646894333536212_117214995778575484_n.jpg?stp=dst-jpg_s320x320&_nc_cat=111&cb=99be929b-59f725be&ccb=1-7&_nc_sid=7206a8&_nc_eui2=AeEI3A--cvx6pkS6Gh35KSFQ_4JLIRf05_D_gkshF_Tn8Nh7HjY440yDs9vWE8PRMP9NQVpBxhhO8Q1oWxePnfCC&_nc_ohc=4OYwWacckW4AX919r92&_nc_ht=scontent.fmnl26-2.fna&oh=00_AfBQRTBunqCG8EYGFU-q-ItKuDzZpF0QFCtlW4U3mPIXHg&oe=649BC92C');
+(2, 'admin', 'jayson', 'Jayson Ani Alamo', 'https://scontent.fmnl26-2.fna.fbcdn.net/v/t39.30808-1/352743983_646894333536212_117214995778575484_n.jpg?stp=dst-jpg_s320x320&_nc_cat=111&cb=99be929b-59f725be&ccb=1-7&_nc_sid=7206a8&_nc_eui2=AeEI3A--cvx6pkS6Gh35KSFQ_4JLIRf05_D_gkshF_Tn8Nh7HjY440yDs9vWE8PRMP9NQVpBxhhO8Q1oWxePnfCC&_nc_ohc=4OYwWacckW4AX919r92&_nc_ht=scontent.fmnl26-2.fna&oh=00_AfBQRTBunqCG8EYGFU-q-ItKuDzZpF0QFCtlW4U3mPIXHg&oe=649BC92C'),
+(3, 'john', 'john', 'John Llenard Nagal', 'https://scontent.fmnl26-1.fna.fbcdn.net/v/t39.30808-6/254245895_607397313736815_7944426749009364327_n.jpg?_nc_cat=108&cb=99be929b-59f725be&ccb=1-7&_nc_sid=174925&_nc_eui2=AeFHglVTHqbkdbHH5s3jPZSK0ty_5yIVJlXS3L_nIhUmVcMWMrSV7T3vx2bnxkPVXUqZOyrv06z9uuC1iex4_bA4&_nc_ohc=7gX_-tWvwgsAX8Faarz&_nc_zt=23&_nc_ht=scontent.fmnl26-1.fna&oh=00_AfAl6NR62PLi6ckN5j4eP7xIfppIM2RDdQzCbhqi2md-QQ&oe=64A18861');
 
 -- --------------------------------------------------------
 
@@ -75,6 +76,8 @@ CREATE TABLE `notification_tb` (
   `count` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+-- --------------------------------------------------------
+
 --
 -- Table structure for table `patient_tb`
 --
@@ -91,8 +94,6 @@ CREATE TABLE `patient_tb` (
   `email` varchar(100) DEFAULT NULL,
   `password` varchar(1000) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
--- --------------------------------------------------------
 
 --
 -- Table structure for table `requests_tb`
@@ -112,8 +113,6 @@ CREATE TABLE `requests_tb` (
   `appointment_date` datetime NOT NULL,
   `status` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
--- --------------------------------------------------------
 
 --
 -- Table structure for table `services_tb`
@@ -185,7 +184,7 @@ ALTER TABLE `services_tb`
 -- AUTO_INCREMENT for table `admin`
 --
 ALTER TABLE `admin`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `history_tb`

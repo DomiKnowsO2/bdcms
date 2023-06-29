@@ -11,7 +11,9 @@
     <link rel="stylesheet" type="text/css" href="./calendar/evo-calendar/css/evo-calendar.min.css">
     <link rel="stylesheet" type="text/css" href="./calendar/evo-calendar/css/evo-calendar.midnight-blue.min.css">
 
+    <link rel="stylesheet" href="./calendar/evo-calendar/css/evo-calendar.royal-navy.min.css">
     <link rel="stylesheet" type="text/css" href="./calendar/demo/demo.css">
+    <link rel="stylesheet" href="admin.css">
     <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
@@ -92,9 +94,10 @@
             <script src="./calendar/evo-calendar/js/evo-calendar.min.js"></script>
             <script src="./calendar/demo/demo.js"></script>
             <script>
-                $(document).ready(function () {
+                $(document).ready(function() {
                     $('#calendar').evoCalendar({
                         theme: 'Midnight Blue',
+                        //    theme: 'Royal Navy',
                         calendarEvents: [
 
                             <?php
@@ -124,11 +127,24 @@
                             ?>
                         ]
                     });
+                    
+           
+                    $('#calendar').on('selectDate', function() {
+                        var selectedDate = $('#calendar').evoCalendar('getActiveDate');
+
+
+                    });
                 });
             </script>
         </div>
     </div>
     <style>
+        .scheduleListBtn{
+            border: none;
+            width: 100%;
+            text-align: start;
+        }
+
         .margin {
             margin-top: 2%;
             /* background-color: pink; */
@@ -157,6 +173,73 @@
         .order-visitor-card:hover {
             background-color: lightseagreen;
         }
+
+        .calendar-events {
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        .event-list {
+            /* background-color: pink; */
+            flex: 100%;
+            overflow: auto;
+        }
+
+        .event-list .event-empty{
+background-color: red;
+        }
+
+        .event-list::-webkit-scrollbar,
+        .form::-webkit-scrollbar {
+            width: 0.3em;
+        }
+
+        .event-list::-webkit-scrollbar-track,
+        .form::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        .event-list::-webkit-scrollbar-thumb,
+        .form::-webkit-scrollbar-thumb {
+            background: #fff;
+        }
+
+        .event-list::-webkit-scrollbar-thumb:hover.form::-webkit-scrollbar-thumb {
+            background: #555;
+        }
+
+        .form {
+            overflow: auto;
+            width: 90%;
+            /* background-color: pink; */
+            background-color: rgb(33, 101, 131);
+            top: 5%;
+            /* padding-top: 5%; */
+            height: 90%;
+            position: absolute;
+            z-index: 10;
+            left: 5%;
+            display: none;
+            transition: transform 0.3s ease;
+            transform: translateY(100%);
+        }
+
+        .form .title {
+            position: sticky;
+            top: 0;
+            background-color: rgb(33, 101, 131);
+            color: white;
+            padding: 10px;
+            font-weight: bold;
+        }
+
+        .form .content {
+            padding-top: 30px;
+            /* Adjust as needed to prevent content from being overlapped by title */
+        }
+
+      
     </style>
 </body>
 
