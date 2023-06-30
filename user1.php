@@ -548,8 +548,12 @@ if (isset($_SESSION['email'])) {
 
                         if (responseDataDate === true) {
                            bottomBtn.style.display = 'none';
-                           textContents = 'busy c doc';
+                           textContents = 'Appointment Scheduling is Disabled';
                            pElement.textContent = textContents;
+                        }
+                        if (dateObj <= today || currentDay === 0 || responseDataDate === true) {
+                           formDiv.style.display = 'none';
+                           formDiv.classList.remove('show-form');
                         }
                      } else {
                         window.location.href = 'https://www.google.com';

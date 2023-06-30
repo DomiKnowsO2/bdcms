@@ -38,5 +38,19 @@ if (isset($_POST['add-list'])) {
     }
 }
 
+if (isset($_POST['removed-list'])) {
+    $date = $_POST['date'];
+
+    $delete = mysqli_query($conn, "DELETE FROM `noappointment_tb` WHERE date = '$date'") or die('Query failed');
+
+    if ($delete) {
+        header("Location: ./admin/index.php?page=dashboard");
+    } else {
+        echo "<script> alert('Deletion Failed!'); history.go(-1); </script>";
+    }
+}
+
+
+
 $conn->close();
 ?>

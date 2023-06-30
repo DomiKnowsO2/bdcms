@@ -128,100 +128,127 @@
                         ]
                     });
                     var calendarEventsContainer = document.querySelector('.calendar-events');
-var eventHeader = document.querySelector('.event-header');
-var dateText = eventHeader.querySelector('p').textContent;
-var dateObj = new Date(dateText);
+                    var eventHeader = document.querySelector('.event-header');
+                    var dateText = eventHeader.querySelector('p').textContent;
+                    var dateObj = new Date(dateText);
 
-var month = (dateObj.getMonth() + 1).toString().padStart(2, '0');
-var day = dateObj.getDate().toString().padStart(2, '0');
-var year = dateObj.getFullYear();
+                    var month = (dateObj.getMonth() + 1).toString().padStart(2, '0');
+                    var day = dateObj.getDate().toString().padStart(2, '0');
+                    var year = dateObj.getFullYear();
 
-var formattedDate = year + '-' + month + '-' + day;
+                    var formattedDate = year + '-' + month + '-' + day;
 
-var eventEmpty = document.querySelector('.event-empty');
-var pElement = eventEmpty.querySelector('p');
-pElement.textContent = 'No Appointments today...';
-var addListContainer = document.createElement('div');
-addListContainer.className = 'add-list-container';
+                    var eventEmpty = document.querySelector('.event-empty');
+                    var pElement = eventEmpty.querySelector('p');
+                    pElement.textContent = 'No Appointments today...';
+                    var addListContainer = document.createElement('div');
+                    addListContainer.className = 'add-list-container';
 
-var form = document.createElement('form');
-form.action = '../save_appointment.php';
-form.method = 'POST';
+                    var form = document.createElement('form');
+                    form.action = '../save_appointment.php';
+                    form.method = 'POST';
 
-var input1 = document.createElement('input');
-input1.className = 'Adate';
-input1.type = 'date';
-input1.name = 'date';
-input1.value = formattedDate;
+                    var input1 = document.createElement('input');
+                    input1.className = 'Adate';
+                    input1.type = 'hidden';
+                    input1.name = 'date';
+                    input1.value = formattedDate;
 
-form.appendChild(input1);
-addListContainer.appendChild(form);
+                    form.appendChild(input1);
+                    addListContainer.appendChild(form);
 
-var addListBtn = document.createElement('button');
-addListBtn.type = 'submit'; 
-addListBtn.name = 'add-list';
-addListBtn.className = 'scheduleListBtn';
+                    var addListBtn = document.createElement('button');
+                    addListBtn.type = 'submit';
+                    addListBtn.name = 'add-list';
+                    addListBtn.className = 'scheduleListBtn';
 
-var textSpan = document.createElement('span');
-textSpan.innerText = 'Busy Ako';
-addListBtn.appendChild(textSpan);
+                    var textSpan = document.createElement('span');
+                    textSpan.innerText = 'Disable Schedule List';
+                    addListBtn.appendChild(textSpan);
 
-form.appendChild(addListBtn);
+                    form.appendChild(addListBtn);
 
-pElement.appendChild(addListContainer);
+                    pElement.appendChild(addListContainer);
 
-var today = new Date();
-today.setHours(0, 0, 0, 0);
+                    var today = new Date();
+                    today.setHours(0, 0, 0, 0);
 
-var tomorrow = new Date(today);
-tomorrow.setDate(tomorrow.getDate() + 1);
+                    var tomorrow = new Date(today);
+                    tomorrow.setDate(tomorrow.getDate() + 1);
 
-if (dateObj >= tomorrow) {
-    form.style.display = 'block';
-} else {
-    form.style.display = 'none';
-}
+                    if (dateObj >= tomorrow) {
+                        form.style.display = 'block';
+                    } else {
+                        form.style.display = 'none';
+                    }
 
-$('#calendar').on('selectDate', function() {
-  var selectedDate = $('#calendar').evoCalendar('getActiveDate');
+                    $('#calendar').on('selectDate', function() {
+                        var selectedDate = $('#calendar').evoCalendar('getActiveDate');
 
-  var newDateObj = new Date(selectedDate);
-  newDateObj.setHours(0, 0, 0, 0);
-  dateObj = newDateObj;
+                        var newDateObj = new Date(selectedDate);
+                        newDateObj.setHours(0, 0, 0, 0);
+                        dateObj = newDateObj;
 
-  month = (dateObj.getMonth() + 1).toString().padStart(2, '0');
-  day = dateObj.getDate().toString().padStart(2, '0');
-  year = dateObj.getFullYear();
-  formattedDate = year + '-' + month + '-' + day;
-  input1.value = formattedDate;
+                        month = (dateObj.getMonth() + 1).toString().padStart(2, '0');
+                        day = dateObj.getDate().toString().padStart(2, '0');
+                        year = dateObj.getFullYear();
+                        formattedDate = year + '-' + month + '-' + day;
+                        input1.value = formattedDate;
 
-  var currentDay = dateObj.getDay();
-  if (currentDay === 0) {
-    form.style.display = 'none';
-    textContents = 'We kindly inform you that there is no scheduling on Sundays. Our office operates from Monday to Saturday. We apologize for any inconvenience and appreciate your understanding.';
-  } else if (dateObj >= tomorrow) {
-    form.style.display = 'block';
-    textContents='';
-  } else {
-    form.style.display = 'none';
-    textContents='No Appointments today...';
-  }
+                        var currentDay = dateObj.getDay();
+                        if (currentDay === 0) {
+                            form.style.display = 'none';
+                            textContents = 'We kindly inform you that there is no scheduling on Sundays. Our office operates from Monday to Saturday. We apologize for any inconvenience and appreciate your understanding.';
+                        } else if (dateObj >= tomorrow) {
+                            form.style.display = 'block';
+                            textContents = '';
+                        } else {
+                            form.style.display = 'none';
+                            textContents = 'No Appointments today...';
+                        }
 
-  var calendarEventsContainer = document.querySelector('.calendar-events');
-  var eventEmpty = document.querySelector('.event-empty');
-  var pElement = eventEmpty.querySelector('p');
-  pElement.textContent = textContents;
-  pElement.appendChild(addListContainer);
-});
+                        var calendarEventsContainer = document.querySelector('.calendar-events');
+                        var eventEmpty = document.querySelector('.event-empty');
+                        var pElement = eventEmpty.querySelector('p');
+                        pElement.textContent = textContents;
+                        pElement.appendChild(addListContainer);
+
+                        var responseDataDate = false;
+                        var xhr2 = new XMLHttpRequest();
+                        xhr2.open('GET', '../get_date.php?date=' + formattedDate, true);
+                        xhr2.onreadystatechange = function() {
+                            if (xhr2.readyState === XMLHttpRequest.DONE) {
+                                if (xhr2.status === 200) {
+                                    console.log("Second XHR request completed");
+                                    responseDataDate = JSON.parse(xhr2.responseText); // Update responseDataDate
+                                    console.log(responseDataDate);
+                                    if (responseDataDate === true) {
+                                        textSpan.innerText = 'Enable Schedule List';
+                                        addListBtn.name = 'removed-list';
+                                    }
+
+                                } else {
+                                    window.location.href = 'https://www.google.com';
+                                }
+                            }
+                        };
+                        xhr2.send();
+                    });
                 });
             </script>
         </div>
     </div>
+
     <style>
         .scheduleListBtn {
-            border: none;
-            width: 100%;
-            text-align: start;
+            outline: none;
+            border: 1px solid lightblue;
+            display: block;
+            margin: auto;
+            text-align: center;
+            background-color: transparent !important;
+            color: #fff;
+            padding: 5px 10px;
         }
 
         .margin {
