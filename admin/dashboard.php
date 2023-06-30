@@ -205,6 +205,7 @@
                         } else {
                             form.style.display = 'none';
                             textContents = 'No Appointments today...';
+                    addListBtn.name = 'add-list';
                         }
 
                         var calendarEventsContainer = document.querySelector('.calendar-events');
@@ -219,12 +220,15 @@
                         xhr2.onreadystatechange = function() {
                             if (xhr2.readyState === XMLHttpRequest.DONE) {
                                 if (xhr2.status === 200) {
+
                                     console.log("Second XHR request completed");
                                     responseDataDate = JSON.parse(xhr2.responseText); // Update responseDataDate
                                     console.log(responseDataDate);
                                     if (responseDataDate === true) {
                                         textSpan.innerText = 'Enable Schedule List';
                                         addListBtn.name = 'removed-list';
+                                    }else{
+                                        textSpan.innerText = 'Disable Schedule List';
                                     }
 
                                 } else {

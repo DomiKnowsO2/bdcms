@@ -60,7 +60,7 @@ if (isset($_POST['Savechanges'])) {
 
                 $mail->send();
 
-                $notificationMessage = '  We are pleased to inform you that your appointment request has been approved by our dental clinic. Your scheduled date and time are as follows:<br /><br />
+                $notificationMessage = '  We are pleased to inform you that your appointment request has been approved by our dental clinic. Your scheduled date and time are as follows:
 Date: ' . $formatted_date . '
 Time: ' . $formatted_time . '';
                 $notificationCount = 0;

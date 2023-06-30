@@ -554,7 +554,7 @@ if (isset($_SESSION['email'])) {
 
                         if (responseDataDate === true) {
                            bottomBtn.style.display = 'none';
-                           textContents = 'Appointment Scheduling is Disabled';
+                           textContents = 'Doctor is not available';
                            pElement.textContent = textContents;
                         }
                         if (dateObj <= today || currentDay === 0 || responseDataDate === true) {
