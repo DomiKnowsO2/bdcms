@@ -94,7 +94,7 @@
             <script src="./calendar/evo-calendar/js/evo-calendar.min.js"></script>
             <script src="./calendar/demo/demo.js"></script>
             <script>
-                $(document).ready(function() {
+                $(document).ready(function () {
                     $('#calendar').evoCalendar({
                         theme: 'Midnight Blue',
                         //    theme: 'Royal Navy',
@@ -182,7 +182,7 @@
                         form.style.display = 'none';
                     }
 
-                    $('#calendar').on('selectDate', function() {
+                    $('#calendar').on('selectDate', function () {
                         var selectedDate = $('#calendar').evoCalendar('getActiveDate');
 
                         var newDateObj = new Date(selectedDate);
@@ -198,14 +198,14 @@
                         var currentDay = dateObj.getDay();
                         if (currentDay === 0) {
                             form.style.display = 'none';
-                            textContents = 'We kindly inform you that there is no scheduling on Sundays. Our office operates from Monday to Saturday. We apologize for any inconvenience and appreciate your understanding.';
+                            textContents = 'We kindly inform you that there is no scheduling on Sundays. Our clinic operates from Monday to Saturday. We apologize for any inconvenience and appreciate your understanding.';
                         } else if (dateObj >= tomorrow) {
                             form.style.display = 'block';
                             textContents = '';
                         } else {
                             form.style.display = 'none';
                             textContents = 'No Appointments today...';
-                    addListBtn.name = 'add-list';
+                            addListBtn.name = 'add-list';
                         }
 
                         var calendarEventsContainer = document.querySelector('.calendar-events');
@@ -217,7 +217,7 @@
                         var responseDataDate = false;
                         var xhr2 = new XMLHttpRequest();
                         xhr2.open('GET', '../get_date.php?date=' + formattedDate, true);
-                        xhr2.onreadystatechange = function() {
+                        xhr2.onreadystatechange = function () {
                             if (xhr2.readyState === XMLHttpRequest.DONE) {
                                 if (xhr2.status === 200) {
 
@@ -227,7 +227,7 @@
                                     if (responseDataDate === true) {
                                         textSpan.innerText = 'Enable Schedule List';
                                         addListBtn.name = 'removed-list';
-                                    }else{
+                                    } else {
                                         textSpan.innerText = 'Disable Schedule List';
                                     }
 

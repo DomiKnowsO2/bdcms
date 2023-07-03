@@ -97,17 +97,20 @@ if (isset($_SESSION['email'])) {
          </nav>
          <nav class="right none">
 
-            <a href="#" class="btn btn-round btn-green align-items-center justify-content-center" id="myBtn" data-toggle="tooltip" data-placement="bottom" title="Notification">
+            <a href="#" class="btn btn-round btn-green align-items-center justify-content-center" id="myBtn"
+               data-toggle="tooltip" data-placement="bottom" title="Notification">
                <i class="fas fa-bell">
                   <?php if ($notification_count == 0) {
                   } else { ?>
-                     <span class="notification"><?php echo $notification_count; ?></span>
+                     <span class="notification">
+                        <?php echo $notification_count; ?>
+                     </span>
                   <?php } ?>
                </i>
             </a>
             <script>
                var notificationButton = document.getElementById('myBtn');
-               notificationButton.addEventListener('click', function() {
+               notificationButton.addEventListener('click', function () {
                   <?php
                   $notification_count = 0;
                   ?>
@@ -115,7 +118,7 @@ if (isset($_SESSION['email'])) {
                   var xhr = new XMLHttpRequest();
                   xhr.open('POST', './includes/update_notification_count.php', true);
                   xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-                  xhr.onreadystatechange = function() {
+                  xhr.onreadystatechange = function () {
                      if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
                         // Update the displayed count to 0
                         var notificationCount = document.querySelector('.notification');
@@ -129,7 +132,8 @@ if (isset($_SESSION['email'])) {
 
                });
             </script>
-            <a href="./includes/logout.php" class="btn btn-round btn-green align-items-center justify-content-center" data-toggle="tooltip" data-placement="bottom" title="Logout" data-delay="1000">
+            <a href="./includes/logout.php" class="btn btn-round btn-green align-items-center justify-content-center"
+               data-toggle="tooltip" data-placement="bottom" title="Logout" data-delay="1000">
                <i class="fas fa-sign-out-alt"></i>
             </a>
 
@@ -160,7 +164,7 @@ if (isset($_SESSION['email'])) {
       <script src="./admin/calendar/demo/demo.js"></script>
 
       <script>
-         $(document).ready(function() {
+         $(document).ready(function () {
             $('#calendar').evoCalendar({
                theme: 'Royal Navy',
                calendarEvents: [
@@ -225,10 +229,10 @@ if (isset($_SESSION['email'])) {
 
             var labelfname = document.createElement('label');
             labelfname.textContent = 'First Name:';
-            <?php if (!empty($firstName)) : ?>
+            <?php if (!empty($firstName)): ?>
                labelfname.style.display = 'none';
             <?php endif; ?>
-            form.appendChild(labelfname);
+               form.appendChild(labelfname);
             var inputfname = document.createElement('input');
             inputfname.type = '<?php echo (!empty($firstName)) ? "hidden" : "text"; ?>';
             inputfname.name = 'fname';
@@ -238,10 +242,10 @@ if (isset($_SESSION['email'])) {
 
             var labelmname = document.createElement('label');
             labelmname.textContent = 'Middle Name:';
-            <?php if (!empty($middleName)) : ?>
+            <?php if (!empty($middleName)): ?>
                labelmname.style.display = 'none';
             <?php endif; ?>
-            form.appendChild(labelmname);
+               form.appendChild(labelmname);
 
             var inputmname = document.createElement('input');
             inputmname.type = '<?php echo (!empty($middleName)) ? "hidden" : "text"; ?>';
@@ -253,10 +257,10 @@ if (isset($_SESSION['email'])) {
 
             var labellname = document.createElement('label');
             labellname.textContent = 'Last Name:';
-            <?php if (!empty($lastName)) : ?>
+            <?php if (!empty($lastName)): ?>
                labellname.style.display = 'none';
             <?php endif; ?>
-            form.appendChild(labellname);
+               form.appendChild(labellname);
 
             var inputlname = document.createElement('input');
             inputlname.type = '<?php echo (!empty($lastName)) ? "hidden" : "text"; ?>';
@@ -268,10 +272,10 @@ if (isset($_SESSION['email'])) {
 
             var labelbirthdate = document.createElement('label');
             labelbirthdate.textContent = 'Birth Date:';
-            <?php if (!empty($birthdate) && $birthdate !== '0000-00-00') : ?>
+            <?php if (!empty($birthdate) && $birthdate !== '0000-00-00'): ?>
                labelbirthdate.style.display = 'none';
             <?php endif; ?>
-            form.appendChild(labelbirthdate);
+               form.appendChild(labelbirthdate);
 
             var inputbirthdate = document.createElement('input');
             inputbirthdate.type = '<?php echo (!empty($birthdate) && $birthdate !== '0000-00-00') ? "hidden" : "date"; ?>';
@@ -283,10 +287,10 @@ if (isset($_SESSION['email'])) {
 
             var labeladdress = document.createElement('label');
             labeladdress.textContent = 'Address:';
-            <?php if (!empty($address)) : ?>
+            <?php if (!empty($address)): ?>
                labeladdress.style.display = 'none';
             <?php endif; ?>
-            form.appendChild(labeladdress);
+               form.appendChild(labeladdress);
 
             var inputaddress = document.createElement('input');
             inputaddress.type = '<?php echo (!empty($address)) ? "hidden" : "text"; ?>';
@@ -298,10 +302,10 @@ if (isset($_SESSION['email'])) {
 
             var labelemail = document.createElement('label');
             labelemail.textContent = 'Email:';
-            <?php if (!empty($email)) : ?>
+            <?php if (!empty($email)): ?>
                labelemail.style.display = 'none';
             <?php endif; ?>
-            form.appendChild(labelemail);
+               form.appendChild(labelemail);
 
             var inputemail = document.createElement('input');
             inputemail.type = '<?php echo (!empty($email)) ? "hidden" : "email"; ?>';
@@ -313,10 +317,10 @@ if (isset($_SESSION['email'])) {
 
             var labelnumber = document.createElement('label');
             labelnumber.textContent = 'Your Number:';
-            <?php if (!empty($phone)) : ?>
+            <?php if (!empty($phone)): ?>
                labelnumber.style.display = 'none';
             <?php endif; ?>
-            form.appendChild(labelnumber);
+               form.appendChild(labelnumber);
 
             var inputnumber = document.createElement('input');
             inputnumber.type = '<?php echo (!empty($phone)) ? "hidden" : "text"; ?>';
@@ -363,7 +367,7 @@ if (isset($_SESSION['email'])) {
             var serviceOptions = [];
 
             var xhr = new XMLHttpRequest();
-            xhr.onreadystatechange = function() {
+            xhr.onreadystatechange = function () {
                if (xhr.readyState === 4 && xhr.status === 200) {
                   serviceOptions = JSON.parse(xhr.responseText);
 
@@ -407,16 +411,16 @@ if (isset($_SESSION['email'])) {
             var bottomBtn = document.createElement('button');
             bottomBtn.type = 'button';
             bottomBtn.className = 'addEventBtn';
-            bottomBtn.innerText = 'Add Event';
+            bottomBtn.innerText = 'Add Appointment';
 
             var addEventContainer = document.createElement('div');
             addEventContainer.className = 'addEventContainer';
             addEventContainer.appendChild(bottomBtn);
             calendarEventsContainer.appendChild(addEventContainer);
 
-            bottomBtn.addEventListener('click', function() {
+            bottomBtn.addEventListener('click', function () {
                formDiv.style.display = 'block';
-               setTimeout(function() {
+               setTimeout(function () {
                   formDiv.classList.add('show-form');
                }, 300);
             });
@@ -434,7 +438,7 @@ if (isset($_SESSION['email'])) {
             }
 
 
-            $('#calendar').on('selectDate', function() {
+            $('#calendar').on('selectDate', function () {
                var selectedDate = $('#calendar').evoCalendar('getActiveDate');
                var newDateObj = new Date(selectedDate);
                newDateObj.setHours(0, 0, 0, 0);
@@ -450,7 +454,7 @@ if (isset($_SESSION['email'])) {
                var currentDay = dateObj.getDay();
                if (currentDay === 0) {
                   bottomBtn.style.display = 'none';
-                  textContents = 'We kindly inform you that there is no scheduling on Sundays. Our office operates from Monday to Saturday. We apologize for any inconvenience and appreciate your understanding.';
+                  textContents = 'We kindly inform you that there is no scheduling on Sundays. Our clinic operates from Monday to Saturday. We apologize for any inconvenience and appreciate your understanding.';
                } else if (dateObj >= tomorrow) {
                   bottomBtn.style.display = 'block';
                   textContents = 'Add Appointment';
@@ -476,7 +480,7 @@ if (isset($_SESSION['email'])) {
 
                var xhr = new XMLHttpRequest();
                xhr.open('GET', 'get_time_options.php?date=' + formattedDate, true);
-               xhr.onreadystatechange = function() {
+               xhr.onreadystatechange = function () {
                   if (xhr.readyState === XMLHttpRequest.DONE) {
                      if (xhr.status === 200) {
 
@@ -487,44 +491,44 @@ if (isset($_SESSION['email'])) {
                         console.log('Combined Reserved Time Slots:', reservedTimeSlotsCombined);
 
                         var timeOptions = [{
-                              value: '',
-                              text: 'Available Time'
-                           }, {
-                              value: '08:00:00',
-                              text: '8:00 AM'
-                           },
-                           {
-                              value: '09:00:00',
-                              text: '9:00 AM'
-                           },
-                           {
-                              value: '10:00:00',
-                              text: '10:00 AM'
-                           },
-                           {
-                              value: '11:00:00',
-                              text: '11:00 AM'
-                           },
-                           {
-                              value: '13:00:00',
-                              text: '1:00 PM'
-                           },
-                           {
-                              value: '14:00:00',
-                              text: '2:00 PM'
-                           },
-                           {
-                              value: '15:00:00',
-                              text: '3:00 PM'
-                           },
-                           {
-                              value: '16:00:00',
-                              text: '4:00 PM'
-                           },
-                           {
-                              value: '17:00:00',
-                              text: '5:00 PM'
-                           }
+                           value: '',
+                           text: 'Available Time'
+                        }, {
+                           value: '08:00:00',
+                           text: '8:00 AM'
+                        },
+                        {
+                           value: '09:00:00',
+                           text: '9:00 AM'
+                        },
+                        {
+                           value: '10:00:00',
+                           text: '10:00 AM'
+                        },
+                        {
+                           value: '11:00:00',
+                           text: '11:00 AM'
+                        },
+                        {
+                           value: '13:00:00',
+                           text: '1:00 PM'
+                        },
+                        {
+                           value: '14:00:00',
+                           text: '2:00 PM'
+                        },
+                        {
+                           value: '15:00:00',
+                           text: '3:00 PM'
+                        },
+                        {
+                           value: '16:00:00',
+                           text: '4:00 PM'
+                        },
+                        {
+                           value: '17:00:00',
+                           text: '5:00 PM'
+                        }
                         ];
                         input2.innerHTML = '';
                         for (var i = 0; i < timeOptions.length; i++) {
@@ -546,7 +550,7 @@ if (isset($_SESSION['email'])) {
                var responseDataDate = false;
                var xhr2 = new XMLHttpRequest();
                xhr2.open('GET', 'get_date.php?date=' + formattedDate, true);
-               xhr2.onreadystatechange = function() {
+               xhr2.onreadystatechange = function () {
                   if (xhr2.readyState === XMLHttpRequest.DONE) {
                      if (xhr2.status === 200) {
                         console.log("Second XHR request completed");
@@ -583,11 +587,11 @@ if (isset($_SESSION['email'])) {
 
          });
          var loader = document.getElementById("preloader");
-         window.addEventListener("DOMContentLoaded", function() {
+         window.addEventListener("DOMContentLoaded", function () {
             loader.style.display = "flex";
          });
 
-         window.addEventListener("load", function() {
+         window.addEventListener("load", function () {
             loader.style.display = "none";
          });
       </script>
