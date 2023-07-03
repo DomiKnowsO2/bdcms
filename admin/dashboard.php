@@ -205,7 +205,7 @@
                         } else {
                             form.style.display = 'none';
                             textContents = 'No Appointments today...';
-                    addListBtn.name = 'add-list';
+                            addListBtn.name = 'add-list';
                         }
 
                         var calendarEventsContainer = document.querySelector('.calendar-events');
@@ -227,7 +227,7 @@
                                     if (responseDataDate === true) {
                                         textSpan.innerText = 'Enable Schedule List';
                                         addListBtn.name = 'removed-list';
-                                    }else{
+                                    } else {
                                         textSpan.innerText = 'Disable Schedule List';
                                     }
 
