@@ -92,9 +92,9 @@
             <!-- jQuery -->
             <script src="https://cdn.jsdelivr.net/npm/jquery@3.4.1/dist/jquery.min.js"></script>
             <script src="./calendar/evo-calendar/js/evo-calendar.min.js"></script>
-            <script src="./calendar/demo/demo.js"></script>
+            <!-- <script src="./calendar/demo/demo.js"></script> -->
             <script>
-                $(document).ready(function () {
+                $(document).ready(function() {
                     $('#calendar').evoCalendar({
                         theme: 'Midnight Blue',
                         //    theme: 'Royal Navy',
@@ -138,9 +138,17 @@
 
                     var formattedDate = year + '-' + month + '-' + day;
 
+
                     var eventEmpty = document.querySelector('.event-empty');
-                    var pElement = eventEmpty.querySelector('p');
-                    pElement.textContent = 'No Appointments today...';
+                    var pElement = eventEmpty ? eventEmpty.querySelector('p') : null;
+
+                    if (pElement) {
+                        pElement.textContent = 'No Appointments today...';
+                    }
+
+                    // var eventEmpty = document.querySelector('.event-empty');
+                    // var pElement = eventEmpty.querySelector('p');
+                    // pElement.textContent = 'No Appointments today...';
                     var addListContainer = document.createElement('div');
                     addListContainer.className = 'add-list-container';
 
@@ -168,7 +176,7 @@
 
                     form.appendChild(addListBtn);
 
-                    pElement.appendChild(addListContainer);
+                    // pElement.appendChild(addListContainer);
 
                     var today = new Date();
                     today.setHours(0, 0, 0, 0);
@@ -182,7 +190,7 @@
                         form.style.display = 'none';
                     }
 
-                    $('#calendar').on('selectDate', function () {
+                    $('#calendar').on('selectDate', function() {
                         var selectedDate = $('#calendar').evoCalendar('getActiveDate');
 
                         var newDateObj = new Date(selectedDate);
@@ -210,14 +218,17 @@
 
                         var calendarEventsContainer = document.querySelector('.calendar-events');
                         var eventEmpty = document.querySelector('.event-empty');
-                        var pElement = eventEmpty.querySelector('p');
-                        pElement.textContent = textContents;
-                        pElement.appendChild(addListContainer);
+                        var pElement = eventEmpty ? eventEmpty.querySelector('p') : null;
+
+                        if (pElement) {
+                            pElement.textContent = textContents;
+                             pElement.appendChild(addListContainer);
+                        }
 
                         var responseDataDate = false;
                         var xhr2 = new XMLHttpRequest();
                         xhr2.open('GET', '../get_date.php?date=' + formattedDate, true);
-                        xhr2.onreadystatechange = function () {
+                        xhr2.onreadystatechange = function() {
                             if (xhr2.readyState === XMLHttpRequest.DONE) {
                                 if (xhr2.status === 200) {
 
@@ -244,7 +255,7 @@
     </div>
 
 
-    
+
     <style>
         .scheduleListBtn {
             outline: none;
