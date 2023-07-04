@@ -334,13 +334,13 @@ include('./db-connect.php');
          <div class="box">
             <i class="fas fa-clock"></i>
             <h3>opening day & hours</h3>
-            <p>Saturday-8:00am to 5:00pm</p>
+            <p>Monday-Saturday-8:00am to 5:00pm</p>
          </div>
 
          <div class="box">
             <i class="fas fa-envelope"></i>
             <h3>email address</h3>
-            <p>rhubalatan@yahoo.com</p>
+            <p>rhubalatan@gmail.com</p>
             <p></p>
          </div>
 
